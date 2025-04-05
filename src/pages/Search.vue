@@ -111,7 +111,7 @@
         </div>
         <div class="my-4 row">
           <div class="col-md-6 my-3">
-            <a href="/search/1" class="a">
+            <a @click="showModal" class="a">
               <a-badge-ribbon text="Nouveauté" color="green">
                 <a-card>
                   <a-tag color="green">Disponible</a-tag>
@@ -138,7 +138,7 @@
             </a>
           </div>
           <div class="col-md-6 my-3">
-            <a href="/search/2" class="a">
+            <a @click="showModal" class="a">
               <a-badge-ribbon text="Populaire" color="blue">
                 <a-card>
                   <a-tag color="green">Disponible</a-tag>
@@ -165,7 +165,7 @@
             </a>
           </div>
           <div class="col-md-6 my-3">
-            <a href="/search/3" class="a">
+            <a @click="showModal" class="a">
               <a-badge-ribbon text="Populaire" color="blue">
                 <a-card>
                   <a-tag color="green">Disponible</a-tag>
@@ -192,7 +192,7 @@
             </a>
           </div>
           <div class="col-md-6 my-3">
-            <a href="/search/4" class="a">
+            <a @click="showModal" class="a">
               <a-badge-ribbon text="Voiture d'exeption" color="orange">
                 <a-card>
                   <a-tag color="green">Disponible</a-tag>
@@ -225,6 +225,94 @@
       </div>
     </div>
   </div>
+
+  
+  <a-modal v-model:open="open" title="Detail de la voiture" width="100%" wrap-class-name="full-modal">
+      <template #footer>
+        <!-- <a-button key="back" @click="handleCancel">Return</a-button>
+        <a-button key="submit" type="primary" :loading="loading" @click="handleOk">Submit</a-button> -->
+      </template>
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="/src/assets/img/v1.png" class="img-fluid" alt="" />
+          </div>
+          <div class="col-md-6">
+            <div class="p-4">
+              <a-tag color="green">Disponible</a-tag>
+              <a-tag color="blue">Climatisée</a-tag>
+              <a-tag color="orange">Populaire</a-tag>
+
+              <div class="d-flex justify-content-between align-items-end my-4">
+                <div>
+                  <span class="text-decorate">Akfa Romeo | Guilla</span>
+                  <br />
+                  <h5>Veloce, 2024</h5>
+                  <!-- <a-rate v-model:value="value" allow-half /> -->
+                </div>
+                <div>
+                  <h5>300.000 XOF / Jour</h5>
+                </div>
+              </div>
+              <div class="my-4">
+                <a-row>
+                  <a-col :span="8">
+                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
+                  </a-col>
+                  <a-col :span="8">
+                    <a-statistic title="Account Balance (CNY)" :precision="2" :value="112893" />
+                  </a-col>
+                  <a-col :span="8">
+                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
+                  </a-col>
+                </a-row>
+              </div>
+              <div class="my-4">
+                <div class="row">
+                  <div class="col-md-4">
+                    <small>Perfomence</small>
+                    <a-progress :percent="60" size="small" />
+                  </div>
+                  <div class="col-md-4">
+                    <small>Perfomence vitesse</small>
+                    <a-progress :percent="55" size="small" />
+                  </div>
+                  <div class="col-md-4">
+                    <small>Tout terrain</small>
+                    <a-progress :percent="75" size="small" />
+                  </div>
+                </div>
+              </div>
+              <div class="my-4">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
+                  velit dignissimos aliquid ratione sit temporibus, sed rerum
+                  impedit autem est possimus ad eos ipsam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
+                  velit dignissimos aliquid ratione sit temporibus, sed rerum
+                  impedit autem est possimus ad eos ipsam.
+                </p>
+              </div>
+              <div class="my-5">
+                <a href="/search/1" class="btn btn-dark mx-2">Reserver maintenant</a>
+                <!-- <a href="/auth/register">
+              <button class="btn btn-outline-primary mx-2">
+                Créer un compte
+              </button>
+            </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <small>&copy; Copyright by aaa-rental - 2025</small>
+      </div>
+    </a-modal>
 </template>
 
 <script lang="ts" setup>
@@ -276,4 +364,16 @@ const valueDate = ref<RangeValue>();
 // const handleChange = (value: string) => {
 //   console.log(`selected ${value}`);
 // };
+
+const open = ref<boolean>(false);
+
+const showModal = () => {
+  open.value = true;
+};
+
+const handleOk = (e: MouseEvent) => {
+  console.log(e);
+  open.value = false;
+};
+
 </script>

@@ -10,52 +10,27 @@
         <div class="search-box">
           <div class="w-100 mx-2">
             <small>Type de vehicule</small>
-            <a-select
-              ref="select"
-              v-model:value="value1"
-              style="width: 100%"
-              @change="handleChange"
-            >
+            <a-select ref="select" v-model:value="value1" style="width: 100%" @change="handleChange">
               <a-select-option value="Citadines">Citadines</a-select-option>
               <a-select-option value="Berlines">Berlines</a-select-option>
               <a-select-option value="SUV & 4x4">SUV & 4x4</a-select-option>
-              <a-select-option value="Vans & Minibus"
-                >Vans & Minibus</a-select-option
-              >
-              <a-select-option value="Voitures de Luxe"
-                >Voitures de Luxe</a-select-option
-              >
+              <a-select-option value="Vans & Minibus">Vans & Minibus</a-select-option>
+              <a-select-option value="Voitures de Luxe">Voitures de Luxe</a-select-option>
               <a-select-option value="Utilitaires">Utilitaires</a-select-option>
             </a-select>
           </div>
           <div class="w-100 mx-2">
             <small>Budget & Gamme</small>
-            <a-select
-              ref="select"
-              v-model:value="value2"
-              style="width: 100%"
-              @change="handleChange"
-            >
+            <a-select ref="select" v-model:value="value2" style="width: 100%" @change="handleChange">
               <a-select-option value="Économique">Économique</a-select-option>
-              <a-select-option value="Moyenne gamme"
-                >Moyenne gamme</a-select-option
-              >
-              <a-select-option value="Haut de gamme"
-                >Haut de gamme</a-select-option
-              >
+              <a-select-option value="Moyenne gamme">Moyenne gamme</a-select-option>
+              <a-select-option value="Haut de gamme">Haut de gamme</a-select-option>
             </a-select>
           </div>
           <div class="w-100 mx-2">
             <small>Type d’Énergie</small>
-            <a-select
-              ref="select"
-              v-model:value="value3"
-              style="width: 100%"
-              @change="handleChange"
-            >
-              <a-select-option value="Thermique (Essence/Diesel)"
-                >Thermique (Essence/Diesel)</a-select-option
-              >
+            <a-select ref="select" v-model:value="value3" style="width: 100%" @change="handleChange">
+              <a-select-option value="Thermique (Essence/Diesel)">Thermique (Essence/Diesel)</a-select-option>
               <a-select-option value="Hybride">Hybride</a-select-option>
               <a-select-option value="Électrique">Électrique</a-select-option>
             </a-select>
@@ -69,17 +44,13 @@
     </div>
     <div class="my-4 row">
       <div class="col-md-3 my-3">
-        <a href="/search/1" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Nouveauté" color="green">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v1.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v1.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -96,17 +67,13 @@
         </a>
       </div>
       <div class="col-md-3 my-3">
-        <a href="/search/2" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Populaire" color="blue">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v2.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v2.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -123,17 +90,13 @@
         </a>
       </div>
       <div class="col-md-3 my-3">
-        <a href="/search/3" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Populaire" color="blue">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v3.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v3.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -150,17 +113,13 @@
         </a>
       </div>
       <div class="col-md-3 my-3">
-        <a href="/search/4" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Voiture d'exeption" color="orange">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v4.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v4.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -177,17 +136,13 @@
         </a>
       </div>
       <div class="col-md-3 my-3">
-        <a href="/search/1" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Nouveauté" color="green">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v1.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v1.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -204,17 +159,13 @@
         </a>
       </div>
       <div class="col-md-3 my-3">
-        <a href="/search/2" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Populaire" color="blue">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v2.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v2.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -231,17 +182,13 @@
         </a>
       </div>
       <div class="col-md-3 my-3">
-        <a href="/search/3" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Populaire" color="blue">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v3.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v3.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -258,17 +205,13 @@
         </a>
       </div>
       <div class="col-md-3 my-3">
-        <a href="/search/4" class="a">
+        <a @click="showModal" class="a">
           <a-badge-ribbon text="Voiture d'exeption" color="orange">
             <a-card>
               <a-tag color="green">Disponible</a-tag>
               <a-tag color="blue">Climatisée</a-tag>
               <div>
-                <img
-                  src="/src/assets/img/v4.png"
-                  class="img-fluid img-voiture3"
-                  alt=""
-                />
+                <img src="/src/assets/img/v4.png" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -292,13 +235,99 @@
         /> -->
         <div class="scroller">
           <a href="/search">
-          <button class="btn btn-outline-primar">
-            <i class="fa fa-arrow-down"></i>
-          </button>
+            <button class="btn btn-outline-primar">
+              <i class="fa fa-arrow-down"></i>
+            </button>
           </a>
         </div>
       </div>
     </div>
+    <a-modal v-model:open="open" title="Detail de la voiture" width="100%" wrap-class-name="full-modal">
+      <template #footer>
+        <!-- <a-button key="back" @click="handleCancel">Return</a-button>
+        <a-button key="submit" type="primary" :loading="loading" @click="handleOk">Submit</a-button> -->
+      </template>
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="/src/assets/img/v1.png" class="img-fluid" alt="" />
+          </div>
+          <div class="col-md-6">
+            <div class="p-4">
+              <a-tag color="green">Disponible</a-tag>
+              <a-tag color="blue">Climatisée</a-tag>
+              <a-tag color="orange">Populaire</a-tag>
+
+              <div class="d-flex justify-content-between align-items-end my-4">
+                <div>
+                  <span class="text-decorate">Akfa Romeo | Guilla</span>
+                  <br />
+                  <h5>Veloce, 2024</h5>
+                  <!-- <a-rate v-model:value="value" allow-half /> -->
+                </div>
+                <div>
+                  <h5>300.000 XOF / Jour</h5>
+                </div>
+              </div>
+              <div class="my-4">
+                <a-row>
+                  <a-col :span="8">
+                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
+                  </a-col>
+                  <a-col :span="8">
+                    <a-statistic title="Account Balance (CNY)" :precision="2" :value="112893" />
+                  </a-col>
+                  <a-col :span="8">
+                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
+                  </a-col>
+                </a-row>
+              </div>
+              <div class="my-4">
+                <div class="row">
+                  <div class="col-md-4">
+                    <small>Perfomence</small>
+                    <a-progress :percent="60" size="small" />
+                  </div>
+                  <div class="col-md-4">
+                    <small>Perfomence vitesse</small>
+                    <a-progress :percent="55" size="small" />
+                  </div>
+                  <div class="col-md-4">
+                    <small>Tout terrain</small>
+                    <a-progress :percent="75" size="small" />
+                  </div>
+                </div>
+              </div>
+              <div class="my-4">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
+                  velit dignissimos aliquid ratione sit temporibus, sed rerum
+                  impedit autem est possimus ad eos ipsam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
+                  velit dignissimos aliquid ratione sit temporibus, sed rerum
+                  impedit autem est possimus ad eos ipsam.
+                </p>
+              </div>
+              <div class="my-5">
+                <a href="/search/1" class="btn btn-dark mx-2">Reserver maintenant</a>
+                <!-- <a href="/auth/register">
+              <button class="btn btn-outline-primary mx-2">
+                Créer un compte
+              </button>
+            </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <small>&copy; Copyright by aaa-rental - 2025</small>
+      </div>
+    </a-modal>
   </section>
   <section class="top">
     <div class="row">
@@ -398,32 +427,16 @@
         <img src="/src/assets/img/3.jpg" class="img-fluid img-voiture" alt="" />
       </div>
       <div class="col-md-3 my-2">
-        <img
-          src="/src/assets/img/4.jpg"
-          class="img-fluid img-voiture1"
-          alt=""
-        />
+        <img src="/src/assets/img/4.jpg" class="img-fluid img-voiture1" alt="" />
       </div>
       <div class="col-md-3 my-2">
-        <img
-          src="/src/assets/img/5.jpg"
-          class="img-fluid img-voiture1"
-          alt=""
-        />
+        <img src="/src/assets/img/5.jpg" class="img-fluid img-voiture1" alt="" />
       </div>
       <div class="col-md-3 my-2">
-        <img
-          src="/src/assets/img/6.jpg"
-          class="img-fluid img-voiture1"
-          alt=""
-        />
+        <img src="/src/assets/img/6.jpg" class="img-fluid img-voiture1" alt="" />
       </div>
       <div class="col-md-3 my-2">
-        <img
-          src="/src/assets/img/7.jpg"
-          class="img-fluid img-voiture1"
-          alt=""
-        />
+        <img src="/src/assets/img/7.jpg" class="img-fluid img-voiture1" alt="" />
       </div>
     </div>
     <div class="text-center">
@@ -517,5 +530,16 @@ const value3 = ref("Thermique (Essence/Diesel)");
 
 const handleChange = (value: string) => {
   console.log(`selected ${value}`);
+};
+
+const open = ref<boolean>(false);
+
+const showModal = () => {
+  open.value = true;
+};
+
+const handleOk = (e: MouseEvent) => {
+  console.log(e);
+  open.value = false;
 };
 </script>

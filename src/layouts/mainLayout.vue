@@ -33,12 +33,12 @@
             >
           </div>
           <div class="navbar-nav">
-            <a
+            <!-- <a
               class="nav-link mx-2 active btn btn-dark"
               aria-current="page"
               href="/search"
               >Reserver une voiture</a
-            >
+            > -->
             <a
               class="nav-link mx-2 btn btn-outline-primary"
               aria-current="page"

@@ -1,10 +1,9 @@
 <template>
   <div class="container my-5">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <img src="/src/assets/img/v2.png" class="img-fluid" alt="" />
-      </div>
-      <div class="col-md-6">
+
         <div class="p-4">
           <a-tag color="green">Disponible</a-tag>
           <a-tag color="blue">Climatisée</a-tag>
@@ -22,183 +21,106 @@
             </div>
           </div>
           <div class="my-4">
-            <a-row>
-              <a-col :span="8">
-                <a-statistic
-                  title="Active Users"
-                  :value="112893"
-                  style="margin-right: 50px"
-                />
-              </a-col>
-              <a-col :span="8">
-                <a-statistic
-                  title="Account Balance (CNY)"
-                  :precision="2"
-                  :value="112893"
-                />
-              </a-col>
-              <a-col :span="8">
-                <a-statistic
-                  title="Active Users"
-                  :value="112893"
-                  style="margin-right: 50px"
-                />
-              </a-col>
-            </a-row>
-          </div>
-          <div class="my-4">
-            <div class="row">
-              <div class="col-md-4">
-                <small>Perfomence</small>
-                <a-progress :percent="60" size="small" />
-              </div>
-              <div class="col-md-4">
-                <small>Perfomence vitesse</small>
-                <a-progress :percent="55" size="small" />
-              </div>
-              <div class="col-md-4">
-                <small>Tout terrain</small>
-                <a-progress :percent="75" size="small" />
-              </div>
-            </div>
-          </div>
-          <div class="my-4">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem corporis quasi quisquam consequatur! Doloremque ex
-              velit dignissimos aliquid ratione sit temporibus, sed rerum
-              impedit autem est possimus ad eos ipsam.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem corporis quasi quisquam consequatur! Doloremque ex
-              velit dignissimos aliquid ratione sit temporibus, sed rerum
-              impedit autem est possimus ad eos ipsam.
-            </p>
-          </div>
-          <div class="my-5">
-            <button class="btn btn-dark mx-2">Reserver maintenant</button>
-            <!-- <a href="/auth/register">
-              <button class="btn btn-outline-primary mx-2">
-                Créer un compte
-              </button>
-            </a> -->
           </div>
         </div>
       </div>
-      <div class="col-md-12 py-4">
-        <div class="d-flex justify-content-between align-items-center">
-          <h4>Autres voitures que vous pouvez reservées</h4>
-          <h6 class="text-primar">Voir tout</h6>
-        </div>
-        <div class="my-4 row">
-          <div class="col-md-3 my-3">
-            <a href="/search/1" class="a">
-              <a-badge-ribbon text="Nouveauté" color="green">
-                <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
-                  <div>
-                    <img
-                      src="/src/assets/img/v1.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
-                      <br />
-                      <h6>Veloce, 2024</h6>
-                    </div>
-                    <div>
-                      <h6>150.000 XOF / Jour</h6>
-                    </div>
-                  </div>
-                </a-card>
-              </a-badge-ribbon>
-            </a>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="my-4">
+              <h5>De quoi avez-vous besoin?</h5>
+            </div>
+            <div class="my-4">
+              <div class="w-100 py-4">
+                <small>Quand voulez-vous reserver?</small>
+                <a-range-picker v-model:value="valueDate" show-time size="large" />
+              </div>
+
+              <div class="w-100 py-4">
+                <h6 class="mb-4">Options & Équipements</h6>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Boîte automatique</span>
+                  <a-switch v-model:checked="checked" />
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Climatisation</span>
+                  <a-switch v-model:checked="checked1" />
+                </div>
+                <!-- <div
+                class="d-flex justify-content-between align-items-center my-3"
+              >
+                <span>Nombre de places</span>
+                <a-input-number
+                  id="inputNumber"
+                  v-model:value="place"
+                  :min="2"
+                  :max="45"
+                />
+              </div> -->
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>GPS intégré</span>
+                  <a-switch v-model:checked="checked2" />
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Siège bébé / Rehausseur</span>
+                  <a-switch v-model:checked="checked3" />
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Wi-Fi à bord</span>
+                  <a-switch v-model:checked="checked4" />
+                </div>
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Chauffeur</span>
+                  <a-switch v-model:checked="checked5" />
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-3 my-3">
-            <a href="/search/2" class="a">
-              <a-badge-ribbon text="Populaire" color="blue">
-                <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
-                  <div>
-                    <img
-                      src="/src/assets/img/v2.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
-                      <br />
-                      <h6>Veloce, 2024</h6>
-                    </div>
-                    <div>
-                      <h6>300.000 XOF / Jour</h6>
-                    </div>
-                  </div>
-                </a-card>
-              </a-badge-ribbon>
-            </a>
-          </div>
-          <div class="col-md-3 my-3">
-            <a href="/search/3" class="a">
-              <a-badge-ribbon text="Populaire" color="blue">
-                <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
-                  <div>
-                    <img
-                      src="/src/assets/img/v3.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
-                      <br />
-                      <h6>Veloce, 2024</h6>
-                    </div>
-                    <div>
-                      <h6>150.000 XOF / Jour</h6>
-                    </div>
-                  </div>
-                </a-card>
-              </a-badge-ribbon>
-            </a>
-          </div>
-          <div class="col-md-3 my-3">
-            <a href="/search/4" class="a">
-              <a-badge-ribbon text="Voiture d'exeption" color="orange">
-                <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
-                  <div>
-                    <img
-                      src="/src/assets/img/v4.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
-                      <br />
-                      <h6>Veloce, 2024</h6>
-                    </div>
-                    <div>
-                      <h6>150.000 XOF / Jour</h6>
-                    </div>
-                  </div>
-                </a-card>
-              </a-badge-ribbon>
-            </a>
+          <div class="col-md-6">
+            <div class="my-4">
+              <div class="d-flex justify-content-between align-items-end my-4">
+                <div>
+                  <h6>Prix de la reservation</h6>
+                  <!-- <a-rate v-model:value="value" allow-half /> -->
+                </div>
+                <div>
+                  <h6>300.000 XOF</h6>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-end my-4">
+                <div>
+                  <h6>Options supplementaires</h6>
+                  <!-- <a-rate v-model:value="value" allow-half /> -->
+                </div>
+                <div>
+                  <h6>50.000 XOF</h6>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between align-items-end my-4 text-primar">
+                <div>
+                  <h6>Prix total</h6>
+                  <!-- <a-rate v-model:value="value" allow-half /> -->
+                </div>
+                <div>
+                  <h6>350.000 XOF</h6>
+                </div>
+              </div>
+            </div>
+            <div class="my-4">
+              <hr>
+            </div>
+            <div class="my-4">
+              <h5 class="text-primary">Condition de reservation</h5>
+            </div>
+            <div class="my-4">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta ipsum reiciendis voluptas mollitia
+                possimus cumque, nesciunt totam eius accusamus dolorum facilis sapiente, odio ipsa et, distinctio
+                repellat aliquam earum? Consequatur?</p>
+            </div>
+            <div class="my-5 d-flex justify-content-end">
+              <a href="/auth/register" class="btn btn-dark btn-lg mx-2">Reserver maintenant</a>
+            </div>
           </div>
         </div>
       </div>
@@ -228,4 +150,45 @@
 </template>
 
 <script lang="ts" setup>
+import { reactive, ref } from "vue";
+import type { Dayjs } from "dayjs";
+
+const plainOptions = [
+  "Citadines",
+  "Berlines",
+  "SUV & 4x4",
+  "Vans & Minibus",
+  "Voitures de Luxe",
+  "Utilitaires",
+];
+const gammeOptions = ["Économique", "Moyenne gamme", "Haut de gamme"];
+const energieOptions = ["Thermique (Essence/Diesel)", "Hybride", "Électrique"];
+const usageOptions = [
+  "Voiture avec Chauffeur",
+  "Location longue durée ",
+  "Voiture de Mariage & Événementiel",
+  "Transport de Marchandises",
+];
+
+const current = ref<number>(1);
+
+const budget = ref<[number, number]>([100000, 500000]);
+
+const state = reactive({
+  indeterminate: true,
+  checkAll: false,
+  checkedList: ["Citadines"],
+});
+
+const checked = ref<boolean>(false);
+const checked1 = ref<boolean>(false);
+const checked2 = ref<boolean>(false);
+const checked3 = ref<boolean>(false);
+const checked4 = ref<boolean>(false);
+const checked5 = ref<boolean>(false);
+
+const place = ref<number>(2);
+
+type RangeValue = [Dayjs, Dayjs];
+const valueDate = ref<RangeValue>();
 </script>
