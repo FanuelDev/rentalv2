@@ -150,35 +150,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import type { Dayjs } from "dayjs";
 
-const plainOptions = [
-  "Citadines",
-  "Berlines",
-  "SUV & 4x4",
-  "Vans & Minibus",
-  "Voitures de Luxe",
-  "Utilitaires",
-];
-const gammeOptions = ["Économique", "Moyenne gamme", "Haut de gamme"];
-const energieOptions = ["Thermique (Essence/Diesel)", "Hybride", "Électrique"];
-const usageOptions = [
-  "Voiture avec Chauffeur",
-  "Location longue durée ",
-  "Voiture de Mariage & Événementiel",
-  "Transport de Marchandises",
-];
-
-const current = ref<number>(1);
-
-const budget = ref<[number, number]>([100000, 500000]);
-
-const state = reactive({
-  indeterminate: true,
-  checkAll: false,
-  checkedList: ["Citadines"],
-});
 
 const checked = ref<boolean>(false);
 const checked1 = ref<boolean>(false);
@@ -187,7 +161,6 @@ const checked3 = ref<boolean>(false);
 const checked4 = ref<boolean>(false);
 const checked5 = ref<boolean>(false);
 
-const place = ref<number>(2);
 
 type RangeValue = [Dayjs, Dayjs];
 const valueDate = ref<RangeValue>();

@@ -371,9 +371,9 @@ const showModal = () => {
   open.value = true;
 };
 
-const handleOk = (e: MouseEvent) => {
-  console.log(e);
-  open.value = false;
-};
+// const handleOk = (e: MouseEvent) => {
+//   console.log(e);
+//   open.value = false;
+// };
 
 </script>
