@@ -13,6 +13,10 @@
     "esModuleInterop": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }

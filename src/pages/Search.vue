@@ -8,97 +8,57 @@
             <h6 class="text-primar">Reset</h6>
           </div>
           <div class="my-4">
-            <div class="w-100 py-4">
-              <a-range-picker
-                v-model:value="valueDate"
-                show-time
-                size="large"
-              />
+            <div class="w-100 py-4"><a-range-picker v-model:value="state.valueDate" show-time size="large" />
             </div>
             <div class="w-100 py-4">
               <h6 class="mb-4">Type de vehicule</h6>
-              <a-checkbox-group
-                v-model:value="state.checkedList"
-                :options="plainOptions"
-              />
+              <a-checkbox-group v-model:value="state.checkedTypes" :options="plainOptions" />
             </div>
 
             <div class="w-100 py-4">
               <h6 class="mb-4">Gamme</h6>
-              <a-checkbox-group
-                v-model:value="state.checkedList"
-                :options="gammeOptions"
-              />
+              <a-checkbox-group v-model:value="state.checkedGammes" :options="gammeOptions" />
             </div>
 
             <div class="w-100 py-4">
               <h6 class="mb-4">Budget (XOF)</h6>
-              <a-slider
-                v-model:value="budget"
-                :min="25000"
-                :max="1000000"
-                :step="1000"
-                range
-              />
+              <a-slider v-model:value="state.budget" :min="25000" :max="1000000" :step="1000" range />
             </div>
 
             <div class="w-100 py-4">
               <h6 class="mb-4">Type d’énergie</h6>
-              <a-checkbox-group
-                v-model:value="state.checkedList"
-                :options="energieOptions"
-              />
+              <a-checkbox-group v-model:value="state.checkedEnergies" :options="energieOptions" />
             </div>
             <div class="w-100 py-4">
               <h6 class="mb-4">Usage Spécifique</h6>
-              <a-checkbox-group
-                v-model:value="state.checkedList"
-                :options="usageOptions"
-              />
+              <a-checkbox-group v-model:value="state.checkedUsages" :options="usageOptions" />
             </div>
 
             <div class="w-100 py-4">
               <h6 class="mb-4">Options & Équipements</h6>
-              <div
-                class="d-flex justify-content-between align-items-center my-3"
-              >
+              <div class="d-flex justify-content-between align-items-center my-3">
                 <span>Boîte automatique</span>
-                <a-switch v-model:checked="checked" />
+                <a-switch v-model:checked="state.checkedAutomatic" />
               </div>
-              <div
-                class="d-flex justify-content-between align-items-center my-3"
-              >
+              <div class="d-flex justify-content-between align-items-center my-3">
                 <span>Climatisation</span>
-                <a-switch v-model:checked="checked1" />
+                <a-switch v-model:checked="state.checkedAirConditioner" />
               </div>
-              <div
-                class="d-flex justify-content-between align-items-center my-3"
-              >
+              <div class="d-flex justify-content-between align-items-center my-3">
                 <span>Nombre de places</span>
-                <a-input-number
-                  id="inputNumber"
-                  v-model:value="place"
-                  :min="2"
-                  :max="45"
-                />
+                <a-input-number id="inputNumber" v-model:value="state.place" :min="2" :max="45" />
               </div>
-              <div
-                class="d-flex justify-content-between align-items-center my-3"
-              >
+              <div class="d-flex justify-content-between align-items-center my-3">
                 <span>GPS intégré</span>
-                <a-switch v-model:checked="checked2" />
+                <a-switch v-model:checked="state.checkedGps" />
               </div>
-              <div
-                class="d-flex justify-content-between align-items-center my-3"
-              >
+              <div class="d-flex justify-content-between align-items-center my-3">
                 <span>Siège bébé / Rehausseur</span>
-                <a-switch v-model:checked="checked3" />
+                <a-switch v-model:checked="state.checkedBabySeat" />
               </div>
-              <div
-                class="d-flex justify-content-between align-items-center my-3"
-              >
+              <div class="d-flex justify-content-between align-items-center my-3">
                 <span>Wi-Fi à bord</span>
-                <a-switch v-model:checked="checked4" />
+                <a-switch v-model:checked="state.checkedWifi" />
               </div>
             </div>
           </div>
@@ -110,108 +70,24 @@
           <h6 class="text-primar">Voir tout</h6>
         </div>
         <div class="my-4 row">
-          <div class="col-md-6 my-3">
-            <a @click="showModal" class="a">
-              <a-badge-ribbon text="Nouveauté" color="green">
+          <div class="col-md-6 my-3" v-for="car in cars" :key="car.id">
+            <a @click="showModal(car)" class="a">
+              <a-badge-ribbon :text="car.tag" color="blue">
                 <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
+                  <a-tag v-if="car.available" color="green">Disponible</a-tag>
+                  <a-tag v-if="car.climatisation" color="blue">Climatisée</a-tag>
                   <div>
-                    <img
-                      src="/src/assets/img/v1.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
+                    <img :src="`http://localhost:3333/uploads/cars/${car.image}`" class="img-fluid img-voiture3"
+                      alt="Image voiture" />
                   </div>
                   <div class="d-flex justify-content-between align-items-end">
                     <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
+                      <span class="text-decorate">{{ car.name }} | {{ car.model }}</span>
                       <br />
-                      <h5>Veloce, 2024</h5>
+                      <h5>{{ car.year }}</h5>
                     </div>
                     <div>
-                      <h5>150.000 XOF / Jour</h5>
-                    </div>
-                  </div>
-                </a-card>
-              </a-badge-ribbon>
-            </a>
-          </div>
-          <div class="col-md-6 my-3">
-            <a @click="showModal" class="a">
-              <a-badge-ribbon text="Populaire" color="blue">
-                <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
-                  <div>
-                    <img
-                      src="/src/assets/img/v2.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
-                      <br />
-                      <h5>Veloce, 2024</h5>
-                    </div>
-                    <div>
-                      <h5>300.000 XOF / Jour</h5>
-                    </div>
-                  </div>
-                </a-card>
-              </a-badge-ribbon>
-            </a>
-          </div>
-          <div class="col-md-6 my-3">
-            <a @click="showModal" class="a">
-              <a-badge-ribbon text="Populaire" color="blue">
-                <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
-                  <div>
-                    <img
-                      src="/src/assets/img/v3.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
-                      <br />
-                      <h5>Veloce, 2024</h5>
-                    </div>
-                    <div>
-                      <h5>150.000 XOF / Jour</h5>
-                    </div>
-                  </div>
-                </a-card>
-              </a-badge-ribbon>
-            </a>
-          </div>
-          <div class="col-md-6 my-3">
-            <a @click="showModal" class="a">
-              <a-badge-ribbon text="Voiture d'exeption" color="orange">
-                <a-card>
-                  <a-tag color="green">Disponible</a-tag>
-                  <a-tag color="blue">Climatisée</a-tag>
-                  <div>
-                    <img
-                      src="/src/assets/img/v4.png"
-                      class="img-fluid img-voiture3"
-                      alt=""
-                    />
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end">
-                    <div>
-                      <span class="text-decorate">Akfa Romeo | Guilla</span>
-                      <br />
-                      <h5>Veloce, 2024</h5>
-                    </div>
-                    <div>
-                      <h5>150.000 XOF / Jour</h5>
+                      <h5>{{ car.price }} XOF / Jour</h5>
                     </div>
                   </div>
                 </a-card>
@@ -219,6 +95,7 @@
             </a>
           </div>
         </div>
+
         <div class="d-flex justify-content-end">
           <a-pagination v-model:current="current" :total="500" />
         </div>
@@ -226,96 +103,60 @@
     </div>
   </div>
 
-  
-  <a-modal v-model:open="open" title="Detail de la voiture" width="100%" wrap-class-name="full-modal">
-      <template #footer>
-        <!-- <a-button key="back" @click="handleCancel">Return</a-button>
-        <a-button key="submit" type="primary" :loading="loading" @click="handleOk">Submit</a-button> -->
-      </template>
-      <div class="container my-5">
-        <div class="row">
-          <div class="col-md-6">
-            <img src="/src/assets/img/v1.png" class="img-fluid" alt="" />
-          </div>
-          <div class="col-md-6">
-            <div class="p-4">
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <a-tag color="orange">Populaire</a-tag>
+  <a-modal v-model:open="open" title="Détail de la voiture" width="100%" wrap-class-name="full-modal">
+    <template #footer></template>
+    <div v-if="vehiculeChoice" class="container my-5">
+      <div class="row">
+        <div class="col-md-6">
+          <img :src="`http://localhost:3333/uploads/cars/${vehiculeChoice.image}`" class="img-fluid"
+            alt="Image voiture" />
+        </div>
+        <div class="col-md-6">
+          <div class="p-4">
+            <a-tag v-if="vehiculeChoice.available" color="green">Disponible</a-tag>
+            <a-tag v-if="vehiculeChoice.climatisation" color="blue">Climatisée</a-tag>
 
-              <div class="d-flex justify-content-between align-items-end my-4">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h5>Veloce, 2024</h5>
-                  <!-- <a-rate v-model:value="value" allow-half /> -->
-                </div>
-                <div>
-                  <h5>300.000 XOF / Jour</h5>
-                </div>
+            <div class="d-flex justify-content-between align-items-end my-4">
+              <div>
+                <span class="text-decorate">{{ vehiculeChoice.name }}</span>
+                <br />
+                <h5>{{ vehiculeChoice.model }}, {{ vehiculeChoice.year }}</h5>
               </div>
-              <div class="my-4">
-                <a-row>
-                  <a-col :span="8">
-                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
-                  </a-col>
-                  <a-col :span="8">
-                    <a-statistic title="Account Balance (CNY)" :precision="2" :value="112893" />
-                  </a-col>
-                  <a-col :span="8">
-                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
-                  </a-col>
-                </a-row>
+              <div>
+                <h5>{{ vehiculeChoice.price }} XOF / Jour</h5>
               </div>
-              <div class="my-4">
-                <div class="row">
-                  <div class="col-md-4">
-                    <small>Perfomence</small>
-                    <a-progress :percent="60" size="small" />
-                  </div>
-                  <div class="col-md-4">
-                    <small>Perfomence vitesse</small>
-                    <a-progress :percent="55" size="small" />
-                  </div>
-                  <div class="col-md-4">
-                    <small>Tout terrain</small>
-                    <a-progress :percent="75" size="small" />
-                  </div>
-                </div>
-              </div>
-              <div class="my-4">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
-                  velit dignissimos aliquid ratione sit temporibus, sed rerum
-                  impedit autem est possimus ad eos ipsam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
-                  velit dignissimos aliquid ratione sit temporibus, sed rerum
-                  impedit autem est possimus ad eos ipsam.
-                </p>
-              </div>
-              <div class="my-5">
-                <a href="/search/1" class="btn btn-dark mx-2">Reserver maintenant</a>
-                <!-- <a href="/auth/register">
-              <button class="btn btn-outline-primary mx-2">
-                Créer un compte
-              </button>
-            </a> -->
-              </div>
+            </div>
+
+            <div class="my-4">
+              <a-row>
+                <a-col :span="8">
+                  <a-statistic title="Kilométrage" :value="vehiculeChoice.kilometrage" />
+                </a-col>
+                <a-col :span="8">
+                  <a-statistic title="Nombre de places" :value="vehiculeChoice.nbPlace" />
+                </a-col>
+                <a-col :span="8">
+                  <a-statistic title="Boîte" :value="vehiculeChoice.transmission" />
+                </a-col>
+              </a-row>
+            </div>
+
+            <div class="my-4">
+              <p>{{ vehiculeChoice.description }}</p>
+            </div>
+
+            <div class="my-5">
+              <a :href="`/search/${vehiculeChoice.id}`" class="btn btn-dark mx-2">Réserver maintenant</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="text-center">
-        <small>&copy; Copyright by aaa-rental - 2025</small>
-      </div>
-    </a-modal>
+    </div>
+  </a-modal>
+
 </template>
 
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import type { Dayjs } from "dayjs";
 
@@ -376,4 +217,121 @@ const showModal = () => {
 //   open.value = false;
 // };
 
+</script> -->
+
+<script setup lang="ts">
+import { ref, reactive, onMounted, watch } from 'vue'
+import apiServices from '../services/apiService' // <-- ta fonction API
+import type { Car } from '../types/car' // <-- si tu as un type pour Car
+import { message } from 'ant-design-vue'
+
+// États
+const open = ref(false)
+const current = ref(1)
+const total = ref(0)
+const loading = ref(false)
+const cars = ref<any[]>([])
+const vehiculeChoice = ref<any | null>(null)
+
+interface FiltersState {
+  valueDate: [string, string] | [],
+  checkedTypes: string[],
+  checkedGammes: string[],
+  checkedEnergies: string[],
+  checkedUsages: string[],
+  budget: [number, number],
+  place: number,
+  checkedAutomatic: boolean,
+  checkedAirConditioner: boolean,
+  checkedGps: boolean,
+  checkedBabySeat: boolean,
+  checkedWifi: boolean,
+}
+
+// Filtres
+const state = reactive<FiltersState>({
+  valueDate: [],
+  checkedTypes: [],
+  checkedGammes: [],
+  checkedEnergies: [],
+  checkedUsages: [],
+  budget: [25000, 1000000],
+  place: 5,
+  checkedAutomatic: false,
+  checkedAirConditioner: false,
+  checkedGps: false,
+  checkedBabySeat: false,
+  checkedWifi: false,
+})
+
+// Options pour les filtres
+const plainOptions = ['Citadine', 'SUV', 'Berline', '4x4']
+const gammeOptions = ['Économique', 'Moyenne', 'Luxe']
+const energieOptions = ['Essence', 'Diesel', 'Électrique', 'Hybride']
+const usageOptions = ['Mariage', 'Voyage', 'Aventure', 'Transport de groupe']
+
+// Charger les véhicules
+const fetchCars = async () => {
+  loading.value = true
+  try {
+    console.log('Fetching cars with filters:', state)
+    // const params = {
+    //   page: current.value,
+    //   type: state.checkedTypes,
+    //   gamme: state.checkedGammes,
+    //   energie: state.checkedEnergies,
+    //   usage: state.checkedUsages,
+    //   budgetMin: budget.value[0],
+    //   budgetMax: budget.value[1],
+    //   boiteAuto: checkedOptions.boiteAuto,
+    //   climatisation: checkedOptions.climatisation,
+    //   gps: checkedOptions.gps,
+    //   siegeBebe: checkedOptions.siegeBebe,
+    //   wifi: checkedOptions.wifi,
+    //   nbPlace: place.value,
+    // }
+    const filters = {
+      type_vehicule: state.checkedTypes,
+      gamme: state.checkedGammes,
+      energie: state.checkedEnergies,
+      usage: state.checkedUsages, // faudra mapper usage (expliqué juste après)
+      prix_min: state.budget[0],
+      prix_max: state.budget[1],
+      places: state.place,
+      boite_auto: state.checkedAutomatic,
+      climatisation: state.checkedAirConditioner,
+      gps: state.checkedGps,
+      siege_bebe: state.checkedBabySeat,
+      wifi: state.checkedWifi,
+      // valueDate pas traité ici (à ajouter selon besoin)
+    }
+    const { data } = await apiServices.getVehicles(filters)
+    cars.value = data.cars
+    total.value = data.total
+  } catch (error) {
+    console.error(error)
+    message.error('Erreur de chargement des véhicules.')
+  } finally {
+    loading.value = false
+  }
+}
+
+// Actions
+const showModal = (car: Car) => {
+  vehiculeChoice.value = car
+  open.value = true
+}
+
+// Watchers pour appliquer les filtres
+watch(
+  state,
+  () => {
+    fetchCars()
+  },
+  { deep: true },
+)
+
+onMounted(() => {
+  fetchCars()
+})
 </script>

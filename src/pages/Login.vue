@@ -1,36 +1,20 @@
 <template>
   <div>
     <h5 class="mb-5 text-primar">Se connecter</h5>
-    <a-form
-      :model="formState"
-      name="basic"
-      :label-col="{ span: 24 }"
-      :wrapper-col="{ span: 24 }"
-      layout="vertical"
-      autocomplete="off"
-      @finish="onFinish"
-      @finishFailed="onFinishFailed"
-    >
-      <a-form-item
-        label="Adresse email"
-        name="email"
-        :rules="[{ required: true, message: 'Please input your email!' }]"
-      >
+    <a-form :model="formState" name="basic" :label-col="{ span: 24 }" :wrapper-col="{ span: 24 }" layout="vertical"
+      autocomplete="off" @finish="onFinish" @finishFailed="onFinishFailed">
+      <a-form-item label="Adresse email" name="email"
+        :rules="[{ required: true, message: 'Please input your email!' }]">
         <a-input v-model:value="formState.email" style="width: 100%" />
       </a-form-item>
 
-      <a-form-item
-        label="Mot de passe"
-        name="password"
-        :rules="[{ required: true, message: 'Please input your password!' }]"
-      >
+      <a-form-item label="Mot de passe" name="password"
+        :rules="[{ required: true, message: 'Please input your password!' }]">
         <a-input-password v-model:value="formState.password" />
       </a-form-item>
 
       <a-form-item name="remember">
-        <a-checkbox v-model:checked="formState.remember"
-          >Remember me</a-checkbox
-        >
+        <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
       </a-form-item>
 
       <a-form-item>
@@ -38,8 +22,7 @@
       </a-form-item>
     </a-form>
     <div class="my-5">
-      <small
-        >J'ai pas de compte,
+      <small>J'ai pas de compte,
         <a href="/auth/register">s'inscrire</a>
       </small>
     </div>
@@ -49,6 +32,8 @@
 <script lang="ts" setup>
 import { notification } from "ant-design-vue";
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
+import apiService from "../services/apiService";
 
 interface FormState {
   email: string;
@@ -56,19 +41,30 @@ interface FormState {
   remember: boolean;
 }
 
+
+const router = useRouter()
+
 const formState = reactive<FormState>({
   email: "",
   password: "",
   remember: true,
 });
-const onFinish = (values: any) => {
-  console.log("Success:", values);
+const onFinish = async (values: FormState) => {
+  try {
+    await apiService.login(values.email, values.password);
 
-  notification["success"]({
-    message: "Notification Title",
-    description:
-      "I will never close automatically. I will be close automatically. I will never close automatically.",
-  });
+    notification.success({
+      message: "Connexion réussie",
+      description: "Bienvenue ! Vous êtes connecté.",
+    });
+
+    router.push('/');
+  } catch (error: any) {
+    notification.error({
+      message: "Erreur de connexion",
+      description: error.response?.data?.message || "Erreur inconnue",
+    });
+  }
 };
 
 const onFinishFailed = (errorInfo: any) => {

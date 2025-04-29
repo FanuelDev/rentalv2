@@ -41,31 +41,26 @@
           <a-input v-model:value="formState.email" style="width: 100%" />
         </a-form-item>
 
-
-        <a-upload-dragger v-model:fileList="fileList" name="file" :multiple="true" class="my-4"
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76" @change="handleChange" @drop="handleDrop">
+        <a-upload-dragger v-model:fileList="fileListId" name="piece_identite" :multiple="false" class="my-4"
+          :customRequest="() => { }" @change="handleChangeId" @drop="handleDrop">
           <p class="ant-upload-drag-icon">
-            <inbox-outlined></inbox-outlined>
+            <inbox-outlined />
           </p>
-          <p class="ant-upload-text">Joindre votre piece d'identité</p>
-          <p class="ant-upload-hint">
-            Joindre en fichier image ou pdf
-          </p>
+          <p class="ant-upload-text">Joindre votre pièce d'identité</p>
+          <p class="ant-upload-hint">Formats: JPG, PNG, PDF</p>
         </a-upload-dragger>
-        
-        <a-upload-dragger v-model:fileList="fileList" name="file" :multiple="true" class="my-4"
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76" @change="handleChange" @drop="handleDrop">
+
+        <a-upload-dragger v-model:fileList="fileListAddress" name="justificatif_domicile" :multiple="false" class="my-4"
+          :customRequest="() => { }" @change="handleChangeAddress" @drop="handleDrop">
           <p class="ant-upload-drag-icon">
-            <inbox-outlined></inbox-outlined>
+            <inbox-outlined />
           </p>
           <p class="ant-upload-text">Joindre une preuve d'adresse</p>
-          <p class="ant-upload-hint">
-            Joindre en fichier image ou pdf
-          </p>
+          <p class="ant-upload-hint">Formats: JPG, PNG, PDF</p>
         </a-upload-dragger>
 
         <a-form-item>
-          <button type="button" class="btn btn-dark">Valider le compte</button>
+          <button type="button" class="btn btn-dark my-4" @click="validateAccount">Valider le compte</button>
         </a-form-item>
       </div>
     </a-form>
@@ -76,13 +71,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { reactive } from "vue";
-import { notification } from 'ant-design-vue';
-import { message } from 'ant-design-vue';
+import { ref, reactive } from "vue";
+import { notification, message } from 'ant-design-vue';
 import type { UploadChangeParam } from 'ant-design-vue';
+import apiService from "../services/apiService"; // Ton fichier service
+import { useRouter } from "vue-router";
 
-const fileList = ref([]);
+const router = useRouter()
+
+const fileListId = ref<any[]>([]);
+const fileListAddress = ref<any[]>([]);
 
 interface FormState {
   email: string;
@@ -93,7 +91,6 @@ interface FormState {
 }
 
 const step = ref(1);
-
 
 const formState = reactive<FormState>({
   email: "",
@@ -107,33 +104,59 @@ const nexStep = () => {
   step.value = 2;
 }
 
+const handleDrop = (e: DragEvent) => {
+  console.log(e);
+}
+
+const handleChangeId = (info: UploadChangeParam) => {
+  fileListId.value = info.fileList;
+};
+
+const handleChangeAddress = (info: UploadChangeParam) => {
+  fileListAddress.value = info.fileList;
+};
+
+const validateAccount = async () => {
+  try {
+    const formData = new FormData();
+
+    formData.append('email', formState.email);
+    formData.append('name', formState.name);
+    formData.append('password', formState.password);
+    formData.append('confirm', formState.confirm);
+
+    // Ajoute fichiers
+    if (fileListId.value.length > 0) {
+      formData.append('piece_justificative', fileListId.value[0].originFileObj);
+    }
+    if (fileListAddress.value.length > 0) {
+      formData.append('preuve_adresse', fileListAddress.value[0].originFileObj);
+    }
+
+    // Appelle ton service
+    await apiService.register(formData);
+
+    notification.success({
+      message: 'Inscription réussie',
+      description: 'Votre compte a été créé avec succès !',
+    });
+
+    router.push('/auth/login');
+  } catch (error: any) {
+    console.error(error);
+    notification.error({
+      message: "Erreur d'inscription",
+      description: error.response?.data?.message || "Erreur inconnue",
+    });
+  }
+};
+
 const onFinish = (values: any) => {
-  console.log("Success:", values);
-  notification['success']({
-    message: 'Notification Title',
-    description:
-      'I will never close automatically. I will be close automatically. I will never close automatically.',
-  });
+  console.log("Formulaire étape 1 validé:", values);
+  // rien ici car tu passes au step suivant
 };
 
 const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-
-};
-
-
-function handleDrop(e: DragEvent) {
-  console.log(e);
-}
-const handleChange = (info: UploadChangeParam) => {
-  const status = info.file.status;
-  if (status !== 'uploading') {
-    console.log(info.file, info.fileList);
-  }
-  if (status === 'done') {
-    message.success(`${info.file.name} file uploaded successfully.`);
-  } else if (status === 'error') {
-    message.error(`${info.file.name} file upload failed.`);
-  }
+  console.log("Erreur:", errorInfo);
 };
 </script>

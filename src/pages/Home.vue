@@ -2,26 +2,28 @@
   <section>
     <div class="my-5">
       <h1 class="text-center">
-        Rechercher ici quelques voitures <br> a reservées
+        Rechercher ici quelques voitures <br> à réserver
       </h1>
     </div>
     <div class="my-4 row">
       <div class="col-md-8 offset-md-2">
         <div class="search-box">
           <div class="w-100 mx-2">
-            <small>Type de vehicule</small>
-            <a-select ref="select" v-model:value="value1" style="width: 100%" @change="handleChange">
-              <a-select-option value="Citadines">Citadines</a-select-option>
-              <a-select-option value="Berlines">Berlines</a-select-option>
-              <a-select-option value="SUV & 4x4">SUV & 4x4</a-select-option>
-              <a-select-option value="Vans & Minibus">Vans & Minibus</a-select-option>
-              <a-select-option value="Voitures de Luxe">Voitures de Luxe</a-select-option>
-              <a-select-option value="Utilitaires">Utilitaires</a-select-option>
+            <small>Type de véhicule</small>
+            <a-select v-model:value="vehicleType" style="width: 100%" @change="fetchVehicles()">
+              <a-select-option value="Citadine">Citadines</a-select-option>
+              <a-select-option value="Berline">Berlines</a-select-option>
+              <a-select-option value="SUV">SUV</a-select-option>
+              <a-select-option value="4x4">4x4</a-select-option>
+              <a-select-option value="Van">Vans</a-select-option>
+              <a-select-option value="Minibus">Minibus</a-select-option>
+              <a-select-option value="Luxe">Voitures de Luxe</a-select-option>
+              <a-select-option value="Utilitaire">Utilitaires</a-select-option>
             </a-select>
           </div>
           <div class="w-100 mx-2">
             <small>Budget & Gamme</small>
-            <a-select ref="select" v-model:value="value2" style="width: 100%" @change="handleChange">
+            <a-select v-model:value="budgetRange" style="width: 100%" @change="fetchVehicles()">
               <a-select-option value="Économique">Économique</a-select-option>
               <a-select-option value="Moyenne gamme">Moyenne gamme</a-select-option>
               <a-select-option value="Haut de gamme">Haut de gamme</a-select-option>
@@ -29,7 +31,7 @@
           </div>
           <div class="w-100 mx-2">
             <small>Type d’Énergie</small>
-            <a-select ref="select" v-model:value="value3" style="width: 100%" @change="handleChange">
+            <a-select v-model:value="energyType" style="width: 100%" @change="fetchVehicles()">
               <a-select-option value="Thermique (Essence/Diesel)">Thermique (Essence/Diesel)</a-select-option>
               <a-select-option value="Hybride">Hybride</a-select-option>
               <a-select-option value="Électrique">Électrique</a-select-option>
@@ -37,298 +39,125 @@
           </div>
 
           <a href="/search" class="w-50 btn btn-primary ml-4">
-            Plus de filtre
+            Plus de filtres
           </a>
         </div>
       </div>
     </div>
+    <!-- Vos véhicules filtrés s'affichent ici -->
     <div class="my-4 row">
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Nouveauté" color="green">
+      <div v-if="isLoading" class="loading">Chargement...</div>
+
+      <div v-for="vehicle in vehicles" :key="vehicle.id" class="col-md-3 my-3">
+        <a @click="showModal(vehicle)" class="a">
+          <a-badge-ribbon :text="vehicle.gamme" :color="vehicle.gamme === 'Economique' ? 'green' : 'blue'">
             <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
+              <a-tag :color="vehicle.statut === 'Disponible' ? 'green' : 'red'">{{ vehicle.statut }}</a-tag>
+              <a-tag color="blue">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
               <div>
-                <img src="/src/assets/img/v1.png" class="img-fluid img-voiture3" alt="" />
+                <img :src="`http://localhost:3333/${vehicle.image}`" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
+                  <span class="text-decorate">{{ vehicle.marque }} | {{ vehicle.modele }}</span>
                   <br />
-                  <h6>Veloce, 2024</h6>
+                  <h6>{{ vehicle.annee }}</h6>
                 </div>
                 <div>
-                  <h6>150.000 XOF / Jour</h6>
+                  <h6>{{ vehicle.prix_journalier }} XOF / Jour</h6>
                 </div>
               </div>
             </a-card>
           </a-badge-ribbon>
         </a>
-      </div>
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Populaire" color="blue">
-            <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <div>
-                <img src="/src/assets/img/v2.png" class="img-fluid img-voiture3" alt="" />
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h6>Veloce, 2024</h6>
-                </div>
-                <div>
-                  <h6>300.000 XOF / Jour</h6>
-                </div>
-              </div>
-            </a-card>
-          </a-badge-ribbon>
-        </a>
-      </div>
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Populaire" color="blue">
-            <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <div>
-                <img src="/src/assets/img/v3.png" class="img-fluid img-voiture3" alt="" />
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h6>Veloce, 2024</h6>
-                </div>
-                <div>
-                  <h6>150.000 XOF / Jour</h6>
-                </div>
-              </div>
-            </a-card>
-          </a-badge-ribbon>
-        </a>
-      </div>
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Voiture d'exeption" color="orange">
-            <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <div>
-                <img src="/src/assets/img/v4.png" class="img-fluid img-voiture3" alt="" />
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h6>Veloce, 2024</h6>
-                </div>
-                <div>
-                  <h6>150.000 XOF / Jour</h6>
-                </div>
-              </div>
-            </a-card>
-          </a-badge-ribbon>
-        </a>
-      </div>
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Nouveauté" color="green">
-            <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <div>
-                <img src="/src/assets/img/v1.png" class="img-fluid img-voiture3" alt="" />
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h6>Veloce, 2024</h6>
-                </div>
-                <div>
-                  <h6>150.000 XOF / Jour</h6>
-                </div>
-              </div>
-            </a-card>
-          </a-badge-ribbon>
-        </a>
-      </div>
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Populaire" color="blue">
-            <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <div>
-                <img src="/src/assets/img/v2.png" class="img-fluid img-voiture3" alt="" />
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h6>Veloce, 2024</h6>
-                </div>
-                <div>
-                  <h6>300.000 XOF / Jour</h6>
-                </div>
-              </div>
-            </a-card>
-          </a-badge-ribbon>
-        </a>
-      </div>
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Populaire" color="blue">
-            <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <div>
-                <img src="/src/assets/img/v3.png" class="img-fluid img-voiture3" alt="" />
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h6>Veloce, 2024</h6>
-                </div>
-                <div>
-                  <h6>150.000 XOF / Jour</h6>
-                </div>
-              </div>
-            </a-card>
-          </a-badge-ribbon>
-        </a>
-      </div>
-      <div class="col-md-3 my-3">
-        <a @click="showModal" class="a">
-          <a-badge-ribbon text="Voiture d'exeption" color="orange">
-            <a-card>
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <div>
-                <img src="/src/assets/img/v4.png" class="img-fluid img-voiture3" alt="" />
-              </div>
-              <div class="d-flex justify-content-between align-items-end">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h6>Veloce, 2024</h6>
-                </div>
-                <div>
-                  <h6>150.000 XOF / Jour</h6>
-                </div>
-              </div>
-            </a-card>
-          </a-badge-ribbon>
-        </a>
-      </div>
-      <div class="col-md-10 offset-md-1">
-        <!-- <img
-          src="/src/assets/img/banner1.png"
-          class="img-banner img-fluid"
-          alt=""
-        /> -->
-        <div class="scroller">
-          <a href="/search">
-            <button class="btn btn-outline-primar">
-              <i class="fa fa-arrow-down"></i>
-            </button>
-          </a>
-        </div>
       </div>
     </div>
-    <a-modal v-model:open="open" title="Detail de la voiture" width="100%" wrap-class-name="full-modal">
-      <template #footer>
-        <!-- <a-button key="back" @click="handleCancel">Return</a-button>
-        <a-button key="submit" type="primary" :loading="loading" @click="handleOk">Submit</a-button> -->
-      </template>
-      <div class="container my-5">
-        <div class="row">
-          <div class="col-md-6">
-            <img src="/src/assets/img/v1.png" class="img-fluid" alt="" />
-          </div>
-          <div class="col-md-6">
-            <div class="p-4">
-              <a-tag color="green">Disponible</a-tag>
-              <a-tag color="blue">Climatisée</a-tag>
-              <a-tag color="orange">Populaire</a-tag>
+  </section>
+  <a-modal v-model:open="open" title="Détail de la voiture" width="100%" wrap-class-name="full-modal">
+    <template #footer>
+      <!-- Footer vide ou personnalisé -->
+    </template>
 
-              <div class="d-flex justify-content-between align-items-end my-4">
-                <div>
-                  <span class="text-decorate">Akfa Romeo | Guilla</span>
-                  <br />
-                  <h5>Veloce, 2024</h5>
-                  <!-- <a-rate v-model:value="value" allow-half /> -->
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-6">
+          <img :src="`http://localhost:3333/${vehiculeChoise.image}`" class="img-fluid" alt="Image voiture" />
+        </div>
+        <div class="col-md-6">
+          <div class="p-4">
+            <!-- Badges de statut -->
+            <a-tag :color="vehiculeChoise.statut === 'Disponible' ? 'green' : 'red'">
+              {{ vehiculeChoise.statut }}
+            </a-tag>
+            <a-tag v-if="vehiculeChoise.climatisation" color="blue">Climatisée</a-tag>
+            <a-tag v-if="vehiculeChoise.gps" color="purple">GPS</a-tag>
+            <a-tag v-if="vehiculeChoise.wifi" color="geekblue">WiFi</a-tag>
+            <a-tag v-if="vehiculeChoise.boite_auto" color="cyan">Boîte auto</a-tag>
+
+            <div class="d-flex justify-content-between align-items-end my-4">
+              <div>
+                <span class="text-decorate">{{ vehiculeChoise.marque }}</span>
+                <br />
+                <h5>{{ vehiculeChoise.modele }}, {{ vehiculeChoise.annee }}</h5>
+              </div>
+              <div>
+                <h5>{{ vehiculeChoise.prix_journalier.toLocaleString() }} XOF / Jour</h5>
+              </div>
+            </div>
+
+            <div class="my-4">
+              <a-row gutter="16">
+                <a-col :span="8">
+                  <a-statistic title="Places" :value="vehiculeChoise.places" />
+                </a-col>
+                <a-col :span="8">
+                  <a-statistic title="Type" :value="vehiculeChoise.type_vehicule" />
+                </a-col>
+                <a-col :span="8">
+                  <a-statistic title="Energie" :value="vehiculeChoise.energie" />
+                </a-col>
+              </a-row>
+            </div>
+
+            <div class="my-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <small>Performance</small>
+                  <a-progress :percent="60" size="small" />
                 </div>
-                <div>
-                  <h5>300.000 XOF / Jour</h5>
+                <div class="col-md-4">
+                  <small>Vitesse</small>
+                  <a-progress :percent="55" size="small" />
+                </div>
+                <div class="col-md-4">
+                  <small>Tout terrain</small>
+                  <a-progress :percent="75" size="small" />
                 </div>
               </div>
-              <div class="my-4">
-                <a-row>
-                  <a-col :span="8">
-                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
-                  </a-col>
-                  <a-col :span="8">
-                    <a-statistic title="Account Balance (CNY)" :precision="2" :value="112893" />
-                  </a-col>
-                  <a-col :span="8">
-                    <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
-                  </a-col>
-                </a-row>
-              </div>
-              <div class="my-4">
-                <div class="row">
-                  <div class="col-md-4">
-                    <small>Perfomence</small>
-                    <a-progress :percent="60" size="small" />
-                  </div>
-                  <div class="col-md-4">
-                    <small>Perfomence vitesse</small>
-                    <a-progress :percent="55" size="small" />
-                  </div>
-                  <div class="col-md-4">
-                    <small>Tout terrain</small>
-                    <a-progress :percent="75" size="small" />
-                  </div>
-                </div>
-              </div>
-              <div class="my-4">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
-                  velit dignissimos aliquid ratione sit temporibus, sed rerum
-                  impedit autem est possimus ad eos ipsam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Exercitationem corporis quasi quisquam consequatur! Doloremque ex
-                  velit dignissimos aliquid ratione sit temporibus, sed rerum
-                  impedit autem est possimus ad eos ipsam.
-                </p>
-              </div>
-              <div class="my-5">
-                <a href="/search/1" class="btn btn-dark mx-2">Reserver maintenant</a>
-                <!-- <a href="/auth/register">
-              <button class="btn btn-outline-primary mx-2">
-                Créer un compte
-              </button>
-            </a> -->
-              </div>
+            </div>
+
+            <div class="my-4">
+              <p>
+                Notre {{ vehiculeChoise.marque }} {{ vehiculeChoise.modele }} offre un excellent confort avec son moteur
+                {{
+                vehiculeChoise.energie }} et sa capacité de {{ vehiculeChoise.places }} places.
+              </p>
+            </div>
+
+            <div class="my-5">
+              <a href="/search/1" class="btn btn-dark mx-2">Réserver maintenant</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="text-center">
-        <small>&copy; Copyright by aaa-rental - 2025</small>
-      </div>
-    </a-modal>
-  </section>
+    </div>
+
+    <div class="text-center">
+      <small>&copy; Copyright aaa-rental - 2025</small>
+    </div>
+  </a-modal>
+
+
   <section class="top">
     <div class="row">
       <div class="col-md-4 offset-md-4">
@@ -522,7 +351,52 @@
     </div>
   </section>
 </template>
+
 <script lang="ts" setup>
+import { defineComponent, ref, onMounted } from 'vue';
+import apiServices from '../services/apiService'; // Adjust the import path if necessary
+
+const apiUrl = import.meta.env.VITE_FRONT_URL
+
+const vehicles = ref<any[]>([]);
+const vehiculeChoise = ref<any>()
+const isLoading = ref(true);
+const open = ref(false)
+
+const vehicleType = ref();
+const budgetRange = ref();
+const energyType = ref();
+
+const fetchVehicles = async () => {
+  try {
+    const filters = {
+      type_vehicule: vehicleType.value, // Example filter, you can update as needed
+      gamme: budgetRange.value,
+      energie: energyType.value
+    };
+    const data = await apiServices.getVehicles(filters);
+    vehicles.value = data;
+    console.log(vehicles.value)
+  } catch (error) {
+    console.error('Error loading vehicles:', error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const showModal = (data: any) => {
+  console.log(data)
+  vehiculeChoise.value = data;
+  open.value = true;
+}
+
+onMounted(() => {
+  fetchVehicles();
+});
+</script>
+
+
+<!-- <script lang="ts" setup>
 import { ref } from "vue";
 const value1 = ref("Citadines");
 const value2 = ref("Économique");
@@ -542,4 +416,4 @@ const showModal = () => {
 //   console.log(e);
 //   open.value = false;
 // };
-</script>
+</script> -->
