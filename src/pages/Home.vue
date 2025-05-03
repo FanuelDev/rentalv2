@@ -353,10 +353,10 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import apiServices from '../services/apiService'; // Adjust the import path if necessary
 
-const apiUrl = import.meta.env.VITE_FRONT_URL
+// const apiUrl = import.meta.env.VITE_FRONT_URL
 
 const vehicles = ref<any[]>([]);
 const vehiculeChoise = ref<any>()

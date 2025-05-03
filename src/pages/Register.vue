@@ -72,7 +72,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
-import { notification, message } from 'ant-design-vue';
+import { notification } from 'ant-design-vue';
 import type { UploadChangeParam } from 'ant-design-vue';
 import apiService from "../services/apiService"; // Ton fichier service
 import { useRouter } from "vue-router";
