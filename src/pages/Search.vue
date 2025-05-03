@@ -22,7 +22,7 @@
 
             <div class="w-100 py-4">
               <h6 class="mb-4">Budget (XOF)</h6>
-              <a-slider v-model:value="state.budget" :min="25000" :max="1000000" :step="1000" range />
+              <a-slider v-model:value="state.budget" :min="5000" :max="1000000" :step="5000" range />
             </div>
 
             <div class="w-100 py-4">
@@ -72,22 +72,22 @@
         <div class="my-4 row">
           <div class="col-md-6 my-3" v-for="car in cars" :key="car.id">
             <a @click="showModal(car)" class="a">
-              <a-badge-ribbon :text="car.tag" color="blue">
+              <a-badge-ribbon :text="car.gamme" :color="car.gamme === 'Economique' ? 'green' : 'blue'">
                 <a-card>
-                  <a-tag v-if="car.available" color="green">Disponible</a-tag>
-                  <a-tag v-if="car.climatisation" color="blue">Climatisée</a-tag>
+                  <a-tag :color="car.statut === 'Disponible' ? 'green' : 'red'">{{ car.statut }}</a-tag>
+                  <a-tag color="blue">{{ car.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
                   <div>
-                    <img :src="`https://aaa.a07.agency/uploads/cars/${car.image}`" class="img-fluid img-voiture3"
+                    <img :src="`https://aaa.a07.agency/${car.image}`" class="img-fluid img-voiture3"
                       alt="Image voiture" />
                   </div>
                   <div class="d-flex justify-content-between align-items-end">
                     <div>
-                      <span class="text-decorate">{{ car.name }} | {{ car.model }}</span>
+                      <span class="text-decorate">{{ car.marque }} | {{ car.modele }}</span>
                       <br />
-                      <h5>{{ car.year }}</h5>
+                      <h6>{{ car.annee }}</h6>
                     </div>
                     <div>
-                      <h5>{{ car.price }} XOF / Jour</h5>
+                      <h6>{{ car.prix_journalier }} XOF / Jour</h6>
                     </div>
                   </div>
                 </a-card>
@@ -235,10 +235,10 @@ const vehiculeChoice = ref<any | null>(null)
 
 interface FiltersState {
   valueDate: [string, string] | [],
-  checkedTypes: string[],
-  checkedGammes: string[],
-  checkedEnergies: string[],
-  checkedUsages: string[],
+  checkedTypes: any[],
+  checkedGammes: any[],
+  checkedEnergies: any[],
+  checkedUsages: any[],
   budget: [number, number],
   place: number,
   checkedAutomatic: boolean,
@@ -255,7 +255,7 @@ const state = reactive<FiltersState>({
   checkedGammes: [],
   checkedEnergies: [],
   checkedUsages: [],
-  budget: [25000, 1000000],
+  budget: [5000, 1000000],
   place: 5,
   checkedAutomatic: false,
   checkedAirConditioner: false,
@@ -290,11 +290,12 @@ const fetchCars = async () => {
     //   wifi: checkedOptions.wifi,
     //   nbPlace: place.value,
     // }
+    console.log(state)
     const filters = {
-      type_vehicule: state.checkedTypes,
-      gamme: state.checkedGammes,
-      energie: state.checkedEnergies,
-      usage: state.checkedUsages, // faudra mapper usage (expliqué juste après)
+      type_vehicule: Array.from(state.checkedTypes),
+      gamme: Array.from(state.checkedGammes),
+      energie: Array.from(state.checkedEnergies),
+      usage: Array.from(state.checkedUsages), // faudra mapper usage (expliqué juste après)
       prix_min: state.budget[0],
       prix_max: state.budget[1],
       places: state.place,
@@ -305,9 +306,12 @@ const fetchCars = async () => {
       wifi: state.checkedWifi,
       // valueDate pas traité ici (à ajouter selon besoin)
     }
-    const { data } = await apiServices.getVehicles(filters)
-    cars.value = data.cars
-    total.value = data.total
+    console.log(filters)
+    apiServices.getVehicles(filters).then((res: any) => {
+      console.log(res)
+      cars.value = res
+    })
+    // total.value = data.total
   } catch (error) {
     console.error(error)
     message.error('Erreur de chargement des véhicules.')
@@ -322,6 +326,13 @@ const showModal = (car: Car) => {
   open.value = true
 }
 
+const fetchCarsS = () => {
+  apiServices.getVehicles({}).then((res: any) => {
+    console.log(res)
+    cars.value = res
+  })
+  // total.value = data.total
+}
 // Watchers pour appliquer les filtres
 watch(
   state,
@@ -332,6 +343,6 @@ watch(
 )
 
 onMounted(() => {
-  fetchCars()
+  fetchCarsS()
 })
 </script>
