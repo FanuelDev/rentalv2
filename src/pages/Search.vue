@@ -77,7 +77,7 @@
                   <a-tag v-if="car.available" color="green">Disponible</a-tag>
                   <a-tag v-if="car.climatisation" color="blue">Climatisée</a-tag>
                   <div>
-                    <img :src="`http://localhost:3333/uploads/cars/${car.image}`" class="img-fluid img-voiture3"
+                    <img :src="`https://aaa.a07.agency/uploads/cars/${car.image}`" class="img-fluid img-voiture3"
                       alt="Image voiture" />
                   </div>
                   <div class="d-flex justify-content-between align-items-end">
@@ -108,7 +108,7 @@
     <div v-if="vehiculeChoice" class="container my-5">
       <div class="row">
         <div class="col-md-6">
-          <img :src="`http://localhost:3333/uploads/cars/${vehiculeChoice.image}`" class="img-fluid"
+          <img :src="`https://aaa.a07.agency/uploads/cars/${vehiculeChoice.image}`" class="img-fluid"
             alt="Image voiture" />
         </div>
         <div class="col-md-6">

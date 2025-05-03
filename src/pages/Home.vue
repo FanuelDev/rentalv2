@@ -55,7 +55,7 @@
               <a-tag :color="vehicle.statut === 'Disponible' ? 'green' : 'red'">{{ vehicle.statut }}</a-tag>
               <a-tag color="blue">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
               <div>
-                <img :src="`http://localhost:3333/${vehicle.image}`" class="img-fluid img-voiture3" alt="" />
+                <img :src="`https://aaa.a07.agency/${vehicle.image}`" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -81,7 +81,7 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-md-6">
-          <img :src="`http://localhost:3333/${vehiculeChoise.image}`" class="img-fluid" alt="Image voiture" />
+          <img :src="`https://aaa.a07.agency/${vehiculeChoise.image}`" class="img-fluid" alt="Image voiture" />
         </div>
         <div class="col-md-6">
           <div class="p-4">
