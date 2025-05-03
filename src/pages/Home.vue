@@ -370,9 +370,9 @@ const energyType = ref();
 const fetchVehicles = async () => {
   try {
     const filters = {
-      type_vehicule: vehicleType.value, // Example filter, you can update as needed
-      gamme: budgetRange.value,
-      energie: energyType.value
+      type_vehicule: [vehicleType.value], // Example filter, you can update as needed
+      gamme: [budgetRange.value],
+      energie: [energyType.value]
     };
     const data = await apiServices.getVehicles(filters);
     vehicles.value = data;
