@@ -35,7 +35,7 @@
             </div>
             <div class="my-4">
               <div class="w-100 py-4">
-                <small>Quand voulez-vous reserver?</small><a-range-picker v-model:value="dates"
+                <small>Quand voulez-vous reserver?</small> <br> <a-range-picker v-model:value="dates"
                   :disabled-date="disabledDate" @change="updateTotal" />
               </div>
 
