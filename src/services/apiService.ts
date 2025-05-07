@@ -8,7 +8,7 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const authStore = JSON.parse(localStorage.getItem('dataLog')!);
   console.log(authStore)
-  if (authStore.token) {
+  if (authStore) {
     config.headers.Authorization = `Bearer ${authStore.token}`;
   }
   return config;
