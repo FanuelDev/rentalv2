@@ -22,7 +22,7 @@
 
             <div class="w-100 py-4">
               <h6 class="mb-4">Budget (XOF)</h6>
-              <a-slider v-model:value="state.budget" :min="5000" :max="1000000" :step="5000" range />
+              <a-slider v-model:value="state.budget" :min="5000" :max="150000" :step="10000" range />
             </div>
 
             <div class="w-100 py-4">
@@ -70,6 +70,9 @@
           <h6 class="text-primar">Voir tout</h6>
         </div>
         <div class="my-4 row">
+          <div class="col-md-12" v-if="cars.length == 0"><a-alert message="Aucune voiture trouvée" description="🚗 Aucune voiture ne correspond à vos critères.
+  Essayez de modifier les filtres pour afficher plus de résultats." type="warning" show-icon />
+          </div>
           <div class="col-md-6 my-3" v-for="car in cars" :key="car.id">
             <a @click="showModal(car)" class="a">
               <a-badge-ribbon :text="car.gamme" :color="car.gamme === 'Economique' ? 'green' : 'blue'">
@@ -97,7 +100,7 @@
         </div>
 
         <div class="d-flex justify-content-end">
-          <a-pagination v-model:current="current" :total="500" />
+          <!-- <a-pagination v-model:current="current" :total="500" /> -->
         </div>
       </div>
     </div>
@@ -108,49 +111,79 @@
     <div v-if="vehiculeChoice" class="container my-5">
       <div class="row">
         <div class="col-md-6">
-          <img :src="`https://aaa.a07.agency/uploads/cars/${vehiculeChoice.image}`" class="img-fluid"
-            alt="Image voiture" />
+          <img :src="`https://aaa.a07.agency/${vehiculeChoice.image}`" class="img-fluid" alt="Image voiture" />
         </div>
         <div class="col-md-6">
           <div class="p-4">
-            <a-tag v-if="vehiculeChoice.available" color="green">Disponible</a-tag>
+            <!-- Badges de statut -->
+            <a-tag :color="vehiculeChoice.statut === 'Disponible' ? 'green' : 'red'">
+              {{ vehiculeChoice.statut }}
+            </a-tag>
             <a-tag v-if="vehiculeChoice.climatisation" color="blue">Climatisée</a-tag>
+            <a-tag v-if="vehiculeChoice.gps" color="purple">GPS</a-tag>
+            <a-tag v-if="vehiculeChoice.wifi" color="geekblue">WiFi</a-tag>
+            <a-tag v-if="vehiculeChoice.boite_auto" color="cyan">Boîte auto</a-tag>
 
             <div class="d-flex justify-content-between align-items-end my-4">
               <div>
-                <span class="text-decorate">{{ vehiculeChoice.name }}</span>
+                <span class="text-decorate">{{ vehiculeChoice.marque }}</span>
                 <br />
-                <h5>{{ vehiculeChoice.model }}, {{ vehiculeChoice.year }}</h5>
+                <h5>{{ vehiculeChoice.modele }}, {{ vehiculeChoice.annee }}</h5>
               </div>
               <div>
-                <h5>{{ vehiculeChoice.price }} XOF / Jour</h5>
+                <h5>{{ vehiculeChoice.prix_journalier.toLocaleString() }} XOF / Jour</h5>
               </div>
             </div>
 
             <div class="my-4">
-              <a-row>
+              <a-row gutter="16">
                 <a-col :span="8">
-                  <a-statistic title="Kilométrage" :value="vehiculeChoice.kilometrage" />
+                  <a-statistic title="Places" :value="vehiculeChoice.places" />
                 </a-col>
                 <a-col :span="8">
-                  <a-statistic title="Nombre de places" :value="vehiculeChoice.nbPlace" />
+                  <a-statistic title="Type" :value="vehiculeChoice.type_vehicule" />
                 </a-col>
                 <a-col :span="8">
-                  <a-statistic title="Boîte" :value="vehiculeChoice.transmission" />
+                  <a-statistic title="Energie" :value="vehiculeChoice.energie" />
                 </a-col>
               </a-row>
             </div>
 
             <div class="my-4">
-              <p>{{ vehiculeChoice.description }}</p>
+              <div class="row">
+                <div class="col-md-4">
+                  <small>Performance</small>
+                  <a-progress :percent="60" size="small" />
+                </div>
+                <div class="col-md-4">
+                  <small>Vitesse</small>
+                  <a-progress :percent="55" size="small" />
+                </div>
+                <div class="col-md-4">
+                  <small>Tout terrain</small>
+                  <a-progress :percent="75" size="small" />
+                </div>
+              </div>
+            </div>
+
+            <div class="my-4">
+              <p>
+                Notre {{ vehiculeChoice.marque }} {{ vehiculeChoice.modele }} offre un excellent confort avec son moteur
+                {{
+                vehiculeChoice.energie }} et sa capacité de {{ vehiculeChoice.places }} places.
+              </p>
             </div>
 
             <div class="my-5">
-              <a :href="`/search/${vehiculeChoice.id}`" class="btn btn-dark mx-2">Réserver maintenant</a>
+              <a :href="'/search/'+ vehiculeChoice.id" class="btn btn-dark mx-2">Réserver maintenant</a>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="text-center">
+      <small>&copy; Copyright aaa-rental - 2025</small>
     </div>
   </a-modal>
 
@@ -255,13 +288,13 @@ const state = reactive<FiltersState>({
   checkedGammes: [],
   checkedEnergies: [],
   checkedUsages: [],
-  budget: [5000, 1000000],
+  budget: [5000, 150000],
   place: 5,
-  checkedAutomatic: false,
-  checkedAirConditioner: false,
-  checkedGps: false,
-  checkedBabySeat: false,
-  checkedWifi: false,
+  checkedAutomatic: true,
+  checkedAirConditioner: true,
+  checkedGps: true,
+  checkedBabySeat: true,
+  checkedWifi: true,
 })
 
 // Options pour les filtres

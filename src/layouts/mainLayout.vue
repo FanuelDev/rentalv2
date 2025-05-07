@@ -3,34 +3,17 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-whiter py-3 sticky-top">
       <div class="container">
         <a class="navbar-brand" href="/">
-          <img src="/src/assets/img/logo.png" alt="" id="img-logo"
-        /></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarID"
-          aria-controls="navbarID"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+          <img src="/src/assets/img/logo.png" alt="" id="img-logo" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
+          aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div
-          class="collapse navbar-collapse d-lg-flex justify-content-between"
-          id="navbarID"
-        >
+        <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID">
           <div class="navbar-nav"></div>
           <div class="navbar-nav">
-            <a class="nav-link mx-2 active" aria-current="page" href="#"
-              >Compagnies</a
-            >
-            <a class="nav-link mx-2 active" aria-current="page" href="#"
-              >Comment ça marche</a
-            >
-            <a class="nav-link mx-2 active" aria-current="page" href="#"
-              >Partenaires</a
-            >
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Compagnies</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Comment ça marche</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Partenaires</a>
           </div>
           <div class="navbar-nav">
             <!-- <a
@@ -39,17 +22,25 @@
               href="/search"
               >Reserver une voiture</a
             > -->
-            <a
-              class="nav-link mx-2 btn btn-outline-primary"
-              aria-current="page"
-              href="/auth/login"
-              >Se connecter</a
-            >
+            <a class="nav-link mx-2 btn btn-outline-primary" aria-current="page" href="/auth/login" v-if="!dataLog">Se
+              connecter</a>
+            <a-dropdown>
+              <a class="nav-link mx-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
+                {{ dataLog.info.name }} </a>
+              <template #overlay>
+                <a-menu @click="handleMenuClick">
+                  <a-menu-item key="1">
+                    <UserOutlined />
+                    Deconnexion
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
           </div>
         </div>
       </div>
     </nav>
-    
+
     <div class="container my-5">
       <router-view />
     </div>
@@ -59,12 +50,7 @@
         <div class="row">
           <div class="col-md-4">
             <a class="navbar-brand" href="#">
-              <img
-                src="/src/assets/img/logo.png"
-                alt=""
-                class="img-fluid"
-                id="img-logo1"
-            /></a>
+              <img src="/src/assets/img/logo.png" alt="" class="img-fluid" id="img-logo1" /></a>
             <p class="mx-5 my-4 text-decorate">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Praesentium deleniti commodi saepe molestias quam! Error ullam ex
@@ -125,9 +111,7 @@
         </div>
       </div>
       <div class="bg-primary pt-4 mt-4">
-        <div
-          class="container d-flex justify-content-between align-items-center text-white"
-        >
+        <div class="container d-flex justify-content-between align-items-center text-white">
           <p>&copy; Copyright by aaa-rental, 2025</p>
           <p>Tous droits reservés</p>
         </div>
@@ -137,6 +121,28 @@
 </template>
 
 <script lang="ts" setup>
+import type { MenuProps } from 'ant-design-vue';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const dataLog = ref();
+
+const handleButtonClick = (e: Event) => {
+  console.log('click left button', e);
+};
+const handleMenuClick: MenuProps['onClick'] = e => {
+  console.log('click', e.key);
+  if (e.key = '1') {
+    localStorage.clear()
+
+    router.push('/auth/login');
+  }
+};
+
+onMounted(() => {
+  dataLog.value = JSON.parse(localStorage.getItem('dataLog')!);
+})
 </script>
 
 <style scoped>

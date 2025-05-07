@@ -2,22 +2,25 @@
   <div class="container my-5">
     <div class="row">
       <div class="col-md-4">
-        <img src="/src/assets/img/v2.png" class="img-fluid" alt="" />
+        <img :src="`https://aaa.a07.agency/${car?.image}`" class="img-fluid" alt="Image du véhicule" />
+
 
         <div class="p-4">
-          <a-tag color="green">Disponible</a-tag>
-          <a-tag color="blue">Climatisée</a-tag>
-          <a-tag color="orange">Populaire</a-tag>
+          <a-tag v-if="car?.statut === 'Disponible'" color="green">Disponible</a-tag>
+          <a-tag v-if="car?.climatisation" color="blue">Climatisée</a-tag>
+          <a-tag color="orange">Populaire</a-tag> <!-- à adapter si cette info vient de l'API -->
+
 
           <div class="d-flex justify-content-between align-items-end my-4">
+
             <div>
-              <span class="text-decorate">Akfa Romeo | Guilla</span>
-              <br />
-              <h5>Veloce, 2024</h5>
+              <span class="text-decorate">{{ car?.marque }} | {{ car?.modele }}</span> <br>
+              <h5>{{ car?.gamme }}, {{ car?.annee }}</h5>
+
               <!-- <a-rate v-model:value="value" allow-half /> -->
             </div>
             <div>
-              <h5>300.000 XOF / Jour</h5>
+              <h5>{{ car?.prix_journalier.toLocaleString() }} XOF / Jour</h5>
             </div>
           </div>
           <div class="my-4">
@@ -32,47 +35,37 @@
             </div>
             <div class="my-4">
               <div class="w-100 py-4">
-                <small>Quand voulez-vous reserver?</small>
-                <a-range-picker v-model:value="valueDate" show-time size="large" />
+                <small>Quand voulez-vous reserver?</small><a-range-picker v-model:value="dates"
+                  :disabled-date="disabledDate" @change="updateTotal" />
               </div>
 
               <div class="w-100 py-4">
                 <h6 class="mb-4">Options & Équipements</h6>
                 <div class="d-flex justify-content-between align-items-center my-3">
                   <span>Boîte automatique</span>
-                  <a-switch v-model:checked="checked" />
+                  <a-switch :checked="!!car?.boite_auto" disabled />
                 </div>
                 <div class="d-flex justify-content-between align-items-center my-3">
                   <span>Climatisation</span>
-                  <a-switch v-model:checked="checked1" />
+                  <a-switch :checked="!!car?.climatisation" disabled />
                 </div>
-                <!-- <div
-                class="d-flex justify-content-between align-items-center my-3"
-              >
-                <span>Nombre de places</span>
-                <a-input-number
-                  id="inputNumber"
-                  v-model:value="place"
-                  :min="2"
-                  :max="45"
-                />
-              </div> -->
                 <div class="d-flex justify-content-between align-items-center my-3">
                   <span>GPS intégré</span>
-                  <a-switch v-model:checked="checked2" />
+                  <a-switch :checked="!!car?.gps" disabled />
                 </div>
                 <div class="d-flex justify-content-between align-items-center my-3">
                   <span>Siège bébé / Rehausseur</span>
-                  <a-switch v-model:checked="checked3" />
+                  <a-switch :checked="!!car?.siege_bebe" disabled />
                 </div>
                 <div class="d-flex justify-content-between align-items-center my-3">
                   <span>Wi-Fi à bord</span>
-                  <a-switch v-model:checked="checked4" />
+                  <a-switch :checked="!!car?.wifi" disabled />
                 </div>
                 <div class="d-flex justify-content-between align-items-center my-3">
                   <span>Chauffeur</span>
-                  <a-switch v-model:checked="checked5" />
+                  <a-switch :checked="!!car?.chauffeur" disabled />
                 </div>
+
               </div>
             </div>
           </div>
@@ -80,32 +73,28 @@
             <div class="my-4">
               <div class="d-flex justify-content-between align-items-end my-4">
                 <div>
-                  <h6>Prix de la reservation</h6>
+                  <h6>Prix par jour</h6>
                   <!-- <a-rate v-model:value="value" allow-half /> -->
                 </div>
                 <div>
-                  <h6>300.000 XOF</h6>
+                  <h6>{{ car?.prix_journalier.toLocaleString() }} XOF</h6>
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end my-4">
                 <div>
-                  <h6>Options supplementaires</h6>
+                  <h6>Taxe</h6>
                   <!-- <a-rate v-model:value="value" allow-half /> -->
                 </div>
                 <div>
-                  <h6>50.000 XOF</h6>
+                  <h6>0%</h6>
                 </div>
               </div>
               <hr>
-              <div class="d-flex justify-content-between align-items-end my-4 text-primar">
-                <div>
-                  <h6>Prix total</h6>
-                  <!-- <a-rate v-model:value="value" allow-half /> -->
-                </div>
-                <div>
-                  <h6>350.000 XOF</h6>
-                </div>
+              <div class="d-flex justify-content-between align-items-start my-3">
+                <span>Total à payer</span>
+                <h4>{{ total?.toLocaleString() }} XOF</h4>
               </div>
+
             </div>
             <div class="my-4">
               <hr>
@@ -119,7 +108,7 @@
                 repellat aliquam earum? Consequatur?</p>
             </div>
             <div class="my-5 d-flex justify-content-end">
-              <a href="/auth/register" class="btn btn-dark btn-lg mx-2">Reserver maintenant</a>
+              <a @click="reserve()" class="btn btn-dark btn-lg mx-2">Reserver maintenant</a>
             </div>
           </div>
         </div>
@@ -150,18 +139,74 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import type { Dayjs } from "dayjs";
+import apiService from "../services/apiService";
+import { useRoute, useRouter } from "vue-router";
+import dayjs from "dayjs";
+import { notification } from "ant-design-vue";
+
+const car = ref<any>(null);
+
+const prixJournalier = ref(0); // à remplacer dynamiquement avec data.prix_journalier
+
+const dates = ref<[dayjs.Dayjs, dayjs.Dayjs] | null>(null);
+const total = ref<number>(0);
 
 
-const checked = ref<boolean>(false);
-const checked1 = ref<boolean>(false);
-const checked2 = ref<boolean>(false);
-const checked3 = ref<boolean>(false);
-const checked4 = ref<boolean>(false);
-const checked5 = ref<boolean>(false);
+const route = useRoute()
+const router = useRouter()
+const id = route.params.id
+
+const updateTotal = () => {
+  if (dates.value && car.value) {
+    const [start, end] = dates.value;
+    const days = end.diff(start, 'day') + 1; // +1 pour inclure le jour de départ
+    total.value = days * car.value.prix_journalier;
+  } else {
+    total.value = 0;
+  }
+}
+
+const reserve = () => {
+  console.log('commande')
+  let log = JSON.parse(localStorage.getItem('dataLog')!)
+
+  if (log) {
+    if (total.value) {
+      const [start, end] = dates.value!;
+      let body = { car_id: car.value.id, start_date: start.toDate().toISOString().split('T')[0], end_date: end.toDate().toISOString().split('T')[0] }
+      console.log(body)
+      apiService.reserve(body).then(res => {
+        console.log(res)
+        if (res.data) {
+          notification.success({
+            message: "Réservation effectuée",
+            description: "Votre réservation a été enregistrée avec succès.",
+          });
+        }
+      })
+    } else {
+      notification.warning({
+        message: "Date de réservation vide",
+        description: "Veuillez sélectionner une période de réservation avant de continuer.",
+      });
+    }
+  } else {
+    router.push('/auth/register');
+  }
+}
+
+const disabledDate = (current: dayjs.Dayjs) => {
+  return current && current < dayjs().startOf('day');
+}
 
 
-type RangeValue = [Dayjs, Dayjs];
-const valueDate = ref<RangeValue>();
+onMounted(() => {
+  apiService.getCarById(id).then(res => {
+    console.log(res.data)
+    car.value = res.data;
+    prixJournalier.value = car.value.prix_journalier
+  })
+})
 </script>

@@ -145,7 +145,7 @@
             </div>
 
             <div class="my-5">
-              <a href="/search/1" class="btn btn-dark mx-2">Réserver maintenant</a>
+              <a :href="'/search/' + vehiculeChoise.id" class="btn btn-dark mx-2">Réserver maintenant</a>
             </div>
           </div>
         </div>

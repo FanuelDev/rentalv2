@@ -6,7 +6,8 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const authStore = useAuthStore();
+  const authStore = JSON.parse(localStorage.getItem('dataLog')!);
+  console.log(authStore)
   if (authStore.token) {
     config.headers.Authorization = `Bearer ${authStore.token}`;
   }
@@ -18,6 +19,7 @@ export default {
     const res = await api.post("/auth/login", { email, password });
     const authStore = useAuthStore();
     authStore.setUser(res.data.info, res.data.token);
+    return res;
   },
 
   async register(payload: any) {
@@ -29,6 +31,10 @@ export default {
   // Fonction pour récupérer les voitures filtrées
   async getCars(filters: any) {
     return await api.get("/cars", { params: filters });
+  },
+
+  async getCarById(id: string | string[]) {
+    return await api.get("/cars/" + id);
   },
 
   // Fonction pour récupérer les voitures filtrées

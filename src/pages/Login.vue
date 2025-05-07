@@ -50,21 +50,21 @@ const formState = reactive<FormState>({
   remember: true,
 });
 const onFinish = async (values: FormState) => {
-  try {
-    await apiService.login(values.email, values.password);
-
+  apiService.login(values.email, values.password).then(res => {
+    console.log(res.data)
+    localStorage.setItem('dataLog', JSON.stringify(res.data))
     notification.success({
       message: "Connexion réussie",
       description: "Bienvenue ! Vous êtes connecté.",
     });
 
     router.push('/');
-  } catch (error: any) {
+  }).catch(error => {
     notification.error({
       message: "Erreur de connexion",
       description: error.response?.data?.message || "Erreur inconnue",
     });
-  }
+  });
 };
 
 const onFinishFailed = (errorInfo: any) => {
