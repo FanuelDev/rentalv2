@@ -140,7 +140,6 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
-import type { Dayjs } from "dayjs";
 import apiService from "../services/apiService";
 import { useRoute, useRouter } from "vue-router";
 import dayjs from "dayjs";
