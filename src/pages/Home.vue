@@ -176,11 +176,10 @@
               <h5><i class="fas fa-certificate"></i></h5>
             </div>
           </div>
-          <h6>carte de crédit pas nécessaire</h6>
+          <h6>Créez votre compte</h6>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, nam!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
-            molestiae.
+            Inscrivez-vous en quelques clics avec votre numéro de téléphone et votre adresse e-mail.
+            Une fois connecté, vous accédez à toutes nos offres.
           </p>
         </div>
       </div>
@@ -191,11 +190,11 @@
               <h5><i class="far fa-chart-bar"></i></h5>
             </div>
           </div>
-          <h6>enregistrement ultra rapide</h6>
+          <h6>Recherchez votre voiture</h6>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, nam!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
-            molestiae.
+            Indiquez votre lieu de prise en charge, 
+            les dates de location et filtrez selon vos besoins. 
+            Vous verrez instantanément les véhicules disponibles
           </p>
         </div>
       </div>
@@ -206,11 +205,11 @@
               <h5><i class="fab fa-opencart"></i></h5>
             </div>
           </div>
-          <h6>reservation et assurance</h6>
+          <h6>Réservez en ligne</h6>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, nam!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
-            molestiae.
+            Choisissez le véhicule qui vous convient, 
+            ajoutez les options souhaitées, 
+            puis validez la réservation.
           </p>
         </div>
       </div>
@@ -278,7 +277,7 @@
   <section class="top">
     <div class="row">
       <div class="col-md-4 offset-md-4">
-        <h1 class="text-center">Articles & Blogs</h1>
+        <h1 class="text-center">Partenaires</h1>
         <p class="text-center">
           Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet <br />
           consectetur adipisicing.
@@ -335,7 +334,7 @@
       <div class="row align-items-center">
         <div class="col-md-5"></div>
         <div class="col-md-6 text-center my-4">
-          <h2 class="text-white">Conduisons avec un contrat aujourd'hui.</h2>
+          <h2 class="text-white">Louez une voiture en toute simplicité !.</h2>
           <p class="text-white">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
             saepe blanditiis dolor animi vitae ullam? Lorem ipsum dolor sit amet

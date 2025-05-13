@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID">
               <div class="navbar-nav"></div>
               <div class="navbar-nav">
-                <a class="nav-link fsl mx-2 active" aria-current="page" href="#">Compagnies</a>
+                <a class="nav-link fsl mx-2 active" aria-current="page" href="#">Accueil</a>
                 <a class="nav-link fsl mx-2 active" aria-current="page" href="#">Comment ça marche</a>
                 <a class="nav-link fsl mx-2 active" aria-current="page" href="#">Partenaires</a>
               </div>
@@ -40,8 +40,8 @@
 
         <div class="topy">
           <h1 class="text-center py-5 text-white">
-            Découvrez la plus grande place de marché de location & <br />
-            d'échange de voitures au monde
+            Profitez de notre large gamme de véhicules pour vos déplacements personnels ou professionnels <br />
+            Réservez en ligne ou contactez-nous dès aujourd’hui !
           </h1>
         </div>
         <div class="py-5" id="top">
@@ -66,10 +66,10 @@
             <a class="navbar-brand" href="#">
               <img src="/src/assets/img/logo.png" alt="" class="img-fluid" id="img-logo1" /></a>
             <p class="mx-5 my-4 text-decorate">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium deleniti commodi saepe molestias quam! Error ullam ex
-              nostrum cumque accusantium praesentium, quos alias quis autem
-              exercitationem velit, nesciunt laboriosam eum.
+              Nous sommes une entreprise locale spécialisée
+              dans la location de véhicules depuis 2022.
+              Notre mission : offrir un service fiable, 
+              flexible et accessible à tous.
             </p>
             <p class="my-4 mx-5">
               <a href="" class="a mx-2"><i class="fab fa-facebook"></i></a>
