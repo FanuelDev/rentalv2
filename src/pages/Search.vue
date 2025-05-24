@@ -80,7 +80,7 @@
                   <a-tag :color="car.statut === 'Disponible' ? 'green' : 'red'">{{ car.statut }}</a-tag>
                   <a-tag color="blue">{{ car.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
                   <div>
-                    <img :src="`https://aaa.a07.agency/${car.image}`" class="img-fluid img-voiture3"
+                    <img :src="`https://aaa.troispuissances.fr/${car.image}`" class="img-fluid img-voiture3"
                       alt="Image voiture" />
                   </div>
                   <div class="d-flex justify-content-between align-items-end">
@@ -111,7 +111,7 @@
     <div v-if="vehiculeChoice" class="container my-5">
       <div class="row">
         <div class="col-md-6">
-          <img :src="`https://aaa.a07.agency/${vehiculeChoice.image}`" class="img-fluid" alt="Image voiture" />
+          <img :src="`https://aaa.troispuissances.fr/${vehiculeChoice.image}`" class="img-fluid" alt="Image voiture" />
         </div>
         <div class="col-md-6">
           <div class="p-4">

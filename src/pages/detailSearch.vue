@@ -2,7 +2,7 @@
   <div class="container my-5">
     <div class="row">
       <div class="col-md-4">
-        <img :src="`https://aaa.a07.agency/${car?.image}`" class="img-fluid" alt="Image du véhicule" />
+        <img :src="`https://aaa.troispuissances.fr/${car?.image}`" class="img-fluid" alt="Image du véhicule" />
 
 
         <div class="p-4">

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://aaa.a07.agency/api",
+  baseURL: import.meta.env.VITE_API_URL || "https://aaa.troispuissances.fr/api",
 });
 
 api.interceptors.request.use((config) => {
