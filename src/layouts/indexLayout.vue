@@ -13,9 +13,10 @@
             <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID">
               <div class="navbar-nav"></div>
               <div class="navbar-nav">
-                <a class="nav-link fsl mx-2 active" aria-current="page" href="#">Accueil</a>
-                <a class="nav-link fsl mx-2 active" aria-current="page" href="#">Comment ça marche</a>
-                <a class="nav-link fsl mx-2 active" aria-current="page" href="#">Partenaires</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="/index.html">Accueil</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Compagnies</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Comment ça marche</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="#">Partenaires</a>
               </div>
               <div class="navbar-nav">
                 <a class="nav-link mx-2 active btn btn-dark" aria-current="page" href="/search">Reserver une voiture</a>
