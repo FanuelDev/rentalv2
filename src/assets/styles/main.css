@@ -2,12 +2,14 @@
 body {
   font-family: "Poppins", sans-serif;
   background-color: #fff;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 * {
   font-family: "Poppins", sans-serif;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 h1,
@@ -178,6 +180,10 @@ img#img-logo {
   margin-left: 20px;
 }
 
+.bg-blue {
+  background-color: #1E40AF;
+}
+
 .bg-blue-tr {
   background-color: #F1F9FD;
 }
@@ -232,13 +238,36 @@ img#img-logo {
 
 .bg-banner {
   width: 100%;
-  height: 90vh;
-  background-image: url("/src/assets/img/chevrolet_equinox_lt_2023_bleu.jpg");
+  height: 100vh;
+  background-image: url("/src/assets/img/ban4.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50%;
-  border-radius: 20px;
+  background-position: 50% 0%;
+}
+
+.bg-banner3 {
+  width: 100%;
+  background-image: url("/src/assets/img/ban1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 20%;
+}
+
+.card {
+  height: 320px;
+}
+
+.darker {
+  width: 100%;
+  height: 100vh;
   padding: 50px;
+  background-color: rgba(30, 30, 30, 0.6);
+}
+
+.darker3 {
+  width: 100%;
+  padding: 50px;
+  background-color: rgba(30, 30, 30, 0.6);
 }
 
 .topy {
@@ -259,7 +288,7 @@ img#img-logo {
 .banner {
   width: 75vw;
   height: 100vh;
-  background-image: url(/src/assets/img/1.jpg);
+  background-image: url(/src/assets/img/ban5.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -315,7 +344,33 @@ ul li a {
   border-radius: 20px;
 }
 
+.bg-whiter2 {
+  background-color: white;
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .bg-whiter {
   background-color: rgba(255, 255, 255, 0.95);
+}
+
+@media screen and (max-width: 700px) {
+  .darker {
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+    background-color: rgba(30, 30, 30, 0.6);
+  }
+  .darker3 {
+    width: 100%;
+    padding: 5px;
+    background-color: rgba(30, 30, 30, 0.6);
+  }
+  .topy {
+    margin-top: 30px;
+  }
 }
 /*# sourceMappingURL=main.css.map */

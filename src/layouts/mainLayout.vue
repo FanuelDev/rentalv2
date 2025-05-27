@@ -46,67 +46,67 @@
       <router-view />
     </div>
 
-    <footer class="mt-5 bg-light pt-5">
+    <footer class="mt-5 bg-blue text-white pt-5">
       <div class="container">
         <div class="row">
           <div class="col-md-4">
             <a class="navbar-brand" href="#">
               <img src="/src/assets/img/logo.png" alt="" class="img-fluid" id="img-logo1" /></a>
-            <p class="mx-5 my-4 text-decorate">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium deleniti commodi saepe molestias quam! Error ullam ex
-              nostrum cumque accusantium praesentium, quos alias quis autem
-              exercitationem velit, nesciunt laboriosam eum.
+            <p class="mx-5 my-4 text-decorate text-white">
+              Nous sommes une entreprise locale spécialisée
+              dans la location de véhicules depuis 2022.
+              Notre mission : offrir un service fiable,
+              flexible et accessible à tous.
             </p>
             <p class="my-4 mx-5">
-              <a href="" class="a mx-2"><i class="fab fa-facebook"></i></a>
-              <a href="" class="a mx-2"><i class="fab fa-instagram"></i></a>
-              <a href="" class="a mx-2"><i class="fab fa-linkedin"></i></a>
-              <a href="" class="a mx-2"><i class="fab fa-whatsapp"></i></a>
+              <a href="" class="a mx-2 text-white"><i class="fab fa-facebook"></i></a>
+              <a href="" class="a mx-2 text-white"><i class="fab fa-instagram"></i></a>
+              <a href="" class="a mx-2 text-white"><i class="fab fa-linkedin"></i></a>
+              <a href="" class="a mx-2 text-white"><i class="fab fa-whatsapp"></i></a>
             </p>
           </div>
-          <div class="col-md-2 my-4">
-            <h6>Categorie</h6>
+          <div class="col-md-2 col-6 my-4">
+            <h6 class="text-primar">Categorie</h6>
             <ul>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
             </ul>
           </div>
-          <div class="col-md-2 my-4">
-            <h6>Liens utiles</h6>
+          <div class="col-md-2 col-6 my-4">
+            <h6 class="text-primar">Liens utiles</h6>
             <ul>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
             </ul>
           </div>
-          <div class="col-md-2 my-4">
-            <h6>Liens rapides</h6>
+          <div class="col-md-2 col-6 my-4">
+            <h6 class="text-primar">Liens rapides</h6>
             <ul>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
             </ul>
           </div>
-          <div class="col-md-2 my-4">
-            <h6>Help</h6>
+          <div class="col-md-2 col-6 my-4">
+            <h6 class="text-primar">Help</h6>
             <ul>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
-              <li><a href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
             </ul>
           </div>
         </div>
