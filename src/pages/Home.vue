@@ -162,11 +162,11 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4 offset-md-4">
-            <h1 class="text-center text-white" data-aos="fade-up">
+            <h1 class="text-center text-white" data-aos="fade-up" data-aos-duration="1000">
               consultez <br />
               notre marché
             </h1>
-            <p class="text-center text-white" data-aos="fade-up">Lorem ipsum dolor sit amet.</p>
+            <p class="text-center text-white" data-aos="fade-up" data-aos-duration="1000">Lorem ipsum dolor sit amet.</p>
           </div>
         </div>
         <div class="row my-3">
