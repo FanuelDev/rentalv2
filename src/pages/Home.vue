@@ -43,10 +43,10 @@
       </div>
     </div>
     <!-- Vos véhicules filtrés s'affichent ici -->
-    <div class="my-4 row" data-aos="fade-up">
+    <div class="my-4 row" >
       <div v-if="isLoading" class="loading">Chargement...</div>
 
-      <div v-for="vehicle in vehicles" :key="vehicle.id" class="col-md-3 my-3">
+      <div v-for="vehicle in vehicles" :key="vehicle.id" class="col-md-3 my-3" data-aos="fade-up" data-aos-duration="1000">
         <a @click="showModal(vehicle)" class="a">
           <a-badge-ribbon :text="vehicle.gamme" :color="vehicle.gamme === 'Economique' ? 'green' : 'blue'">
             <a-card>
