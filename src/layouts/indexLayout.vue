@@ -79,11 +79,11 @@
         <div class="container topy">
           <div class="row">
             <div class="col-md-10 offset-md-1">
-              <h1 class="text-center py-5 text-white">
+              <h1 class="text-center py-5 text-white" data-aos="fade-up">
                 Profitez de notre large gamme de véhicules pour vos déplacements personnels ou professionnels
                 Réservez en ligne ou contactez-nous dès aujourd’hui !
               </h1>
-              <div class="py-5" id="top">
+              <div class="py-5" id="top" data-aos="fade-up" data-aos-duration="1500">
                 <div class="scroller mt-5">
                   <a href="#top">
                     <button class="btn btn-outline-light">

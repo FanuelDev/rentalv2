@@ -2,14 +2,14 @@
   <section class="container">
     <div class="row">
     <div class="col-md-4 offset-md-4 my-5">
-      <h1 class="text-center">
+      <h1 class="text-center" data-aos="fade-up">
         Rechercher ici quelques voitures à réserver
       </h1>
     </div>
     </div>
     <div class="my-4 row">
       <div class="col-md-8 offset-md-2">
-        <div class="row mb-4">
+        <div class="row mb-4" data-aos="fade-up">
           <div class="col-md-4 my-2">
             <small>Type de véhicule</small>
             <a-select v-model:value="vehicleType" style="width: 100%" @change="fetchVehicles()">
@@ -43,7 +43,7 @@
       </div>
     </div>
     <!-- Vos véhicules filtrés s'affichent ici -->
-    <div class="my-4 row">
+    <div class="my-4 row" data-aos="fade-up">
       <div v-if="isLoading" class="loading">Chargement...</div>
 
       <div v-for="vehicle in vehicles" :key="vehicle.id" class="col-md-3 my-3">
@@ -162,15 +162,15 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4 offset-md-4">
-            <h1 class="text-center text-white">
+            <h1 class="text-center text-white" data-aos="fade-up">
               consultez <br />
               notre marché
             </h1>
-            <p class="text-center text-white">Lorem ipsum dolor sit amet.</p>
+            <p class="text-center text-white" data-aos="fade-up">Lorem ipsum dolor sit amet.</p>
           </div>
         </div>
         <div class="row my-3">
-          <div class="col-md-4 p-lg-5 mb-3">
+          <div class="col-md-4 p-lg-5 mb-3" data-aos="fade-up" data-aos-duration="1000">
             <div class="card p-lg-5 p-2 border-0 bg-blue-tr text-center">
               <div class="my-4 d-flex justify-content-center">
                 <div class="rond">
@@ -184,7 +184,7 @@
               </p>
             </div>
           </div>
-          <div class="col-md-4 p-lg-5 mb-3">
+          <div class="col-md-4 p-lg-5 mb-3" data-aos="fade-up" data-aos-duration="1500">
             <div class="card p-lg-5 p-2 border-0 bg-light-tr text-center">
               <div class="my-4 d-flex justify-content-center">
                 <div class="rond">
@@ -199,7 +199,7 @@
               </p>
             </div>
           </div>
-          <div class="col-md-4 p-lg-5 mb-3">
+          <div class="col-md-4 p-lg-5 mb-3" data-aos="fade-up" data-aos-duration="2000">
             <div class="card p-lg-5 p-2 border-0 bg-orange-tr text-center">
               <div class="my-4 d-flex justify-content-center">
                 <div class="rond">
@@ -223,12 +223,12 @@
     <div class="container">
       <div class="row align-items-end">
         <div class="col-md-6 p-5">
-          <h1 class="text-left">
+          <h1 class="text-left"  data-aos="fade-up" data-aos-duration="1000">
             vos vehicules prêt pour <br />
             la reservation
           </h1>
         </div>
-        <div class="col-md-6 p-5">
+        <div class="col-md-6 p-5"  data-aos="fade-up" data-aos-duration="1000">
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, nam!
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
@@ -237,7 +237,7 @@
         </div>
       </div>
       <div class="row my-4">
-        <div class="col-md-12 d-lg-flex justify-content-center">
+        <div class="col-md-12 d-lg-flex justify-content-center"  data-aos="fade-up" data-aos-duration="1000">
           <button class="btn btn-outline-primary m-2">Citadines</button>
           <button class="btn btn-outline-primary m-2">Berlines</button>
           <button class="btn btn-outline-primary m-2">SUV & 4x4</button>
@@ -249,25 +249,25 @@
         </div>
       </div>
       <div class="row my-5">
-        <div class="col-md-4 my-2">
+        <div class="col-md-4 my-2" data-aos="fade-up" data-aos-duration="1000">
           <img src="/src/assets/img/ban1.jpg" class="img-fluid img-voiture" alt="" />
         </div>
-        <div class="col-md-4 my-2">
+        <div class="col-md-4 my-2" data-aos="fade-up" data-aos-duration="1000">
           <img src="/src/assets/img/ban2.jpg" class="img-fluid img-voiture" alt="" />
         </div>
-        <div class="col-md-4 my-2">
+        <div class="col-md-4 my-2" data-aos="fade-up" data-aos-duration="1000">
           <img src="/src/assets/img/ban3.jpg" class="img-fluid img-voiture" alt="" />
         </div>
-        <div class="col-md-3 my-2">
+        <div class="col-md-3 my-2" data-aos="fade-up" data-aos-duration="1000">
           <img src="/src/assets/img/ban4.jpg" class="img-fluid img-voiture1" alt="" />
         </div>
-        <div class="col-md-3 my-2">
+        <div class="col-md-3 my-2" data-aos="fade-up" data-aos-duration="1000">
           <img src="/src/assets/img/ban5.jpg" class="img-fluid img-voiture1" alt="" />
         </div>
-        <div class="col-md-3 my-2">
+        <div class="col-md-3 my-2" data-aos="fade-up" data-aos-duration="1000">
           <img src="/src/assets/img/ban6.jpg" class="img-fluid img-voiture1" alt="" />
         </div>
-        <div class="col-md-3 my-2">
+        <div class="col-md-3 my-2" data-aos="fade-up" data-aos-duration="1000">
           <img src="/src/assets/img/ban7.jpg" class="img-fluid img-voiture1" alt="" />
         </div>
       </div>
@@ -282,8 +282,8 @@
   <section class="container top">
     <div class="row">
       <div class="col-md-4 offset-md-4">
-        <h1 class="text-center">Partenaires</h1>
-        <p class="text-center">
+        <h1 class="text-center" data-aos="fade-up" data-aos-duration="1000">Partenaires</h1>
+        <p class="text-center" data-aos="fade-up" data-aos-duration="1000">
           Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet <br />
           consectetur adipisicing.
         </p>
@@ -291,7 +291,7 @@
     </div>
 
     <div class="row my-5">
-      <div class="col-md-3">
+      <div class="col-md-3" data-aos="fade-up" data-aos-duration="1000">
         <img src="/src/assets/img/5.jpg" class="img-fluid img-article" alt="" />
         <div class="m-3">
           <p>lorem</p>
@@ -299,7 +299,7 @@
           <small>Mars 12, 2025</small>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" data-aos="fade-up" data-aos-duration="1000">
         <img src="/src/assets/img/6.jpg" class="img-fluid img-article" alt="" />
         <div class="m-3">
           <p>lorem</p>
@@ -307,7 +307,7 @@
           <small>Mars 12, 2025</small>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" data-aos="fade-up" data-aos-duration="1000">
         <img src="/src/assets/img/2.jpg" class="img-fluid img-article" alt="" />
         <div class="m-3">
           <p>lorem</p>
@@ -315,7 +315,7 @@
           <small>Mars 12, 2025</small>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" data-aos="fade-up" data-aos-duration="1000">
         <img src="/src/assets/img/4.jpg" class="img-fluid img-article" alt="" />
         <div class="m-3">
           <p>lorem</p>
@@ -324,7 +324,7 @@
         </div>
       </div>
 
-      <div class="text-center my-5">
+      <div class="text-center my-5" data-aos="fade-up" data-aos-duration="1000">
         <button class="btn btn-outline-primary mx-2">
           Voir plus <i class="fa fa-arrow-right"></i>
         </button>
@@ -335,7 +335,7 @@
   <section class="top"></section>
 
   <section class="top">
-    <div class="container bg-banner2">
+    <div class="container bg-banner2" data-aos="fade-up" data-aos-duration="1000">
       <div class="row align-items-center">
         <div class="col-md-5"></div>
         <div class="col-md-6 text-center my-4">
