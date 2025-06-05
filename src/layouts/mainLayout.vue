@@ -11,10 +11,10 @@
         <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID">
           <div class="navbar-nav"></div>
           <div class="navbar-nav">
-            <a class="nav-link mx-2 active" aria-current="page" href="/index.html">Accueil</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#">Compagnies</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#">Comment ça marche</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#">Partenaires</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="/#accueil">Accueil</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="/#voiture">Mes voitures</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="/#usage">Comment ça marche</a>
+            <!-- <a class="nav-link mx-2 active" aria-current="page" href="#partner">Partenaires</a> -->
           </div>
           <div class="navbar-nav">
             <!-- <a
@@ -49,7 +49,7 @@
     <footer class="mt-5 bg-blue text-white pt-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <a class="navbar-brand" href="#">
               <img src="/src/assets/img/logo.png" alt="" class="img-fluid" id="img-logo1" /></a>
             <p class="mx-5 my-4 text-decorate text-white">
@@ -68,45 +68,27 @@
           <div class="col-md-2 col-6 my-4">
             <h6 class="text-primar">Categorie</h6>
             <ul>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="">4X4</a></li>
+              <li><a class="text-light" href="">Voitures de luxe</a></li>
+              <li><a class="text-light" href="">Mini Bus</a></li>
+              <li><a class="text-light" href="">Citadines</a></li>
+              <li><a class="text-light" href="">Berlines</a></li>
             </ul>
           </div>
           <div class="col-md-2 col-6 my-4">
             <h6 class="text-primar">Liens utiles</h6>
             <ul>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-            </ul>
-          </div>
-          <div class="col-md-2 col-6 my-4">
-            <h6 class="text-primar">Liens rapides</h6>
-            <ul>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="#accueil">Accueil</a></li>
+              <li><a class="text-light" href="#voiture">Mes voiture</a></li>
+              <li><a class="text-light" href="#usage">Comment ça marche</a></li>
+              <li><a class="text-light" href="#partner">Partenaires</a></li>
             </ul>
           </div>
           <div class="col-md-2 col-6 my-4">
             <h6 class="text-primar">Help</h6>
             <ul>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
-              <li><a class="text-light" href="">Lorem, ipsum.</a></li>
+              <li><a class="text-light" href="/auth/register">Creer un compte</a></li>
+              <li><a class="text-light" href="/auth/login">Se connecter</a></li>
             </ul>
           </div>
         </div>

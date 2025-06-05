@@ -14,7 +14,7 @@
             <a class="nav-link mx-2 active" aria-current="page" href="#accueil">Accueil</a>
             <a class="nav-link mx-2 active" aria-current="page" href="#voiture">Mes voitures</a>
             <a class="nav-link mx-2 active" aria-current="page" href="#usage">Comment ça marche</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#partner">Partenaires</a>
+            <!-- <a class="nav-link mx-2 active" aria-current="page" href="#partner">Partenaires</a> -->
           </div>
           <div class="navbar-nav">
             <a class="nav-link mx-2 active btn btn-dark" aria-current="page" href="/search">Reserver une voiture</a>
@@ -52,7 +52,7 @@
             <a class="nav-link mx-2 active" aria-current="page" href="#accueil">Accueil</a>
             <a class="nav-link mx-2 active" aria-current="page" href="#voiture">Mes voitures</a>
             <a class="nav-link mx-2 active" aria-current="page" href="#usage">Comment ça marche</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#partner">Partenaires</a>
+            <!-- <a class="nav-link mx-2 active" aria-current="page" href="#partner">Partenaires</a> -->
               </div>
               <div class="navbar-nav">
                 <a class="nav-link mx-2 active btn btn-dark" aria-current="page" href="/search">Reserver une voiture</a>
