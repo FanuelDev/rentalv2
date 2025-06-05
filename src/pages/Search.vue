@@ -66,7 +66,7 @@
       </div>
       <div class="col-md-8 py-4">
         <div class="d-flex justify-content-between align-items-center">
-          <h4>24 voitures trouvées</h4>
+          <h4>{{ cars.length  }} voitures trouvées</h4>
           <h6 class="text-primar">Voir tout</h6>
         </div>
         <div class="my-4 row">
