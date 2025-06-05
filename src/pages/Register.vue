@@ -126,12 +126,12 @@ const validateAccount = async () => {
     formData.append('confirm', formState.confirm);
 
     // Ajoute fichiers
-    if (fileListId.value.length > 0) {
-      formData.append('piece_justificative', fileListId.value[0].originFileObj);
-    }
-    if (fileListAddress.value.length > 0) {
-      formData.append('preuve_adresse', fileListAddress.value[0].originFileObj);
-    }
+    // if (fileListId.value.length > 0) {
+    //   formData.append('piece_justificative', fileListId.value[0].originFileObj);
+    // }
+    // if (fileListAddress.value.length > 0) {
+    //   formData.append('preuve_adresse', fileListAddress.value[0].originFileObj);
+    // }
 
     // Appelle ton service
     await apiService.register(formData);
