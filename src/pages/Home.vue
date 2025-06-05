@@ -10,12 +10,12 @@
     <div class="my-4 row">
       <div class="col-md-8 offset-md-2">
         <div class="row mb-4" data-aos="fade-up">
-          <div class="col-md-4 my-2">
+          <div class="col-md-6 my-2">
             <small>Periode de reservation</small>
 
             <a-range-picker v-model:value="disponibility" style="width: 100%" @change="fetchVehicles()" />
           </div>
-          <div class="col-md-2 my-2">
+          <div class="col-md-6 my-2">
             <small>Type de véhicule</small>
             <a-select v-model:value="vehicleType" style="width: 100%" @change="fetchVehicles()">
               <a-select-option value="Citadine">Citadines</a-select-option>
@@ -28,7 +28,7 @@
               <a-select-option value="Utilitaire">Utilitaires</a-select-option>
             </a-select>
           </div>
-          <div class="col-md-3 my-2">
+          <!-- <div class="col-md-3 my-2">
             <small>Budget & Gamme</small>
             <a-select v-model:value="budgetRange" style="width: 100%" @change="fetchVehicles()">
               <a-select-option value="Économique">Économique</a-select-option>
@@ -43,7 +43,7 @@
               <a-select-option value="Hybride">Hybride</a-select-option>
               <a-select-option value="Électrique">Électrique</a-select-option>
             </a-select>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
