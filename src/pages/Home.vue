@@ -1,16 +1,21 @@
 <template>
   <section class="container">
     <div class="row">
-    <div class="col-md-4 offset-md-4 my-5">
-      <h1 class="text-center" data-aos="fade-up">
-        Rechercher ici quelques voitures à réserver
-      </h1>
-    </div>
+      <div class="col-md-4 offset-md-4 my-5" id="voiture">
+        <h1 class="text-center" data-aos="fade-up">
+          Rechercher ici quelques voitures à réserver
+        </h1>
+      </div>
     </div>
     <div class="my-4 row">
       <div class="col-md-8 offset-md-2">
         <div class="row mb-4" data-aos="fade-up">
           <div class="col-md-4 my-2">
+            <small>Periode de reservation</small>
+
+            <a-range-picker v-model:value="disponibility" style="width: 100%" @change="fetchVehicles()" />
+          </div>
+          <div class="col-md-2 my-2">
             <small>Type de véhicule</small>
             <a-select v-model:value="vehicleType" style="width: 100%" @change="fetchVehicles()">
               <a-select-option value="Citadine">Citadines</a-select-option>
@@ -23,7 +28,7 @@
               <a-select-option value="Utilitaire">Utilitaires</a-select-option>
             </a-select>
           </div>
-          <div class="col-md-4 my-2">
+          <div class="col-md-3 my-2">
             <small>Budget & Gamme</small>
             <a-select v-model:value="budgetRange" style="width: 100%" @change="fetchVehicles()">
               <a-select-option value="Économique">Économique</a-select-option>
@@ -31,7 +36,7 @@
               <a-select-option value="Haut de gamme">Haut de gamme</a-select-option>
             </a-select>
           </div>
-          <div class="col-md-4 my-2">
+          <div class="col-md-3 my-2">
             <small>Type d’Énergie</small>
             <a-select v-model:value="energyType" style="width: 100%" @change="fetchVehicles()">
               <a-select-option value="Thermique (Essence/Diesel)">Thermique (Essence/Diesel)</a-select-option>
@@ -43,10 +48,11 @@
       </div>
     </div>
     <!-- Vos véhicules filtrés s'affichent ici -->
-    <div class="my-4 row" >
+    <div class="my-4 row">
       <div v-if="isLoading" class="loading">Chargement...</div>
 
-      <div v-for="vehicle in vehicles" :key="vehicle.id" class="col-md-3 my-3" data-aos="fade-up" data-aos-duration="1000">
+      <div v-for="vehicle in vehicles" :key="vehicle.id" class="col-md-3 my-3" data-aos="fade-up"
+        data-aos-duration="1000">
         <a @click="showModal(vehicle)" class="a">
           <a-badge-ribbon :text="vehicle.gamme" :color="vehicle.gamme === 'Economique' ? 'green' : 'blue'">
             <a-card>
@@ -156,7 +162,7 @@
   </a-modal>
 
 
-  <section class="top bg-banner3">
+  <section class="top bg-banner3" id="usage">
     <div class="darker3">
 
       <div class="container">
@@ -166,7 +172,8 @@
               consultez <br />
               notre marché
             </h1>
-            <p class="text-center text-white" data-aos="fade-up" data-aos-duration="1000">Lorem ipsum dolor sit amet.</p>
+            <p class="text-center text-white" data-aos="fade-up" data-aos-duration="1000">Lorem ipsum dolor sit amet.
+            </p>
           </div>
         </div>
         <div class="row my-3">
@@ -179,8 +186,8 @@
               </div>
               <h6>Créez votre compte</h6>
               <p>
-                Inscrivez-vous en quelques clics avec votre numéro de téléphone et votre adresse e-mail.
-                Une fois connecté, vous accédez à toutes nos offres.
+                Inscrivez-vous en quelques clics avec votre numéro de téléphone et votre adresse e-mail. Une fois
+                connecté, vous accédez à toutes nos offres.
               </p>
             </div>
           </div>
@@ -193,9 +200,8 @@
               </div>
               <h6>Recherchez votre voiture</h6>
               <p>
-                Indiquez votre lieu de prise en charge,
-                les dates de location et filtrez selon vos besoins.
-                Vous verrez instantanément les véhicules disponibles
+                Indiquez le type de véhicule , les dates de location et filtrez selon vos besoins. Vous verrez
+                instantanément les véhicules disponibles
               </p>
             </div>
           </div>
@@ -208,9 +214,7 @@
               </div>
               <h6>Réservez en ligne</h6>
               <p>
-                Choisissez le véhicule qui vous convient,
-                ajoutez les options souhaitées,
-                puis validez la réservation.
+                Choisissez le véhicule qui vous convient, ajoutez les options souhaitées, puis validez la réservation.
               </p>
             </div>
           </div>
@@ -223,21 +227,19 @@
     <div class="container">
       <div class="row align-items-end">
         <div class="col-md-6 p-5">
-          <h1 class="text-left"  data-aos="fade-up" data-aos-duration="1000">
-            vos vehicules prêt pour <br />
-            la reservation
+          <h1 class="text-left" data-aos="fade-up" data-aos-duration="1000">
+            Vos véhicules prêts pour <br> la réservation
+
           </h1>
         </div>
-        <div class="col-md-6 p-5"  data-aos="fade-up" data-aos-duration="1000">
+        <div class="col-md-6 p-5" data-aos="fade-up" data-aos-duration="1000">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, nam!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
-            molestiae.
+            Du citadin économique au SUV tout confort, découvrez le véhicule qui s’adapte à chacun de vos besoins
           </p>
         </div>
       </div>
       <div class="row my-4">
-        <div class="col-md-12 d-lg-flex justify-content-center"  data-aos="fade-up" data-aos-duration="1000">
+        <div class="col-md-12 d-lg-flex justify-content-center" data-aos="fade-up" data-aos-duration="1000">
           <button class="btn btn-outline-primary m-2">Citadines</button>
           <button class="btn btn-outline-primary m-2">Berlines</button>
           <button class="btn btn-outline-primary m-2">SUV & 4x4</button>
@@ -279,7 +281,7 @@
     </div>
   </section>
 
-  <section class="container top">
+  <!-- <section class="container top" id="partner">
     <div class="row">
       <div class="col-md-4 offset-md-4">
         <h1 class="text-center" data-aos="fade-up" data-aos-duration="1000">Partenaires</h1>
@@ -330,7 +332,7 @@
         </button>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <section class="top"></section>
 
@@ -341,9 +343,9 @@
         <div class="col-md-6 text-center my-4">
           <h2 class="text-white">Louez une voiture en toute simplicité !.</h2>
           <p class="text-white">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-            saepe blanditiis dolor animi vitae ullam? Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Quas, delectus.
+            Profitez d’un large choix de véhicules adaptés à tous vos besoins. Que ce soit pour un week-end, un
+            déplacement professionnel ou des vacances, réservez rapidement et partez l’esprit tranquille. Confort,
+            sécurité et flexibilité sont au rendez-vous !
           </p>
           <div class="my-4">
             <button class="btn btn-primary px-4">
@@ -362,6 +364,11 @@ import apiServices from '../services/apiService'; // Adjust the import path if n
 
 // const apiUrl = import.meta.env.VITE_FRONT_URL
 
+import type { Dayjs } from 'dayjs';
+type RangeValue = [Dayjs, Dayjs];
+
+const disponibility = ref<RangeValue>();
+
 const vehicles = ref<any[]>([]);
 const vehiculeChoise = ref<any>()
 const isLoading = ref(true);
@@ -374,6 +381,7 @@ const energyType = ref();
 const fetchVehicles = async () => {
   try {
     const filters = {
+      disponibility: disponibility,
       type_vehicule: [vehicleType.value], // Example filter, you can update as needed
       gamme: [budgetRange.value],
       energie: [energyType.value]

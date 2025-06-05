@@ -42,7 +42,7 @@
         </a-form-item>
 
         <a-upload-dragger v-model:fileList="fileListId" name="piece_identite" :multiple="false" class="my-4"
-          :customRequest="() => { }" @change="handleChangeId" @drop="handleDrop">
+          @change="handleChangeId" @drop="handleDrop">
           <p class="ant-upload-drag-icon">
             <inbox-outlined />
           </p>
@@ -51,7 +51,7 @@
         </a-upload-dragger>
 
         <a-upload-dragger v-model:fileList="fileListAddress" name="justificatif_domicile" :multiple="false" class="my-4"
-          :customRequest="() => { }" @change="handleChangeAddress" @drop="handleDrop">
+          @change="handleChangeAddress" @drop="handleDrop">
           <p class="ant-upload-drag-icon">
             <inbox-outlined />
           </p>
