@@ -101,7 +101,14 @@ const formState = reactive<FormState>({
 });
 
 const nexStep = () => {
+  if (formState.password.length > 6) {
   step.value = 2;
+  } else {
+    notification.warning({
+      message: 'Warning',
+      description: 'Mot de passe incorrect, trop petit!',
+    });
+  }
 }
 
 const handleDrop = (e: DragEvent) => {
@@ -126,12 +133,12 @@ const validateAccount = async () => {
     formData.append('confirm', formState.confirm);
 
     // Ajoute fichiers
-    // if (fileListId.value.length > 0) {
-    //   formData.append('piece_justificative', fileListId.value[0].originFileObj);
-    // }
-    // if (fileListAddress.value.length > 0) {
-    //   formData.append('preuve_adresse', fileListAddress.value[0].originFileObj);
-    // }
+    if (fileListId.value.length > 0) {
+      formData.append('piece_justificative', fileListId.value[0].originFileObj);
+    }
+    if (fileListAddress.value.length > 0) {
+      formData.append('preuve_adresse', fileListAddress.value[0].originFileObj);
+    }
 
     // Appelle ton service
     await apiService.register(formData);
