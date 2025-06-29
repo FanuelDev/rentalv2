@@ -45,38 +45,30 @@ img#img-logo {
   padding-right: 25px !important;
   border-radius: 50px;
   font-weight: bold;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-
 .btn.btn-dark:hover {
   background-color: #1E1E1E !important;
   border: 1px solid #1E1E1E !important;
   color: #fff !important;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-
 .btn.btn-primary {
   background-color: #D97706 !important;
   border: 1px solid #D97706 !important;
   color: #fff !important;
   border-radius: 50px;
   font-weight: bold;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-
 .btn.btn-primary:hover {
   background-color: #D97706 !important;
   border: 1px solid #D97706 !important;
   color: #fff !important;
   border-radius: 50px;
   font-weight: bold;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-
 .btn.btn-outline-primary {
   border: 1px solid #D97706 !important;
   background-color: transparent;
@@ -86,21 +78,18 @@ img#img-logo {
   border-radius: 50px;
   font-weight: bold;
 }
-
 .btn.btn-outline-primary:hover {
   background-color: #D97706 !important;
   border: 1px solid #D97706 !important;
   color: #fff !important;
   font-weight: bold;
 }
-
 .btn.btn-outline-primary.active {
   background-color: #D97706 !important;
   border: 1px solid #D97706 !important;
   color: #fff !important;
   font-weight: bold;
 }
-
 .btn.btn-outline-primar {
   border: 1px solid #1E40AF !important;
   background-color: transparent;
@@ -110,16 +99,14 @@ img#img-logo {
   border-radius: 50px;
   font-weight: bold;
 }
-
 .btn.btn-outline-primar:hover {
   background-color: #1E40AF !important;
   border: 1px solid #1E40AF !important;
   color: #fff !important;
   font-weight: bold;
 }
-
 .btn.btn-outline-light {
-  border: 1px solid #fff  !important;
+  border: 1px solid #fff !important;
   background-color: transparent;
   color: #fff !important;
   padding-top: 15px !important;
@@ -127,7 +114,6 @@ img#img-logo {
   border-radius: 50px;
   font-weight: bold;
 }
-
 .btn.btn-outline-light:hover {
   background-color: #D97706 !important;
   border: 1px solid #D97706 !important;
@@ -138,7 +124,6 @@ img#img-logo {
 .fsl {
   font-size: 16px !important;
 }
-
 .fsl:hover {
   color: #D97706;
 }
@@ -152,27 +137,15 @@ img#img-logo {
   width: 100%;
   border: 1px solid #F5F5F5;
   border-radius: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .scroller {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
 }
 
@@ -243,32 +216,7 @@ img#img-logo {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 0%;
-  -webkit-animation: slide 30s infinite;
-          animation: slide 30s infinite;
-}
-
-@-webkit-keyframes slide {
-  0% {
-    background-image: url("/src/assets/img/ban4.jpg");
-  }
-  30% {
-    background-image: url("/src/assets/img/ban4.jpg");
-  }
-  33% {
-    background-image: url("/src/assets/img/ban3.jpg");
-  }
-  63% {
-    background-image: url("/src/assets/img/ban3.jpg");
-  }
-  66% {
-    background-image: url("/src/assets/img/ban8.jpg");
-  }
-  97% {
-    background-image: url("/src/assets/img/ban8.jpg");
-  }
-  100% {
-    background-image: url("/src/assets/img/ban4.jpg");
-  }
+  animation: slide 30s infinite;
 }
 
 @keyframes slide {
@@ -294,7 +242,6 @@ img#img-logo {
     background-image: url("/src/assets/img/ban4.jpg");
   }
 }
-
 .bg-banner3 {
   width: 100%;
   background-image: url("/src/assets/img/ban1.jpg");
@@ -344,6 +291,15 @@ img#img-logo {
   background-position: 50%;
 }
 
+.banner-admin {
+  width: 75vw;
+  height: 100vh;
+  background-image: url(/src/assets/img/ban3.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
 .text-decorate {
   color: #575757;
 }
@@ -352,7 +308,6 @@ img#img-logo {
   text-decoration: none;
   color: #575757;
 }
-
 .a:hover {
   color: #D97706;
 }
@@ -360,14 +315,12 @@ img#img-logo {
 ul {
   margin-top: 15px;
 }
-
 ul li {
   margin-top: 10px;
   margin-left: -15px;
   text-decoration: none;
   list-style-type: none;
 }
-
 ul li a {
   text-decoration: none;
   color: #575757;
@@ -422,5 +375,4 @@ ul li a {
   .topy {
     margin-top: 30px;
   }
-}
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

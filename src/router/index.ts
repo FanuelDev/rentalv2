@@ -7,6 +7,13 @@ import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
 import AuthLayout from '../layouts/authLayout.vue';
 import IndexLayout from '../layouts/indexLayout.vue';
+import Auth from '../pages/admin/auth.vue';
+import AdminAuthLayout from '../layouts/adminAuthLayout.vue';
+import Dashboard from '../pages/admin/dashboard.vue';
+import AdminDashLayout from '../layouts/adminDashLayout.vue';
+import Account from '../pages/admin/account.vue';
+import Cars from '../pages/admin/cars.vue';
+import Reservation from '../pages/admin/reservation.vue';
 
 const routes = [
     {
@@ -30,6 +37,23 @@ const routes = [
         children: [
             { path: 'login', component: Login },
             { path: 'register', component: Register },
+        ],
+    },
+    {
+        path: '/admin',
+        component: AdminDashLayout,
+        children: [
+            { path: 'dashboard', component: Dashboard },
+            { path: 'account', component: Account },
+            { path: 'cars', component: Cars },
+            { path: 'reservation', component: Reservation },
+        ],
+    },
+    {
+        path: '/admin/auth',
+        component: AdminAuthLayout,
+        children: [
+            { path: 'login', component: Auth },
         ],
     },
 ];

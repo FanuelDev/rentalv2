@@ -1,15 +1,15 @@
 <template>
   <section class="container">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-4 offset-md-4 my-5" id="voiture">
         <h1 class="text-center" data-aos="fade-up">
           Rechercher ici quelques voitures à réserver
         </h1>
       </div>
-    </div>
+    </div> -->
     <div class="my-4 row">
       <div class="col-md-8 offset-md-2">
-        <div class="row mb-4" data-aos="fade-up">
+        <div class="row mb-4" data-aos="fade-up" id="voiture">
           <div class="col-md-6 my-2">
             <small>Periode de reservation</small>
 
