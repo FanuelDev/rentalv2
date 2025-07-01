@@ -31,7 +31,6 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { message } from 'ant-design-vue'
 import apiService from "../../services/apiService";
 
 interface Vehicle {
