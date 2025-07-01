@@ -4,7 +4,7 @@
     <div class="row g-4">
       <div class="col-md-4" v-for="vehicle in vehicles" :key="vehicle.id">
         <a-badge-ribbon :text="vehicle.gamme" :color="vehicle.gamme === 'Economique' ? 'green' : 'blue'">
-          <a-card class="shadow rounded">
+          <a-card class="shadow rounded" style="height: 400px">
             <div class="mb-2">
               <a-tag :color="vehicle.statut === 'Disponible' ? 'green' : 'red'">{{ vehicle.statut }}</a-tag>
               <a-tag color="blue">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
@@ -32,6 +32,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
+import apiService from "../../services/apiService";
 
 interface Vehicle {
   id: number
@@ -48,13 +49,15 @@ interface Vehicle {
 const vehicles = ref<Vehicle[]>([])
 
 onMounted(async () => {
-  try {
-    const res = await fetch('/api/dashboard/vehicles')
-    vehicles.value = await res.json()
-  } catch (error) {
-    message.error("Erreur lors du chargement des véhicules")
-  }
+  getCarList()
 })
+
+const getCarList = () => {
+  apiService.adminGetCar().then(res => {
+    console.log(res)
+    vehicles.value = res.data
+  })
+}
 </script>
 
 <style scoped>

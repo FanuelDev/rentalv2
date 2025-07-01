@@ -50,27 +50,21 @@ const formState = reactive<FormState>({
   remember: true,
 });
 const onFinish = async (values: FormState) => {
+  apiService.adminLogin(values.email, values.password).then(res => {
+    console.log(res.data)
+    localStorage.setItem('dataLog', JSON.stringify(res.data))
     notification.success({
       message: "Connexion réussie",
       description: "Bienvenue ! Vous êtes connecté.",
     });
 
     router.push('/admin/dashboard');
-    //   apiService.login(values.email, values.password).then(res => {
-    //     console.log(res.data)
-    //     localStorage.setItem('dataLog', JSON.stringify(res.data))
-    //     notification.success({
-    //       message: "Connexion réussie",
-    //       description: "Bienvenue ! Vous êtes connecté.",
-    //     });
-
-    //     router.push('/admin/dashboard');
-    //   }).catch(error => {
-    //     notification.error({
-    //       message: "Erreur de connexion",
-    //       description: error.response?.data?.message || "Erreur inconnue",
-    //     });
-    //   });
+  }).catch(error => {
+    notification.error({
+      message: "Erreur de connexion",
+      description: error.response?.data?.message || "Erreur inconnue",
+    });
+  });
 };
 
 const onFinishFailed = (errorInfo: any) => {

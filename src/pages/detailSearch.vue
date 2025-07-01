@@ -178,12 +178,10 @@ const reserve = () => {
       console.log(body)
       apiService.reserve(body).then(res => {
         console.log(res)
-        if (res.data) {
           notification.success({
             message: "Réservation effectuée",
             description: "Votre réservation a été enregistrée avec succès.",
           });
-        }
       })
     } else {
       notification.warning({

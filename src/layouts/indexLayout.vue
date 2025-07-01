@@ -22,7 +22,7 @@
               connecter</a>
             <a-dropdown>
               <a class="nav-link mx-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
-                {{ dataLog.info.name }} </a>
+                {{ dataLog.info.nom }} </a>
               <template #overlay>
                 <a-menu @click="handleMenuClick">
                   <a-menu-item key="1">
@@ -61,7 +61,7 @@
                   connecter</a>
                 <a-dropdown>
                   <a class="nav-link mx-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
-                    {{ dataLog.info.name }} </a>
+                    {{ dataLog.info.nom }} </a>
                   <template #overlay>
                     <a-menu @click="handleMenuClick">
                       <a-menu-item key="1">

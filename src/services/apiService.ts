@@ -22,6 +22,14 @@ export default {
     return res;
   },
 
+  
+  async adminLogin(email: string, password: string) {
+    const res = await api.post("/admin/login", { email, password });
+    // const authStore = useAuthStore();
+    // authStore.setUser(res.data.info, res.data.token);
+    return res;
+  },
+
   async register(payload: any) {
     const res = await api.post("/auth/register", payload);
     const authStore = useAuthStore();
@@ -71,5 +79,27 @@ export default {
 
   async getMyReservations() {
     return await api.get("/reservations/mine");
+  },
+
+  
+  async adminGetAccount() {
+    return await api.get("/admin/accounts");
+  },
+
+  async adminGetReservation() {
+    return await api.get("/admin/reservations");
+  },
+
+  
+  async adminValidReservation(id: number) {
+    return await api.post(`/admin/reservations/${id}/validate`, {});
+  },
+  
+  async adminGetCar() {
+    return await api.get("/admin/vehicles");
+  },
+
+  async adminStat() {
+    return await api.get("/admin/stats");
   },
 };

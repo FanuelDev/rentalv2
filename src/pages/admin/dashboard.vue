@@ -9,7 +9,8 @@
 
     <div class="col-12">
       <a-card title="📝 5 dernières réservations" class="shadow rounded">
-        <a-table :columns="columns" :data-source="latestReservations" row-key="id" size="small" :pagination="true" />
+        <a-table :columns="reservationColumns" :data-source="reservations" row-key="id" size="middle">
+    </a-table>
       </a-card>
     </div>
   </div>
@@ -17,7 +18,8 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
-import { message } from 'ant-design-vue'
+import apiService from "../../services/apiService";
+
 
 interface Reservation {
   id: number
@@ -33,14 +35,27 @@ const stats = ref({
   available: 0,
 })
 
-const latestReservations = ref<Reservation[]>([])
+interface Reservation {
+  id: number
+  client: string
+  voiture: string
+  dateReservation: string
+  statut: string
+}
 
-const columns = [
+const reservations = ref<Reservation[]>([])
+
+const reservationColumns = [
+  { title: 'Date de réservation', dataIndex: 'dateReservation', key: 'dateReservation' },
   { title: 'Client', dataIndex: 'client', key: 'client' },
   { title: 'Voiture', dataIndex: 'voiture', key: 'voiture' },
-  { title: 'Date', dataIndex: 'date', key: 'date' },
-  { title: 'Actions', dataIndex: 'actions', key: 'actions' },
+  { title: 'Date de debut', dataIndex: 'dateDebut', key: 'dateDebut' },
+  { title: 'Date de fin', dataIndex: 'dateFin', key: 'dateFin' },
+  { title: 'Montant (XOF)', dataIndex: 'montant', key: 'montant' },
+  { title: 'Statut', dataIndex: 'statut', key: 'statut' },
+  // { title: 'Actions', key: 'actions' },
 ]
+
 
 const statCards = computed(() => [
   { label: 'Comptes créés', value: stats.value.accounts },
@@ -50,16 +65,24 @@ const statCards = computed(() => [
 ])
 
 onMounted(async () => {
-  try {
-    const resStats = await fetch('/api/dashboard/stats')
-    stats.value = await resStats.json()
-
-    const resLatest = await fetch('/api/dashboard/latest-reservations')
-    latestReservations.value = await resLatest.json()
-  } catch (error) {
-    message.error("Erreur lors du chargement des données du dashboard")
-  }
+  getStatistique()
+  loadReservations()
 })
+
+const getStatistique = () => {
+  apiService.adminStat().then(res => {
+    console.log(res)
+    stats.value = res.data
+  })
+}
+
+
+const loadReservations = async () => {
+  apiService.adminGetReservation().then(res => {
+    console.log(res)
+    reservations.value = res.data
+  })
+}
 </script>
 
 <style scoped>

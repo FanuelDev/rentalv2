@@ -19,8 +19,10 @@
 </template>
 
 <script lang="ts" setup>
+import { notification } from "ant-design-vue";
 import { ref, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
+import apiService from "../../services/apiService";
 
 interface Reservation {
   id: number
@@ -33,33 +35,32 @@ interface Reservation {
 const reservations = ref<Reservation[]>([])
 
 const reservationColumns = [
+  { title: 'Date de réservation', dataIndex: 'dateReservation', key: 'dateReservation' },
   { title: 'Client', dataIndex: 'client', key: 'client' },
   { title: 'Voiture', dataIndex: 'voiture', key: 'voiture' },
-  { title: 'Date de réservation', dataIndex: 'dateReservation', key: 'dateReservation' },
+  { title: 'Date de debut', dataIndex: 'dateDebut', key: 'dateDebut' },
+  { title: 'Date de fin', dataIndex: 'dateFin', key: 'dateFin' },
+  { title: 'Montant (XOF)', dataIndex: 'montant', key: 'montant' },
   { title: 'Statut', dataIndex: 'statut', key: 'statut' },
   { title: 'Actions', key: 'actions' },
 ]
 
 const validateReservation = async (id: number) => {
-  try {
-    const response = await fetch(`/api/dashboard/reservations/${id}/validate`, {
-      method: 'POST',
-    })
-    if (!response.ok) throw new Error()
-    message.success("Réservation validée avec succès")
-    await loadReservations()
-  } catch (err) {
-    message.error("Erreur lors de la validation de la réservation")
-  }
+  apiService.adminValidReservation(id).then(res => {
+    console.log(res)
+    notification.success({
+      message: "Reservation validée",
+      description: "Votre reservation est validée avec success.",
+    });
+    loadReservations()
+  })
 }
 
 const loadReservations = async () => {
-  try {
-    const res = await fetch('/api/dashboard/reservations')
-    reservations.value = await res.json()
-  } catch (error) {
-    message.error("Erreur lors du chargement des réservations")
-  }
+  apiService.adminGetReservation().then(res => {
+    console.log(res)
+    reservations.value = res.data
+  })
 }
 
 onMounted(() => {
