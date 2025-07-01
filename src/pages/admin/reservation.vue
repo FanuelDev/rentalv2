@@ -21,7 +21,6 @@
 <script lang="ts" setup>
 import { notification } from "ant-design-vue";
 import { ref, onMounted } from 'vue'
-import { message } from 'ant-design-vue'
 import apiService from "../../services/apiService";
 
 interface Reservation {
