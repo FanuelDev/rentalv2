@@ -42,7 +42,8 @@
         </a-form-item>
 
         <a-upload-dragger v-model:fileList="fileListId" :multiple="false" :beforeUpload="beforeUpload"
-          :showUploadList="true" class="my-4" name="piece_identite" @change="handleChangeId" @drop="handleDrop">
+          :customRequest="handleCustomUpload" :showUploadList="true" class="my-4" name="piece_identite" @change="handleChangeId"
+          @drop="handleDrop">
           <p class="ant-upload-drag-icon">
             <inbox-outlined />
           </p>
@@ -52,7 +53,7 @@
 
         <a-upload-dragger v-model:fileList="fileListAddress" name="justificatif_domicile" :multiple="false"
           :beforeUpload="beforeUpload" :showUploadList="true" class="my-4" @change="handleChangeAddress"
-          @drop="handleDrop">
+          :customRequest="handleCustomUpload" @drop="handleDrop">
           <p class="ant-upload-drag-icon">
             <inbox-outlined />
           </p>
@@ -77,6 +78,7 @@ import { message, notification, Upload } from 'ant-design-vue';
 import type { UploadChangeParam } from 'ant-design-vue';
 import apiService from "../services/apiService"; // Ton fichier service
 import { useRouter } from "vue-router";
+import type { UploadRequestOption } from "ant-design-vue/es/vc-upload/interface";
 
 const router = useRouter()
 
@@ -122,7 +124,7 @@ const beforeUpload = (file: File) => {
 
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error('Le fichier doit faire moins de 2 Mo.'); 
+    message.error('Le fichier doit faire moins de 2 Mo.');
     return Upload.LIST_IGNORE;
   }
 
@@ -183,5 +185,14 @@ const onFinish = (values: any) => {
 
 const onFinishFailed = (errorInfo: any) => {
   console.log("Erreur:", errorInfo);
+};
+
+const handleCustomUpload = async (options: UploadRequestOption) => {
+  const { file, onSuccess } = options;
+  // Tu peux envoyer `file` à ton backend ici avec axios ou fetch
+  console.log('Fichier à envoyer manuellement :', file);
+  setTimeout(() => {
+    onSuccess && onSuccess("ok"); // Simuler succès
+  }, 1000);
 };
 </script>
