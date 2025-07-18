@@ -77,7 +77,6 @@ import { message, notification, Upload } from 'ant-design-vue';
 import type { UploadChangeParam } from 'ant-design-vue';
 import apiService from "../services/apiService"; // Ton fichier service
 import { useRouter } from "vue-router";
-import type { UploadRequestOption } from "ant-design-vue/es/vc-upload/interface";
 
 const router = useRouter()
 
@@ -115,23 +114,19 @@ const nexStep = () => {
 
 
 const beforeUpload = (file: File) => {
-  const isAllowed = ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type);
-  if (!isAllowed) {
-    message.error('Format non autorisé. Seuls JPG, PNG et PDF sont acceptés.');
+  const isAllowedType = ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type);
+  if (!isAllowedType) {
+    message.error('Seuls les fichiers JPG, PNG et PDF sont autorisés.');
+    return Upload.LIST_IGNORE;
   }
-  return isAllowed || Upload.LIST_IGNORE;
-};
 
-const handleCustomUpload = async (options: UploadRequestOption) => {
-  const { file, onSuccess } = options;
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Le fichier doit faire moins de 2 Mo.');
+    return Upload.LIST_IGNORE;
+  }
 
-  // Par exemple : juste lire le fichier pour un aperçu ou l’envoyer manuellement via API
-  console.log('Fichier reçu (custom upload)', file);
-
-  // Simule une réussite
-  setTimeout(() => {
-    onSuccess && onSuccess("ok");
-  }, 1000);
+  return true;
 };
 
 const handleDrop = (e: DragEvent) => {
