@@ -41,8 +41,8 @@
           <a-input v-model:value="formState.email" style="width: 100%" />
         </a-form-item>
 
-        <a-upload-dragger v-model:fileList="fileListId" name="piece_identite" :multiple="false" class="my-4"
-          @change="handleChangeId" @drop="handleDrop">
+        <a-upload-dragger v-model:fileList="fileListId" :multiple="false" :beforeUpload="beforeUpload"
+          :showUploadList="true" class="my-4" name="piece_identite" @change="handleChangeId" @drop="handleDrop">
           <p class="ant-upload-drag-icon">
             <inbox-outlined />
           </p>
@@ -50,8 +50,9 @@
           <p class="ant-upload-hint">Formats: JPG, PNG, PDF</p>
         </a-upload-dragger>
 
-        <a-upload-dragger v-model:fileList="fileListAddress" name="justificatif_domicile" :multiple="false" class="my-4"
-          @change="handleChangeAddress" @drop="handleDrop">
+        <a-upload-dragger v-model:fileList="fileListAddress" name="justificatif_domicile" :multiple="false"
+          :beforeUpload="beforeUpload" :showUploadList="true" class="my-4" @change="handleChangeAddress"
+          @drop="handleDrop">
           <p class="ant-upload-drag-icon">
             <inbox-outlined />
           </p>
@@ -72,10 +73,11 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
-import { notification } from 'ant-design-vue';
+import { message, notification, Upload } from 'ant-design-vue';
 import type { UploadChangeParam } from 'ant-design-vue';
 import apiService from "../services/apiService"; // Ton fichier service
 import { useRouter } from "vue-router";
+import type { UploadRequestOption } from "ant-design-vue/es/vc-upload/interface";
 
 const router = useRouter()
 
@@ -102,7 +104,7 @@ const formState = reactive<FormState>({
 
 const nexStep = () => {
   if (formState.password.length > 6) {
-  step.value = 2;
+    step.value = 2;
   } else {
     notification.warning({
       message: 'Warning',
@@ -110,6 +112,27 @@ const nexStep = () => {
     });
   }
 }
+
+
+const beforeUpload = (file: File) => {
+  const isAllowed = ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type);
+  if (!isAllowed) {
+    message.error('Format non autorisé. Seuls JPG, PNG et PDF sont acceptés.');
+  }
+  return isAllowed || Upload.LIST_IGNORE;
+};
+
+const handleCustomUpload = async (options: UploadRequestOption) => {
+  const { file, onSuccess } = options;
+
+  // Par exemple : juste lire le fichier pour un aperçu ou l’envoyer manuellement via API
+  console.log('Fichier reçu (custom upload)', file);
+
+  // Simule une réussite
+  setTimeout(() => {
+    onSuccess && onSuccess("ok");
+  }, 1000);
+};
 
 const handleDrop = (e: DragEvent) => {
   console.log(e);
