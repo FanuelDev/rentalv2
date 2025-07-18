@@ -122,7 +122,7 @@ const beforeUpload = (file: File) => {
 
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error('Le fichier doit faire moins de 2 Mo.');
+    message.error('Le fichier doit faire moins de 2 Mo.'); 
     return Upload.LIST_IGNORE;
   }
 
