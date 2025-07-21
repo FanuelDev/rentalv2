@@ -1,6 +1,6 @@
 <template>
   <a-layout class="bg-white">
-    <nav class="navbar navbar-expand-sm navbar-light bg-whiter py-3 sticky-top">
+    <nav class="navbar navbar-expand-sm navbar-light shadow-lg py-3 sticky-top" style="background-color: #1677FF;">
       <div class="container">
         <a class="navbar-brand" href="/">
           <img src="/src/assets/img/logo.png" alt="" id="img-logo" /></a>
@@ -23,10 +23,10 @@
               href="/search"
               >Reserver une voiture</a
             > -->
-            <a class="nav-link mx-2 btn btn-outline-primary" aria-current="page" href="/auth/login" v-if="!dataLog">Se
+            <a class="nav-link mx-2 btn btn-outline-light" aria-current="page" href="/auth/login" v-if="!dataLog">Se
               connecter</a>
             <a-dropdown>
-              <a class="nav-link mx-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
+              <a class="nav-link mx-2 btn btn-outline-light" v-if="dataLog" @click="handleButtonClick">
                 {{ dataLog.info.nom }} </a>
               <template #overlay>
                 <a-menu @click="handleMenuClick">
