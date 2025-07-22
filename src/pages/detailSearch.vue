@@ -108,9 +108,9 @@
                 repellat aliquam earum? Consequatur?</p>
             </div>
             <div class="my-5 d-flex justify-content-end">
-              <a @click="reserve()" class="btn btn-dark btn-lg mx-2" :disabled="isLoading">
+              <button @click="reserve()" class="btn btn-dark btn-lg mx-2" :disabled="isLoading">
                 <a-spin :indicator="indicator" :spinning="isLoading" />
-                Reserver maintenant</a>
+                Reserver maintenant</button>
             </div>
           </div>
         </div>
