@@ -62,7 +62,10 @@
         </a-upload-dragger>
 
         <a-form-item>
-          <button type="button" class="btn btn-dark my-4" @click="validateAccount">Valider le compte</button>
+          <button type="button" class="btn btn-dark my-4" @click="validateAccount" :disabled="isLoading">
+            <a-spin :indicator="indicator" :spinning="isLoading"/>
+            Valider le compte
+          </button>
         </a-form-item>
       </div>
     </a-form>
@@ -73,14 +76,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, h } from "vue";
 import { message, notification, Upload } from 'ant-design-vue';
 import type { UploadChangeParam } from 'ant-design-vue';
 import apiService from "../services/apiService"; // Ton fichier service
 import { useRouter } from "vue-router";
 import type { UploadRequestOption } from "ant-design-vue/es/vc-upload/interface";
+import { LoadingOutlined } from '@ant-design/icons-vue';
 
 const router = useRouter()
+const isLoading = ref(false)
+
+const indicator = h(LoadingOutlined, {
+  style: {
+    fontSize: '24px',
+  },
+  spin: true,
+});
 
 const fileListId = ref<any[]>([]);
 const fileListAddress = ref<any[]>([]);
@@ -145,6 +157,7 @@ const handleChangeAddress = (info: UploadChangeParam) => {
 
 const validateAccount = async () => {
   try {
+    isLoading.value = true;
     const formData = new FormData();
 
     formData.append('email', formState.email);
@@ -168,6 +181,7 @@ const validateAccount = async () => {
       description: 'Votre compte a été créé avec succès !',
     });
 
+    isLoading.value = false;
     router.push('/auth/login');
   } catch (error: any) {
     console.error(error);
@@ -175,6 +189,8 @@ const validateAccount = async () => {
       message: "Erreur d'inscription",
       description: error.response?.data?.message || "Erreur inconnue",
     });
+    
+    isLoading.value = false;
   }
 };
 

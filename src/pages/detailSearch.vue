@@ -108,7 +108,9 @@
                 repellat aliquam earum? Consequatur?</p>
             </div>
             <div class="my-5 d-flex justify-content-end">
-              <a @click="reserve()" class="btn btn-dark btn-lg mx-2">Reserver maintenant</a>
+              <a @click="reserve()" class="btn btn-dark btn-lg mx-2" :disabled="isLoading">
+                <a-spin :indicator="indicator" :spinning="isLoading" />
+                Reserver maintenant</a>
             </div>
           </div>
         </div>
@@ -139,11 +141,12 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { h, onMounted, ref } from "vue";
 import apiService from "../services/apiService";
 import { useRoute, useRouter } from "vue-router";
 import dayjs from "dayjs";
 import { notification } from "ant-design-vue";
+import { LoadingOutlined } from '@ant-design/icons-vue';
 
 const car = ref<any>(null);
 
@@ -152,6 +155,15 @@ const prixJournalier = ref(0); // à remplacer dynamiquement avec data.prix_jour
 const dates = ref<[dayjs.Dayjs, dayjs.Dayjs] | null>(null);
 const total = ref<number>(0);
 
+
+const isLoading = ref(false)
+
+const indicator = h(LoadingOutlined, {
+  style: {
+    fontSize: '24px',
+  },
+  spin: true,
+});
 
 const route = useRoute()
 const router = useRouter()
@@ -173,21 +185,35 @@ const reserve = () => {
 
   if (log) {
     if (total.value) {
+
+      isLoading.value = true;
       const [start, end] = dates.value!;
       let body = { car_id: car.value.id, start_date: start.toDate().toISOString().split('T')[0], end_date: end.toDate().toISOString().split('T')[0] }
       console.log(body)
       apiService.reserve(body).then(res => {
         console.log(res)
-          notification.success({
-            message: "Réservation effectuée",
-            description: "Votre réservation a été enregistrée avec succès.",
-          });
+        notification.success({
+          message: "Réservation effectuée",
+          description: "Votre réservation a été enregistrée avec succès.",
+        });
       })
+        .catch(err => {
+          console.error(err);
+          notification.error({
+            message: "Échec de la réservation",
+            description: err?.response?.data?.message || "Une erreur est survenue lors de la réservation.",
+          });
+        })
+        .finally(() => {
+          isLoading.value = false;
+        });
+
     } else {
       notification.warning({
         message: "Date de réservation vide",
         description: "Veuillez sélectionner une période de réservation avant de continuer.",
       });
+
     }
   } else {
     router.push('/auth/register');
