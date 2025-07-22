@@ -103,9 +103,14 @@
               <h5 class="text-primary">Condition de reservation</h5>
             </div>
             <div class="my-4">
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta ipsum reiciendis voluptas mollitia
-                possimus cumque, nesciunt totam eius accusamus dolorum facilis sapiente, odio ipsa et, distinctio
-                repellat aliquam earum? Consequatur?</p>
+
+              <p>
+                Afin de garantir une expérience fluide et sécurisée pour tous nos clients, nous vous prions de prendre
+                connaissance des conditions suivantes avant de finaliser votre réservation : <br> 
+              </p>
+              <p class="text-right">
+                <a href="/privacy">lire plus</a>
+              </p>
             </div>
             <div class="my-5 d-flex justify-content-end">
               <button @click="reserve()" class="btn btn-dark btn-lg mx-2" :disabled="isLoading">
@@ -122,11 +127,11 @@
         <div class="row align-items-center">
           <div class="col-md-5"></div>
           <div class="col-md-6 text-center my-4">
-            <h2 class="text-white">Conduisons avec un contrat aujourd'hui.</h2>
+            <h2 class="text-white">Louez une voiture en toute simplicité !.</h2>
             <p class="text-white">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-              saepe blanditiis dolor animi vitae ullam? Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Quas, delectus.
+              Profitez d’un large choix de véhicules adaptés à tous vos besoins. Que ce soit pour un week-end, un
+              déplacement professionnel ou des vacances, réservez rapidement et partez l’esprit tranquille. Confort,
+              sécurité et flexibilité sont au rendez-vous !
             </p>
             <div class="my-4">
               <button class="btn btn-primary px-4">
@@ -196,6 +201,8 @@ const reserve = () => {
           message: "Réservation effectuée",
           description: "Votre réservation a été enregistrée avec succès.",
         });
+
+        router.push('/reserve');
       })
         .catch(err => {
           console.error(err);
@@ -216,7 +223,7 @@ const reserve = () => {
 
     }
   } else {
-    router.push('/auth/register');
+    router.push('/auth/login');
   }
 }
 
@@ -226,6 +233,7 @@ const disabledDate = (current: dayjs.Dayjs) => {
 
 
 onMounted(() => {
+  localStorage.setItem('isReserve', id.toString())
   apiService.getCarById(id).then(res => {
     console.log(res.data)
     car.value = res.data;

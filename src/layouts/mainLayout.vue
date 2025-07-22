@@ -1,6 +1,6 @@
 <template>
   <a-layout class="bg-white">
-    <nav class="navbar navbar-expand-sm navbar-light shadow-lg py-3 sticky-top" style="background-color: #1677FF;">
+    <nav class="navbar navbar-expand-sm navbar-dark shadow-lg py-3 sticky-top" style="background-color: #1E40AF;">
       <div class="container">
         <a class="navbar-brand" href="/">
           <img src="/src/assets/img/logo.png" alt="" id="img-logo" /></a>
@@ -8,7 +8,7 @@
           aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID">
+        <div class="collapse navbar-collapse text-white d-lg-flex justify-content-between" id="navbarID">
           <div class="navbar-nav"></div>
           <div class="navbar-nav">
             <a class="nav-link mx-2 active" aria-current="page" href="/#accueil">Accueil</a>
@@ -30,6 +30,14 @@
                 {{ dataLog.info.nom }} </a>
               <template #overlay>
                 <a-menu @click="handleMenuClick">
+                  <a-menu-item key="3">
+                    <UserOutlined />
+                    Mon profil
+                  </a-menu-item>
+                  <a-menu-item key="2">
+                    <UserOutlined />
+                    Mes reservations
+                  </a-menu-item>
                   <a-menu-item key="1">
                     <UserOutlined />
                     Deconnexion
@@ -116,10 +124,13 @@ const handleButtonClick = (e: Event) => {
 };
 const handleMenuClick: MenuProps['onClick'] = e => {
   console.log('click', e.key);
-  if (e.key = '1') {
+  if (e.key == '1') {
     localStorage.clear()
-
     router.push('/auth/login');
+  } else if (e.key == '2') {
+    router.push('/reserve');
+  } else {
+    router.push('/reserve');
   }
 };
 

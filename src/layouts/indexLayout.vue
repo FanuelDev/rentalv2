@@ -25,6 +25,14 @@
                 {{ dataLog.info.nom }} </a>
               <template #overlay>
                 <a-menu @click="handleMenuClick">
+                  <a-menu-item key="3">
+                    <UserOutlined />
+                    Mon profil
+                  </a-menu-item>
+                  <a-menu-item key="2">
+                    <UserOutlined />
+                    Mes reservations
+                  </a-menu-item>
                   <a-menu-item key="1">
                     <UserOutlined />
                     Deconnexion
@@ -64,6 +72,14 @@
                     {{ dataLog.info.nom }} </a>
                   <template #overlay>
                     <a-menu @click="handleMenuClick">
+                      <a-menu-item key="3">
+                        <UserOutlined />
+                        Mon profil
+                      </a-menu-item>
+                      <a-menu-item key="2">
+                        <UserOutlined />
+                        Mes reservations
+                      </a-menu-item>
                       <a-menu-item key="1">
                         <UserOutlined />
                         Deconnexion
@@ -170,10 +186,13 @@ const handleButtonClick = (e: Event) => {
 };
 const handleMenuClick: MenuProps['onClick'] = e => {
   console.log('click', e.key);
-  if (e.key = '1') {
+  if (e.key == '1') {
     localStorage.clear()
-
     router.push('/auth/login');
+  } else if (e.key == '2') {
+    router.push('/reserve');
+  } else {
+    router.push('/reserve');
   }
 };
 

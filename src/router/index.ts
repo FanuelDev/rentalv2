@@ -14,6 +14,8 @@ import AdminDashLayout from '../layouts/adminDashLayout.vue';
 import Account from '../pages/admin/account.vue';
 import Cars from '../pages/admin/cars.vue';
 import Reservation from '../pages/admin/reservation.vue';
+import Reserve from '../pages/Reserve.vue';
+import Privacy from '../pages/privacy.vue';
 
 const routes = [
     {
@@ -29,6 +31,8 @@ const routes = [
         children: [
             { path: 'search', component: Search },
             { path: 'search/:id', component: DetailSearch },
+            { path: 'reserve', component: Reserve },
+            { path: 'privacy', component: Privacy },
         ],
     },
     {

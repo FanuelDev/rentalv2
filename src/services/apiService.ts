@@ -77,8 +77,8 @@ export default {
     return await api.post("/reservations", payload);
   },
 
-  async getMyReservations() {
-    return await api.get("/reservations/mine");
+  async getMyReservations(id: string) {
+    return await api.get("/reservations/me/"+id);
   },
 
   

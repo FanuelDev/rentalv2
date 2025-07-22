@@ -7,7 +7,7 @@
           <a-button type="link" @click="viewFile(record.piece_justificative)">Voir</a-button>
         </template>
         <template v-if="column.key === 'actions'">
-          <a-popconfirm title="Valider cette réservation ?" ok-text="Oui" cancel-text="Non"
+          <a-popconfirm v-if="record.statut != 'validee'" title="Valider cette réservation ?" ok-text="Oui" cancel-text="Non"
             @confirm="validateReservation(record.id)">
             <a-button type="primary" size="small">Valider</a-button>
           </a-popconfirm>

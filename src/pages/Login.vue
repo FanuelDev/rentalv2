@@ -58,7 +58,12 @@ const onFinish = async (values: FormState) => {
       description: "Bienvenue ! Vous êtes connecté.",
     });
 
-    router.push('/');
+    let reserve = localStorage.getItem('isReserve')
+    if (reserve) {
+      router.push('/search/'+reserve);
+    } else {
+      router.push('/');
+    }
   }).catch(error => {
     notification.error({
       message: "Erreur de connexion",
