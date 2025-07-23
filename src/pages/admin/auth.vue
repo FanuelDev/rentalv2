@@ -52,7 +52,7 @@ const formState = reactive<FormState>({
 const onFinish = async (values: FormState) => {
   apiService.adminLogin(values.email, values.password).then(res => {
     console.log(res.data)
-    localStorage.setItem('dataLog', JSON.stringify(res.data))
+    localStorage.setItem('dataLogAdmin', JSON.stringify(res.data))
     notification.success({
       message: "Connexion réussie",
       description: "Bienvenue ! Vous êtes connecté.",

@@ -79,6 +79,7 @@ onMounted(() => {
 });
 
 const logout = () => {
+    localStorage.clear()
     router.push('/admin/auth/login')
 }
 
