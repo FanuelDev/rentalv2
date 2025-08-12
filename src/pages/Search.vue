@@ -8,7 +8,7 @@
             <h6 class="text-primar">Reset</h6>
           </div>
           <div class="my-4">
-            <div class="w-100 py-4"><a-range-picker v-model:value="state.valueDate" show-time size="large" />
+            <div class="w-100 py-4"><a-range-picker v-model:value="state.valueDate" size="large" />
             </div>
             <div class="w-100 py-4">
               <h6 class="mb-4">Type de vehicule</h6>
@@ -22,7 +22,7 @@
 
             <div class="w-100 py-4">
               <h6 class="mb-4">Budget (XOF)</h6>
-              <a-slider v-model:value="state.budget" :min="5000" :max="150000" :step="10000" range />
+              <a-slider v-model:value="state.budget" :min="5000" :max="1500000" :step="10000" range />
             </div>
 
             <div class="w-100 py-4">
@@ -66,7 +66,7 @@
       </div>
       <div class="col-md-8 py-4">
         <div class="d-flex justify-content-between align-items-center">
-          <h4>{{ cars.length  }} voitures trouvées</h4>
+          <h4>{{ cars.length }} voitures trouvées</h4>
           <h6 class="text-primar">Voir tout</h6>
         </div>
         <div class="my-4 row">
@@ -170,12 +170,12 @@
               <p>
                 Notre {{ vehiculeChoice.marque }} {{ vehiculeChoice.modele }} offre un excellent confort avec son moteur
                 {{
-                vehiculeChoice.energie }} et sa capacité de {{ vehiculeChoice.places }} places.
+                  vehiculeChoice.energie }} et sa capacité de {{ vehiculeChoice.places }} places.
               </p>
             </div>
 
             <div class="my-5">
-              <a :href="'/search/'+ vehiculeChoice.id" class="btn btn-dark mx-2">Réserver maintenant</a>
+              <a :href="'/search/' + vehiculeChoice.id" class="btn btn-dark mx-2">Réserver maintenant</a>
             </div>
           </div>
         </div>
@@ -257,6 +257,7 @@ import { ref, reactive, onMounted, watch } from 'vue'
 import apiServices from '../services/apiService' // <-- ta fonction API
 import type { Car } from '../types/car' // <-- si tu as un type pour Car
 import { message } from 'ant-design-vue'
+import dayjs from 'dayjs'
 
 // États
 const open = ref(false)
@@ -306,23 +307,20 @@ const fetchCars = async () => {
   loading.value = true
   try {
     console.log('Fetching cars with filters:', state)
-    // const params = {
-    //   page: current.value,
-    //   type: state.checkedTypes,
-    //   gamme: state.checkedGammes,
-    //   energie: state.checkedEnergies,
-    //   usage: state.checkedUsages,
-    //   budgetMin: budget.value[0],
-    //   budgetMax: budget.value[1],
-    //   boiteAuto: checkedOptions.boiteAuto,
-    //   climatisation: checkedOptions.climatisation,
-    //   gps: checkedOptions.gps,
-    //   siegeBebe: checkedOptions.siegeBebe,
-    //   wifi: checkedOptions.wifi,
-    //   nbPlace: place.value,
-    // }
+    const date_debut = state.valueDate?.[0]
+      ? dayjs(state.valueDate[0]).format('YYYY-MM-DD HH:mm:ss')
+      : null
+
+    const date_fin = state.valueDate?.[1]
+      ? dayjs(state.valueDate[1]).format('YYYY-MM-DD HH:mm:ss')
+      : null
     console.log(state)
+    
+    let dateFilter = [date_debut, date_fin];
+    localStorage.setItem('dateFilter', JSON.stringify(dateFilter))
     const filters = {
+      date_debut: date_debut,
+      date_fin: date_fin,
       type_vehicule: Array.from(state.checkedTypes),
       gamme: Array.from(state.checkedGammes),
       energie: Array.from(state.checkedEnergies),

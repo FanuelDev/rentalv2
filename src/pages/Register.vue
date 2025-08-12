@@ -13,6 +13,12 @@
           <a-input v-model:value="formState.email" style="width: 100%" />
         </a-form-item>
 
+        
+        <a-form-item label="Numéro de téléphone" name="email"
+          :rules="[{ required: true, message: 'Numéro de téléphone vide!' }]">
+          <a-input v-model:value="formState.tel" style="width: 100%" placeholder="Ex: +228XXXXXXXX"/>
+        </a-form-item>
+
         <a-form-item label="Mot de passe" name="password"
           :rules="[{ required: true, message: 'Please input your password!' }]">
           <a-input-password v-model:value="formState.password" />
@@ -42,12 +48,12 @@
         </a-form-item>
 
         <a-upload-dragger v-model:fileList="fileListId" :multiple="false" :beforeUpload="beforeUpload"
-          :customRequest="handleCustomUpload" :showUploadList="true" class="my-4" name="piece_identite" @change="handleChangeId"
-          @drop="handleDrop">
+          :customRequest="handleCustomUpload" :showUploadList="true" class="my-4" name="piece_identite"
+          @change="handleChangeId" @drop="handleDrop">
           <p class="ant-upload-drag-icon">
             <inbox-outlined />
           </p>
-          <p class="ant-upload-text">Joindre votre pièce d'identité</p>
+          <p class="ant-upload-text">Joindre votre pièce d'identité et permis</p>
           <p class="ant-upload-hint">Formats: JPG, PNG, PDF</p>
         </a-upload-dragger>
 
@@ -63,7 +69,7 @@
 
         <a-form-item>
           <button type="button" class="btn btn-dark my-4" @click="validateAccount" :disabled="isLoading">
-            <a-spin :indicator="indicator" :spinning="isLoading"/>
+            <a-spin :indicator="indicator" :spinning="isLoading" />
             Valider le compte
           </button>
         </a-form-item>
@@ -99,6 +105,7 @@ const fileListAddress = ref<any[]>([]);
 
 interface FormState {
   email: string;
+  tel: string;
   name: string;
   password: string;
   confirm: string;
@@ -109,6 +116,7 @@ const step = ref(1);
 
 const formState = reactive<FormState>({
   email: "",
+  tel: "",
   name: "",
   password: "",
   confirm: "",
@@ -161,14 +169,21 @@ const validateAccount = async () => {
     const formData = new FormData();
 
     formData.append('email', formState.email);
+    formData.append('tel', formState.tel);
     formData.append('name', formState.name);
     formData.append('password', formState.password);
     formData.append('confirm', formState.confirm);
 
+    let valuePieceJ = fileListId.value
+
+    console.log(valuePieceJ)
     // Ajoute fichiers
-    if (fileListId.value.length > 0) {
-      formData.append('piece_justificative', fileListId.value[0].originFileObj);
+    for (let i = 0; i < valuePieceJ.length; i++) {
+      formData.append('piece_justificative[]', valuePieceJ[i].originFileObj); // [] important
     }
+    // if (fileListId.value.length > 0) {
+    //   formData.append('piece_justificative', valuePieceJ);
+    // }
     if (fileListAddress.value.length > 0) {
       formData.append('preuve_adresse', fileListAddress.value[0].originFileObj);
     }
@@ -189,7 +204,7 @@ const validateAccount = async () => {
       message: "Erreur d'inscription",
       description: error.response?.data?.message || "Erreur inconnue",
     });
-    
+
     isLoading.value = false;
   }
 };

@@ -12,7 +12,6 @@
         <div class="row mb-4" data-aos="fade-up" id="voiture">
           <div class="col-md-6 my-2">
             <small>Periode de reservation</small>
-
             <a-range-picker v-model:value="disponibility" style="width: 100%" @change="fetchVehicles()" />
           </div>
           <div class="col-md-6 my-2">
@@ -59,7 +58,7 @@
               <a-tag :color="vehicle.statut === 'Disponible' ? 'green' : 'red'">{{ vehicle.statut }}</a-tag>
               <a-tag color="blue">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
               <div>
-                <img :src="`https://aaa.troispuissances.fr/${vehicle.image}`" class="img-fluid img-voiture3" alt="" />
+                <img :src="`http://127.0.0.1:3333/${JSON.parse(vehicle.image)[0]}`" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -85,7 +84,21 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-md-6">
-          <img :src="`https://aaa.troispuissances.fr/${vehiculeChoise.image}`" class="img-fluid" alt="Image voiture" />
+          <img :src="`http://127.0.0.1:3333/${JSON.parse(vehiculeChoise.image)[0]}`" class="img-fluid w-100" alt="Image voiture" />
+          <div class="row mt-4">
+          <div class="col-md-3">
+            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[0] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+          <div class="col-md-3">
+            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[1] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+          <div class="col-md-3">
+            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[2] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+          <div class="col-md-3">
+            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[3] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+        </div>
         </div>
         <div class="col-md-6">
           <div class="p-4">
@@ -365,6 +378,7 @@ import apiServices from '../services/apiService'; // Adjust the import path if n
 // const apiUrl = import.meta.env.VITE_FRONT_URL
 
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 type RangeValue = [Dayjs, Dayjs];
 
 const disponibility = ref<RangeValue>();
@@ -380,15 +394,40 @@ const energyType = ref();
 
 const fetchVehicles = async () => {
   try {
-    const filters = {
-      disponibility: disponibility,
-      type_vehicule: [vehicleType.value], // Example filter, you can update as needed
-      gamme: [budgetRange.value],
-      energie: [energyType.value]
-    };
-    const data = await apiServices.getVehicles(filters);
-    vehicles.value = data;
-    console.log(vehicles.value)
+    if (disponibility.value) {
+      const date_debut = disponibility.value![0]
+        ? dayjs(disponibility.value![0]).format('YYYY-MM-DD HH:mm:ss')
+        : null
+
+      const date_fin = disponibility.value![1]
+        ? dayjs(disponibility.value![1]).format('YYYY-MM-DD HH:mm:ss')
+        : null
+
+      let dateFilter = [date_debut, date_fin];
+      localStorage.setItem('dateFilter', JSON.stringify(dateFilter))
+      const filters = {
+        date_debut: date_debut,
+        date_fin: date_fin,
+        type_vehicule: [vehicleType.value], // Example filter, you can update as needed
+        gamme: [budgetRange.value],
+        energie: [energyType.value]
+      };
+      console.log(filters)
+      const data = await apiServices.getVehicles(filters);
+      vehicles.value = data;
+      console.log(vehicles.value)
+
+    } else {
+      const filters = {
+        type_vehicule: [vehicleType.value], // Example filter, you can update as needed
+        gamme: [budgetRange.value],
+        energie: [energyType.value]
+      };
+      console.log(filters)
+      const data = await apiServices.getVehicles(filters);
+      vehicles.value = data;
+      console.log(vehicles.value)
+    }
   } catch (error) {
     console.error('Error loading vehicles:', error);
   } finally {

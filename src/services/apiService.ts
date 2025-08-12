@@ -41,6 +41,15 @@ export default {
     return await api.get("/cars", { params: filters });
   },
 
+  async saveCar(body: any) {
+    return await api.post("/cars", body);
+  },
+
+  
+  async updateCar(id: number, body: any) {
+    return await api.put("/cars/"+ id, body);
+  },
+
   async getCarById(id: string | string[]) {
     return await api.get("/cars/" + id);
   },

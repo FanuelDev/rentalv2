@@ -2,9 +2,22 @@
   <div class="container my-5">
     <div class="row">
       <div class="col-md-4">
-        <img :src="`https://aaa.troispuissances.fr/${car?.image}`" class="img-fluid" alt="Image du véhicule" />
+        <img :src="`${baseUrlFront}/${car?.image ? JSON.parse(car?.image)[0] : ''}`" class="img-fluid w-100" alt="Image du véhicule" />
 
-
+        <div class="row mt-4">
+          <div class="col-md-3">
+            <img :src="`${baseUrlFront}/${car?.image ? JSON.parse(car?.image)[0] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+          <div class="col-md-3">
+            <img :src="`${baseUrlFront}/${car?.image ? JSON.parse(car?.image)[1] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+          <div class="col-md-3">
+            <img :src="`${baseUrlFront}/${car?.image ? JSON.parse(car?.image)[2] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+          <div class="col-md-3">
+            <img :src="`${baseUrlFront}/${car?.image ? JSON.parse(car?.image)[3] : ''}`" class="img-fluid" alt="Image du véhicule" />
+          </div>
+        </div>
         <div class="p-4">
           <a-tag v-if="car?.statut === 'Disponible'" color="green">Disponible</a-tag>
           <a-tag v-if="car?.climatisation" color="blue">Climatisée</a-tag>
@@ -35,8 +48,8 @@
             </div>
             <div class="my-4">
               <div class="w-100 py-4">
-                <small>Quand voulez-vous reserver?</small> <br> <a-range-picker v-model:value="dates"
-                  :disabled-date="disabledDate" @change="updateTotal" />
+                <small>Quand voulez-vous reserver?</small> <br>
+                <a-range-picker v-model:value="dates" :disabled-date="disabledDate" @change="updateTotal" />
               </div>
 
               <div class="w-100 py-4">
@@ -106,7 +119,7 @@
 
               <p>
                 Afin de garantir une expérience fluide et sécurisée pour tous nos clients, nous vous prions de prendre
-                connaissance des conditions suivantes avant de finaliser votre réservation : <br> 
+                connaissance des conditions suivantes avant de finaliser votre réservation : <br>
               </p>
               <p class="text-right">
                 <a href="/privacy">lire plus</a>
@@ -154,6 +167,7 @@ import { notification } from "ant-design-vue";
 import { LoadingOutlined } from '@ant-design/icons-vue';
 
 const car = ref<any>(null);
+const baseUrlFront = ref(import.meta.env.VITE_FRONT_URL)
 
 const prixJournalier = ref(0); // à remplacer dynamiquement avec data.prix_journalier
 
@@ -233,11 +247,24 @@ const disabledDate = (current: dayjs.Dayjs) => {
 
 
 onMounted(() => {
+
+  const dateFilter = JSON.parse(localStorage.getItem('dateFilter')!) ?? []
+
+  dates.value = [
+    dayjs(dateFilter[0]),
+    dayjs(dateFilter[1])
+  ]
+
   localStorage.setItem('isReserve', id.toString())
+
   apiService.getCarById(id).then(res => {
     console.log(res.data)
     car.value = res.data;
     prixJournalier.value = car.value.prix_journalier
+
+
+    updateTotal()
   })
+
 })
 </script>
