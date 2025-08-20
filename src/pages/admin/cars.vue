@@ -28,8 +28,10 @@
                 <h6 class="text-primary">{{ vehicle.prix_journalier }} XOF / Jour</h6>
               </div>
             </div>
-            <div class="d-flex justify-content-end mt-4">
+            <div class="d-flex justify-content-between align-items-center mt-4">
               <a-button type="primary" @click="openDrawerUpdate(vehicle)">Mettre à jour</a-button>
+              <a-popconfirm title="Êtes-vous sûr de supprimer?" ok-text="Oui" cancel-text="Non" @confirm="confirmDelete(vehicle.id)"
+                @cancel="cancel"><a-button type="primary" danger>Supprimer</a-button></a-popconfirm>
             </div>
           </a-card>
         </a-badge-ribbon>
@@ -233,6 +235,19 @@ function onPreview(file: any) {
   previewImage.value = file.thumbUrl || file.url
   previewVisible.value = true
 }
+
+const confirmDelete = (e: number) => {
+  console.log(e);
+  apiService.deleteCar(e).then(() => {
+    message.success('Véhicule supprimé avec succès')
+    getCarList()
+  })
+};
+
+const cancel = (e: MouseEvent) => {
+  console.log(e);
+  message.error('Click on No');
+};
 
 const submitUpdateForm = () => {
   console.log('cpicpi')

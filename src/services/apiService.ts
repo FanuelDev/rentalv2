@@ -46,6 +46,10 @@ export default {
   },
 
   
+  async deleteCar(id: number) {
+    return await api.delete("/cars/"+ id);
+  },
+  
   async updateCar(id: number, body: any) {
     return await api.put("/cars/"+ id, body);
   },
