@@ -58,7 +58,7 @@
               <a-tag :color="vehicle.statut === 'Disponible' ? 'green' : 'red'">{{ vehicle.statut }}</a-tag>
               <a-tag color="blue">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
               <div>
-                <img :src="`http://127.0.0.1:3333/${JSON.parse(vehicle.image)[0]}`" class="img-fluid img-voiture3" alt="" />
+                <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehicle.image)[0]}`" class="img-fluid img-voiture3" alt="" />
               </div>
               <div class="d-flex justify-content-between align-items-end">
                 <div>
@@ -84,19 +84,19 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-md-6">
-          <img :src="`http://127.0.0.1:3333/${JSON.parse(vehiculeChoise.image)[0]}`" class="img-fluid w-100" alt="Image voiture" />
+          <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehiculeChoise.image)[0]}`" class="img-fluid w-100" alt="Image voiture" />
           <div class="row mt-4">
           <div class="col-md-3">
-            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[0] : ''}`" class="img-fluid" alt="Image du véhicule" />
+            <img :src="`https://aaa-backend-3hqc.onrender.com/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[0] : ''}`" class="img-fluid" alt="Image du véhicule" />
           </div>
           <div class="col-md-3">
-            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[1] : ''}`" class="img-fluid" alt="Image du véhicule" />
+            <img :src="`https://aaa-backend-3hqc.onrender.com/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[1] : ''}`" class="img-fluid" alt="Image du véhicule" />
           </div>
           <div class="col-md-3">
-            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[2] : ''}`" class="img-fluid" alt="Image du véhicule" />
+            <img :src="`https://aaa-backend-3hqc.onrender.com/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[2] : ''}`" class="img-fluid" alt="Image du véhicule" />
           </div>
           <div class="col-md-3">
-            <img :src="`http://127.0.0.1:3333/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[3] : ''}`" class="img-fluid" alt="Image du véhicule" />
+            <img :src="`https://aaa-backend-3hqc.onrender.com/${vehiculeChoise.image ? JSON.parse(vehiculeChoise.image)[3] : ''}`" class="img-fluid" alt="Image du véhicule" />
           </div>
         </div>
         </div>

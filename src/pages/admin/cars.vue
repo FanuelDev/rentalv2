@@ -15,7 +15,7 @@
               <a-tag color="blue">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
             </div>
             <div>
-              <img :src="`http://127.0.0.1:3333/${JSON.parse(vehicle.image)[0]}`"
+              <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehicle.image)[0]}`"
                 class="img-fluid img-voiture3 rounded mb-3" alt="Image véhicule" />
             </div>
             <div class="d-flex justify-content-between align-items-end">
