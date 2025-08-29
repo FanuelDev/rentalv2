@@ -8,7 +8,13 @@
         </div>
         <a-card title="Mes réservations" bordered>
             <a-spin :spinning="loading" tip="Chargement des réservations...">
-                <a-table :columns="columns" :data-source="reservations" row-key="id" :pagination="{ pageSize: 5 }" />
+              <a-table :columns="columns" :data-source="reservations" row-key="id" :pagination="{ pageSize: 5 }">
+                <template #bodyCell="{ column, record }">
+                  <template v-if="column.key === 'etat'">
+                    <a-tag :color="record.etat == 'en_attente' ? 'blue' : record.etat == 'validee' ? 'green' : 'red'">{{ record.etat }}</a-tag>
+                  </template>
+                </template>
+              </a-table>
             </a-spin>
         </a-card>
     </div>
@@ -79,12 +85,12 @@ const columns = [
         title: "État",
         dataIndex: "etat",
         key: "etat",
-        customRender: ({ text }: any) => {
-            let color = "orange"
-            if (text === "validee") color = "green"
-            else if (text === "annulee") color = "red"
-            return h("span", { style: { color } }, text)
-        },
+        // customRender: ({ text }: any) => {
+        //     let color = "orange"
+        //     if (text === "validee") color = "green"
+        //     else if (text === "annulee") color = "red"
+        //     return h("span", { style: { color } }, text)
+        // },
     },
 ]
 
@@ -96,7 +102,7 @@ onMounted(() => {
             reservations.value = res.data.map((item: any) => ({
                 id: item.id,
                 voiture: item.voiture,
-                image: item.image,
+                image: JSON.parse(item.image!)[0],
                 date_debut: dayjs(item.date_debut).format("DD/MM/YYYY"),
                 date_fin: dayjs(item.date_fin).format("DD/MM/YYYY"),
                 montant: item.montant,

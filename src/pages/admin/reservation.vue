@@ -6,8 +6,11 @@
         <template v-if="column.key === 'piece_justificative'">
           <a-button type="link" @click="viewFile(record.piece_justificative)">Voir</a-button>
         </template>
+        <template v-if="column.key === 'statut'">
+          <a-tag :color="record.statut == 'en_attente' ? 'blue' : record.statut == 'validee' ? 'green' : 'red'">{{ record.statut }}</a-tag>
+        </template>
         <template v-if="column.key === 'actions'">
-          <a-popconfirm v-if="record.statut != 'validee'" title="Valider cette réservation ?" ok-text="Oui" cancel-text="Non"
+          <a-popconfirm v-if="record.statut == 'en_attente'" title="Valider cette réservation ?" ok-text="Oui" cancel-text="Non"
             @confirm="validateReservation(record.id)">
             <a-button type="primary" size="small">Valider</a-button>
           </a-popconfirm>
@@ -49,7 +52,7 @@ const reservationColumns = [
 
 function viewFile(url: string) {
   console.log(url)
-  window.open(`${baseUrlFront}/${url}`, '_blank')
+  window.open(`${baseUrlFront}/${JSON.parse(url)[0]}`, '_blank')
 }
 
 const validateReservation = async (id: number) => {
