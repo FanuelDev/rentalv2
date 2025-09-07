@@ -197,12 +197,12 @@ const isOptionActive = (key: keyof typeof car.value) => {
 }
 
 const optionsLabels = [
-  { key: 'boite_auto', label: 'Boîte automatique', color: 'purple' },
-  { key: 'climatisation', label: 'Climatisée', color: 'blue' },
-  { key: 'gps', label: 'GPS intégré', color: 'green' },
+  { key: 'boite_auto', label: 'Boîte automatique', color: 'orange' },
+  { key: 'climatisation', label: 'Climatisée', color: 'orange' },
+  { key: 'gps', label: 'GPS intégré', color: 'orange' },
   { key: 'siege_bebe', label: 'Siège bébé / Rehausseur', color: 'orange' },
-  { key: 'wifi', label: 'Wi-Fi à bord', color: 'cyan' },
-  { key: 'chauffeur', label: 'Chauffeur', color: 'red' }
+  { key: 'wifi', label: 'Wi-Fi à bord', color: 'orange' },
+  { key: 'chauffeur', label: 'Chauffeur', color: 'orange' }
 ]
 
 const isLoading = ref(false)

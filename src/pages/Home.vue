@@ -56,7 +56,7 @@
           <a-badge-ribbon :text="vehicle.gamme" :color="vehicle.gamme === 'Economique' ? 'green' : 'blue'">
             <a-card>
               <a-tag :color="vehicle.statut === 'Disponible' ? 'green' : 'red'">{{ vehicle.statut }}</a-tag>
-              <a-tag color="blue">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
+              <a-tag color="orange">{{ vehicle.climatisation ? 'Climatisée' : 'Non climatisée' }}</a-tag>
               <div>
                 <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehicle.image)[0]}`" class="img-fluid img-voiture3" alt="" />
               </div>
@@ -106,10 +106,10 @@
             <a-tag :color="vehiculeChoise.statut === 'Disponible' ? 'green' : 'red'">
               {{ vehiculeChoise.statut }}
             </a-tag>
-            <a-tag v-if="vehiculeChoise.climatisation" color="blue">Climatisée</a-tag>
-            <a-tag v-if="vehiculeChoise.gps" color="purple">GPS</a-tag>
-            <a-tag v-if="vehiculeChoise.wifi" color="geekblue">WiFi</a-tag>
-            <a-tag v-if="vehiculeChoise.boite_auto" color="cyan">Boîte auto</a-tag>
+            <a-tag v-if="vehiculeChoise.climatisation" color="orange">Climatisée</a-tag>
+            <a-tag v-if="vehiculeChoise.gps" color="orange">GPS</a-tag>
+            <a-tag v-if="vehiculeChoise.wifi" color="orange">WiFi</a-tag>
+            <a-tag v-if="vehiculeChoise.boite_auto" color="orange">Boîte auto</a-tag>
 
             <div class="d-flex justify-content-between align-items-end my-4">
               <div>
