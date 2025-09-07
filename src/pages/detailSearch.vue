@@ -18,11 +18,18 @@
             <img :src="`${baseUrlFront}/${car?.image ? JSON.parse(car?.image)[3] : ''}`" class="img-fluid" alt="Image du véhicule" />
           </div>
         </div>
-        <div class="p-4">
-          <a-tag v-if="car?.statut === 'Disponible'" color="green">Disponible</a-tag>
-          <a-tag v-if="car?.climatisation" color="blue">Climatisée</a-tag>
-          <a-tag color="orange">Populaire</a-tag> <!-- à adapter si cette info vient de l'API -->
-
+        <div class="p-4 row">
+          <a-tag class="col-md-2 my-1" v-if="car?.statut === 'Disponible'" color="green">Disponible</a-tag>
+<!--          <a-tag v-if="car?.climatisation" color="blue">Climatisée</a-tag>-->
+          <div v-for="option in optionsLabels"
+               :key="option.key" class="col-md-4 my-1">
+            <a-tag
+                v-if="isOptionActive(option.key)"
+                :color="option.color"
+            >
+              {{ option.label }}
+            </a-tag>
+          </div>
 
           <div class="d-flex justify-content-between align-items-end my-4">
 
@@ -33,7 +40,7 @@
               <!-- <a-rate v-model:value="value" allow-half /> -->
             </div>
             <div>
-              <h5>{{ car?.prix_journalier.toLocaleString() }} XOF / Jour</h5>
+              <h5>{{ car?.prix_journalier?.toLocaleString() }} XOF / Jour</h5>
             </div>
           </div>
           <div class="my-4">
@@ -49,36 +56,40 @@
             <div class="my-4">
               <div class="w-100 py-4">
                 <small>Quand voulez-vous reserver?</small> <br>
-                <a-range-picker v-model:value="dates" :disabled-date="disabledDate" @change="updateTotal" />
+                <a-range-picker v-model:value="dates" :disabled-date="disabledDate" @change="updateTotal" show-time/>
               </div>
 
               <div class="w-100 py-4">
                 <h6 class="mb-4">Options & Équipements</h6>
                 <div class="d-flex justify-content-between align-items-center my-3">
                   <span>Boîte automatique</span>
-                  <a-switch :checked="!!car?.boite_auto" disabled />
-                </div>
-                <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>Climatisation</span>
-                  <a-switch :checked="!!car?.climatisation" disabled />
-                </div>
-                <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>GPS intégré</span>
-                  <a-switch :checked="!!car?.gps" disabled />
-                </div>
-                <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>Siège bébé / Rehausseur</span>
-                  <a-switch :checked="!!car?.siege_bebe" disabled />
-                </div>
-                <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>Wi-Fi à bord</span>
-                  <a-switch :checked="!!car?.wifi" disabled />
-                </div>
-                <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>Chauffeur</span>
-                  <a-switch :checked="!!car?.chauffeur" disabled />
+                  <a-switch v-model:checked="boiteAutoSwitch" />
                 </div>
 
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Climatisation</span>
+                  <a-switch v-model:checked="climatisationSwitch" />
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>GPS intégré</span>
+                  <a-switch v-model:checked="gpsSwitch" />
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Siège bébé / Rehausseur</span>
+                  <a-switch v-model:checked="siegeBebeSwitch" />
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Wi-Fi à bord</span>
+                  <a-switch v-model:checked="wifiSwitch" />
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center my-3">
+                  <span>Chauffeur</span>
+                  <a-switch v-model:checked="chauffeurSwitch" />
+                </div>
               </div>
             </div>
           </div>
@@ -90,7 +101,7 @@
                   <!-- <a-rate v-model:value="value" allow-half /> -->
                 </div>
                 <div>
-                  <h6>{{ car?.prix_journalier.toLocaleString() }} XOF</h6>
+                  <h6>{{ car?.prix_journalier?.toLocaleString() }} XOF</h6>
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-end my-4">
@@ -159,14 +170,21 @@
 </template>
 
 <script lang="ts" setup>
-import { h, onMounted, ref } from "vue";
+import {computed, h, onMounted, ref} from "vue";
 import apiService from "../services/apiService";
 import { useRoute, useRouter } from "vue-router";
 import dayjs from "dayjs";
 import { notification } from "ant-design-vue";
 import { LoadingOutlined } from '@ant-design/icons-vue';
 
-const car = ref<any>(null);
+const car = ref<any>({
+  boite_auto: true,
+  climatisation: false,
+  gps: true,
+  siege_bebe: false,
+  wifi: true,
+  chauffeur: false
+});
 const baseUrlFront = ref(import.meta.env.VITE_FRONT_URL)
 
 const prixJournalier = ref(0); // à remplacer dynamiquement avec data.prix_journalier
@@ -174,6 +192,18 @@ const prixJournalier = ref(0); // à remplacer dynamiquement avec data.prix_jour
 const dates = ref<[dayjs.Dayjs, dayjs.Dayjs] | null>(null);
 const total = ref<number>(0);
 
+const isOptionActive = (key: keyof typeof car.value) => {
+  return car.value ? car.value[key] : false
+}
+
+const optionsLabels = [
+  { key: 'boite_auto', label: 'Boîte automatique', color: 'purple' },
+  { key: 'climatisation', label: 'Climatisée', color: 'blue' },
+  { key: 'gps', label: 'GPS intégré', color: 'green' },
+  { key: 'siege_bebe', label: 'Siège bébé / Rehausseur', color: 'orange' },
+  { key: 'wifi', label: 'Wi-Fi à bord', color: 'cyan' },
+  { key: 'chauffeur', label: 'Chauffeur', color: 'red' }
+]
 
 const isLoading = ref(false)
 
@@ -207,7 +237,7 @@ const reserve = () => {
 
       isLoading.value = true;
       const [start, end] = dates.value!;
-      let body = { car_id: car.value.id, start_date: start.toDate().toISOString().split('T')[0], end_date: end.toDate().toISOString().split('T')[0] }
+      let body = { car_id: car.value.id, start_date: start.toDate().toISOString(), end_date: end.toDate().toISOString() }
       console.log(body)
       apiService.reserve(body).then(res => {
         console.log(res)
@@ -245,6 +275,23 @@ const disabledDate = (current: dayjs.Dayjs) => {
   return current && current < dayjs().startOf('day');
 }
 
+// Fonction pour créer un computed modifiable pour n'importe quelle propriété
+const createSwitch = (prop: keyof typeof car.value) => {
+  return computed({
+    get: () => car.value?.[prop] ?? false,
+    set: (val: boolean) => {
+      if (car.value) car.value[prop] = val
+    }
+  })
+}
+
+// Computeds pour chaque option
+const boiteAutoSwitch = createSwitch('boite_auto')
+const climatisationSwitch = createSwitch('climatisation')
+const gpsSwitch = createSwitch('gps')
+const siegeBebeSwitch = createSwitch('siege_bebe')
+const wifiSwitch = createSwitch('wifi')
+const chauffeurSwitch = createSwitch('chauffeur')
 
 onMounted(() => {
 
@@ -261,7 +308,6 @@ onMounted(() => {
     console.log(res.data)
     car.value = res.data;
     prixJournalier.value = car.value.prix_journalier
-
 
     updateTotal()
   })

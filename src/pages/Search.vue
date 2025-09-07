@@ -8,7 +8,7 @@
             <h6 class="text-primar">Reset</h6>
           </div>
           <div class="my-4">
-            <div class="w-100 py-4"><a-range-picker v-model:value="state.valueDate" size="large" />
+            <div class="w-100 py-4"><a-range-picker v-model:value="state.valueDate" size="large" show-time/>
             </div>
             <div class="w-100 py-4">
               <h6 class="mb-4">Type de vehicule</h6>

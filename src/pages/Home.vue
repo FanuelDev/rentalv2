@@ -12,7 +12,7 @@
         <div class="row mb-4" data-aos="fade-up" id="voiture">
           <div class="col-md-6 my-2">
             <small>Periode de reservation</small>
-            <a-range-picker v-model:value="disponibility" style="width: 100%" @change="fetchVehicles()" />
+            <a-range-picker v-model:value="disponibility" style="width: 100%" @change="fetchVehicles()" show-time/>
           </div>
           <div class="col-md-6 my-2">
             <small>Type de véhicule</small>
