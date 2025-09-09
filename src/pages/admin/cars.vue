@@ -41,6 +41,24 @@
 
   <!-- Drawer Form -->
   <a-drawer :visible="visible" title="Enregistrer un véhicule" placement="right" width="520" @close="closeDrawer">
+    <div class="row" v-if="isUpdate">
+      <div class="col-md-3">
+        <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehicle.image)[0]}`"
+             class="img-fluid img-voiture3 rounded mb-3" alt="Image véhicule" />
+      </div>
+      <div class="col-md-3">
+        <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehicle.image)[1]}`"
+             class="img-fluid img-voiture3 rounded mb-3" alt="Image véhicule" />
+      </div>
+      <div class="col-md-3">
+        <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehicle.image)[2]}`"
+             class="img-fluid img-voiture3 rounded mb-3" alt="Image véhicule" />
+      </div>
+      <div class="col-md-3">
+        <img :src="`https://aaa-backend-3hqc.onrender.com/${JSON.parse(vehicle.image)[3]}`"
+             class="img-fluid img-voiture3 rounded mb-3" alt="Image véhicule" />
+      </div>
+    </div>
     <a-form :model="form" ref="carForm" layout="vertical">
       <a-form-item label="Marque" required>
         <a-input v-model:value="form.marque" placeholder="Ex: Toyota" />
@@ -122,8 +140,8 @@
 
       <a-space>
         <a-button @click="closeDrawer">Annuler</a-button>
-        <a-button type="primary" v-if="isUpdate" @click="submitUpdateForm">Mettre à jour</a-button>
-        <a-button type="primary" v-if="!isUpdate" @click="submitForm">Enregistrer</a-button>
+        <a-button type="primary" v-if="isUpdate" @click="submitUpdateForm" :disabled="isLoader"><a-spin :indicator="indicator" :spinning="isLoader"/> Mettre à jour</a-button>
+        <a-button type="primary" v-if="!isUpdate" @click="submitForm" :disabled="isLoader"><a-spin :indicator="indicator" :spinning="isLoader"/> Enregistrer</a-button>
       </a-space>
     </a-form>
   </a-drawer>
@@ -138,9 +156,21 @@ import { ref, reactive, onMounted } from 'vue'
 import apiService from "../../services/apiService";
 import { PlusOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue';
+import { LoadingOutlined } from '@ant-design/icons-vue';
+import { h } from 'vue';
 
 const visible = ref(false)
 const carForm = ref(null)
+
+const isLoader = ref(false)
+
+const indicator = h(LoadingOutlined, {
+  style: {
+    fontSize: '10px',
+    marginRight: '10px',
+  },
+  spin: true,
+});
 
 const form = reactive({
   marque: '',
@@ -181,7 +211,7 @@ const previewImage = ref('')
 const isUpdate = ref(false)
 const idValue = ref()
 
-function openDrawerUpdate(data: any) { idValue.value = data.id; Object.assign(form, data); isUpdate.value = true; visible.value = true }
+function openDrawerUpdate(data: any) { idValue.value = data.id; vehicle.value = data; Object.assign(form, data); isUpdate.value = true; visible.value = true }
 function openDrawer() {
   idValue.value = null;
   Object.assign(form, {
@@ -251,6 +281,7 @@ const cancel = (e: MouseEvent) => {
 
 const submitUpdateForm = () => {
   console.log('cpicpi')
+  isLoader.value = true;
   const fd = new FormData()
   Object.keys(form).forEach(key => {
     fd.append(key, (form as any)[key])
@@ -258,6 +289,7 @@ const submitUpdateForm = () => {
   fileList.value.forEach(f => fd.append('images[]', f))
 
   apiService.updateCar(idValue.value, fd).then(() => {
+    isLoader.value = false;
     message.success('Véhicule mise a jour')
     Object.assign(form, {
       marque: '',
@@ -282,10 +314,12 @@ const submitUpdateForm = () => {
     fileList.value = []
     closeDrawer()
     getCarList()
-  }).catch(() => message.error("Erreur lors de l'enregistrement"))
+  }).catch(() => {
+    isLoader.value = false;message.error("Erreur lors de l'enregistrement")})
 }
 
 function submitForm() {
+  isLoader.value = true;
   const fd = new FormData()
   Object.keys(form).forEach(key => {
     fd.append(key, (form as any)[key])
@@ -294,6 +328,7 @@ function submitForm() {
 
   apiService.saveCar(fd).then(() => {
     message.success('Véhicule enregistré')
+    isLoader.value = false;
     Object.assign(form, {
       marque: '',
       modele: '',
@@ -317,7 +352,8 @@ function submitForm() {
     fileList.value = []
     closeDrawer()
     getCarList()
-  }).catch(() => message.error("Erreur lors de l'enregistrement"))
+  }).catch(() => {
+    isLoader.value = false; message.error("Erreur lors de l'enregistrement")})
 }
 
 interface Vehicle {
@@ -344,6 +380,7 @@ interface Vehicle {
 }
 
 const vehicles = ref<Vehicle[]>([])
+const vehicle = ref<Vehicle>({})
 
 function getCarList() {
   apiService.adminGetCar().then(res => {
