@@ -380,7 +380,7 @@ interface Vehicle {
 }
 
 const vehicles = ref<Vehicle[]>([])
-const vehicle = ref<Vehicle>({})
+const vehicle = ref<Vehicle>()
 
 function getCarList() {
   apiService.adminGetCar().then(res => {
