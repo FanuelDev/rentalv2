@@ -18,7 +18,7 @@
       </a-form-item>
 
       <a-form-item>
-        <button class="btn btn-dark" type="submit">Se connecter</button>
+        <button class="btn btn-dark" type="submit" :disabled="isLoader"><a-spin :indicator="indicator" :spinning="isLoader"/> Se connecter</button>
       </a-form-item>
     </a-form>
     <!-- <div class="my-5">
@@ -31,9 +31,10 @@
 
 <script lang="ts" setup>
 import { notification } from "ant-design-vue";
-import { reactive } from "vue";
+import {h, reactive, ref} from "vue";
 import { useRouter } from "vue-router";
 import apiService from "../../services/apiService";
+import {LoadingOutlined} from "@ant-design/icons-vue";
 
 interface FormState {
   email: string;
@@ -41,6 +42,15 @@ interface FormState {
   remember: boolean;
 }
 
+const isLoader = ref(false)
+
+const indicator = h(LoadingOutlined, {
+  style: {
+    fontSize: '10px',
+    marginRight: '10px',
+  },
+  spin: true,
+});
 
 const router = useRouter()
 
@@ -50,6 +60,7 @@ const formState = reactive<FormState>({
   remember: true,
 });
 const onFinish = async (values: FormState) => {
+  isLoader.value = true;
   apiService.adminLogin(values.email, values.password).then(res => {
     console.log(res.data)
     localStorage.setItem('dataLogAdmin', JSON.stringify(res.data))
@@ -58,8 +69,10 @@ const onFinish = async (values: FormState) => {
       description: "Bienvenue ! Vous êtes connecté.",
     });
 
+    isLoader.value = false;
     router.push('/admin/dashboard');
   }).catch(error => {
+    isLoader.value = false;
     notification.error({
       message: "Erreur de connexion",
       description: error.response?.data?.message || "Erreur inconnue",

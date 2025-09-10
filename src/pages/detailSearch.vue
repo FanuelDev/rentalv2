@@ -67,23 +67,23 @@
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>Climatisation</span>
+                  <span>Chauffage</span>
                   <a-switch v-model:checked="climatisationSwitch" />
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>GPS intégré</span>
+                  <span>Assurance tout risque</span>
                   <a-switch v-model:checked="gpsSwitch" />
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>Siège bébé / Rehausseur</span>
-                  <a-switch v-model:checked="siegeBebeSwitch" />
+                  <span>Assurance dépannage</span>
+                  <a-switch v-model:checked="wifiSwitch" />
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center my-3">
-                  <span>Wi-Fi à bord</span>
-                  <a-switch v-model:checked="wifiSwitch" />
+                  <span>Siège bébé</span>
+                  <a-switch v-model:checked="siegeBebeSwitch" />
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center my-3">
@@ -198,12 +198,17 @@ const isOptionActive = (key: keyof typeof car.value) => {
 
 const optionsLabels = [
   { key: 'boite_auto', label: 'Boîte automatique', color: 'orange' },
-  { key: 'climatisation', label: 'Climatisée', color: 'orange' },
-  { key: 'gps', label: 'GPS intégré', color: 'orange' },
-  { key: 'siege_bebe', label: 'Siège bébé / Rehausseur', color: 'orange' },
-  { key: 'wifi', label: 'Wi-Fi à bord', color: 'orange' },
+  { key: 'climatisation', label: 'Chauffage', color: 'orange' },
+  { key: 'gps', label: 'Assurance tout risque', color: 'orange' },
+  { key: 'wifi', label: 'Assurance dépannage', color: 'orange' },
+  { key: 'siege_bebe', label: 'Siège bébé', color: 'orange' },
   { key: 'chauffeur', label: 'Chauffeur', color: 'orange' }
 ]
+
+
+
+
+
 
 const isLoading = ref(false)
 
