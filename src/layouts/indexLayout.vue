@@ -4,24 +4,24 @@
       <div class="container">
         <a class="navbar-brand" href="/">
           <img src="/src/assets/img/logo.png" alt="" id="img-logo" /></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
+        <button class="navbar-toggler mx-4" type="button" data-toggle="collapse" data-target="#navbarID"
           aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID">
           <div class="navbar-nav"></div>
           <div class="navbar-nav">
-            <a class="nav-link mx-2 active" aria-current="page" href="#accueil">Accueil</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#voiture">Mes voitures</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#usage">Comment ça marche</a>
+            <a class="nav-link m-2 active" aria-current="page" href="#accueil">Accueil</a>
+            <a class="nav-link m-2 active" aria-current="page" href="#voiture">Mes voitures</a>
+            <a class="nav-link m-2 active" aria-current="page" href="#usage">Comment ça marche</a>
             <!-- <a class="nav-link mx-2 active" aria-current="page" href="#partner">Partenaires</a> -->
           </div>
           <div class="navbar-nav">
-            <a class="nav-link mx-2 active btn btn-dark" aria-current="page" href="/search">Reserver une voiture</a>
-            <a class="nav-link mx-2 btn btn-outline-primary" aria-current="page" href="/auth/login" v-if="!dataLog">Se
+            <a class="nav-link m-2 active btn btn-dark" aria-current="page" href="/search">Reserver une voiture</a>
+            <a class="nav-link m-2 btn btn-outline-primary" aria-current="page" href="/auth/login" v-if="!dataLog">Se
               connecter</a>
             <a-dropdown>
-              <a class="nav-link mx-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
+              <a class="nav-link m-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
                 {{ dataLog.info.nom }} </a>
               <template #overlay>
                 <a-menu @click="handleMenuClick">
@@ -50,25 +50,25 @@
           <div class="container">
             <a class="navbar-brand" href="/">
               <img src="/src/assets/img/logo.png" alt="" id="img-logo" /></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
-              aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler mx-4" type="button" data-toggle="collapse" data-target="#navbarID1"
+              aria-controls="navbarID1" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID">
+            <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarID1">
               <div class="navbar-nav"></div>
               <div class="navbar-nav">
-            <a class="nav-link mx-2 active" aria-current="page" href="#accueil">Accueil</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#voiture">Mes voitures</a>
-            <a class="nav-link mx-2 active" aria-current="page" href="#usage">Comment ça marche</a>
+            <a class="nav-link m-2 active" aria-current="page" href="#accueil">Accueil</a>
+            <a class="nav-link m-2 active" aria-current="page" href="#voiture">Mes voitures</a>
+            <a class="nav-link m-2 active" aria-current="page" href="#usage">Comment ça marche</a>
             <!-- <a class="nav-link mx-2 active" aria-current="page" href="#partner">Partenaires</a> -->
               </div>
               <div class="navbar-nav">
-                <a class="nav-link mx-2 active btn btn-dark" aria-current="page" href="/search">Reserver une voiture</a>
-                <a class="nav-link mx-2 btn btn-outline-primary" aria-current="page" href="/auth/login"
+                <a class="nav-link m-2 active btn btn-dark" aria-current="page" href="/search">Reserver une voiture</a>
+                <a class="nav-link m-2 btn btn-outline-primary" aria-current="page" href="/auth/login"
                   v-if="!dataLog">Se
                   connecter</a>
                 <a-dropdown>
-                  <a class="nav-link mx-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
+                  <a class="nav-link m-2 btn btn-outline-primary" v-if="dataLog" @click="handleButtonClick">
                     {{ dataLog.info.nom }} </a>
                   <template #overlay>
                     <a-menu @click="handleMenuClick">

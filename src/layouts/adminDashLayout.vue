@@ -2,8 +2,9 @@
     <a-layout>
         <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible
             :style="{ minHeight: '100vh', width: '350px' }">
-            <div class="logo p-4">
-                <h5 class="text-white mb-4">AAA-Rental</h5>
+            <div class="logo py-4 px-3">
+              <h5 class="text-white mb-4" v-if="!collapsed">AAA-Rental</h5>
+              <h6 class="text-white mb-4" v-if="collapsed">AAA</h6>
             </div>
             <a-menu v-model:selectedKeys="selectedKeys" @click="redirection" theme="dark" mode="inline">
                 <a-menu-item key="1">
@@ -25,14 +26,14 @@
             </a-menu>
         </a-layout-sider>
         <a-layout>
-            <a-layout-header style="background: #fff; padding: 0">
-                <!-- <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" /> -->
-                <div class="d-flex justify-content-end p-3">
+            <a-layout-header style="background: #fff; padding-left: 20px">
+              <div class="d-flex justify-content-between p-3">
+                <menu-unfold-outlined
+                    v-if="collapsed"
+                    class="trigger"
+                    @click="() => (collapsed = !collapsed)"
+                />
+                <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
                     <a-button danger type="primary" @click="logout">
                         <logout-outlined />
                     </a-button>
@@ -53,6 +54,8 @@ import {
     UserOutlined,
     VideoCameraOutlined,
     UploadOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
 } from '@ant-design/icons-vue';
 import type { MenuProps } from 'ant-design-vue';
 import router from '../router';
