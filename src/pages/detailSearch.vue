@@ -242,7 +242,7 @@ const reserve = () => {
 
       isLoading.value = true;
       const [start, end] = dates.value!;
-      let body = { car_id: car.value.id, start_date: start.toDate().toISOString(), end_date: end.toDate().toISOString() }
+      let body = { car_id: car.value.id, start_date: dayjs(start).format('YYYY-MM-DD HH:mm:ss'), end_date:  dayjs(end).format('YYYY-MM-DD HH:mm:ss') };
       console.log(body)
       apiService.reserve(body).then(res => {
         console.log(res)
